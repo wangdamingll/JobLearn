@@ -349,7 +349,7 @@ map底层是由红黑树实现的，set底层也是由红黑树实现的
 #### 2.map和unordered_map的区别
 1. map底层是红黑树实现的，unordered_map底层是哈希表(散列表)实现的
 2. map的有序的，unirdered_map是无序的
-3. map查询效率稳定O(logN),unordered_map查询效率O(1),但是有可能退化为O(N)
+3. map插入、查询稳定O(logN),unordered_map查询效率O(1),但是有可能退化为O(N)
 4. map消耗的内存低，unordered_map消耗的内存高
 5. 要求有序且对内存占用敏感，用map;要求查询效率，对内存占用不敏感，用unordered_map
 #### 3.构造函数和析构函数执行顺序(继承体系下)
