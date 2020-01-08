@@ -363,6 +363,82 @@ map底层是由红黑树实现的，set底层也是由红黑树实现的
 * 有继承关系
 * 有虚函数重写
 * 父类指针(引用)指向之类对象
-2. 多态实现
+2. 多态实现原理  
+```C++
+//基类
+class base{
+public:
+    base(long m1 = 1, long m2 = 2):m1(m1),m2(m2){};
+    virtual void virtualbase1() {
+        std::cout<<"this is the base1 vitual funciton"<<endl;
+    }
+    virtual void virtualbase2() {
+        std::cout<<"this is the base2 vitual funciton"<<endl;
+    }
+    virtual void virtualbase4() {
+        std::cout<<"this is the base3 vitual funciton"<<endl;
+    }
+private:
+    long m1;
+    long m2;
+};
+//派生类
+class base1 : public base{
+    void virtualbase2() {
+        std::cout<<"this is the base from subclass virtual function"<<endl;
+    }
+};
+```
+bAddress: 0x7ffeeb90f9f0
+     vtptr:0x1042f7528
+     vfunc1:0x1042f3a50
+     vfunc2:0x1042f3a90
+     vfunc3:0x1042f3ad0
+b1Address: 0x7ffeeb90f998
+     b1vtptr: 0x1042f7560
+     b1pfunc1: 0x1042f3a50
+     b1pfunc2: 0x1042f3b60
+     b1pfunc3: 0x1042f3ad0
+通过结果可以看出，当派生类重新定义了基类的函数后其虚函数表中的指针发生了覆盖，而没有重新定义的地方则维持了基类虚函数的地址
+
+#### 5.类的大小
+***类大小的计算遵循结构体的对齐原则***  
+1. 基本计算规则
+* 类的大小与普通数据成员有关，与成员函数和静态成员无关。即普通成员函数，静态成员函数，静态数据成员，静态常量数据成员均对类的大小无影响
+* 虚函数对类的大小有影响，是因为虚函数表指针带来的影响
+* 虚继承对类的大小有影响，是因为虚基表指针带来的影响
+* 空类的大小是一个特殊情况,空类的大小为1  
+2. 特殊情况  
+* 空类的继承  
+当派生类继承空类后，派生类如果有自己的数据成员，而空基类的一个字节并不会加到派生类中去  
+继承空类的派生类，如果派生类也为空类，大小也都为1。
+* 一个类包含一个空类对象数据成员  
+```C++
+class Empty {};
+class HoldsAnInt {
+    int x;
+    Empty e;
+};
+```
+空类的1字节是会被计算进去的。而又由于字节对齐的原则，所以结果为4+4=8
+* 虚继承的影响  gcc 64位
+```C++
+class A {
+    int a;
+};
+
+class B:virtual public A{
+    virtual void myfunB(){}
+};
+
+class C:virtual public A{
+    virtual void myfunC(){}
+};
+
+class D:public B,public C{
+    virtual void myfunD(){}
+};
+```
+解释：A的大小为int大小加上虚表指针大小。B，C中由于是虚继承因此大小为int大小加指向虚基类的指针的大小。B,C虽然加入了自己的虚函数，但是虚表指针是和基类共享的，因此不会有自己的虚表指针，他们两个共用虚基类A的虚表指针。D由于B,C都是虚继承，因此D只包含一个A的副本，于是D大小就等于int变量的大小+B中的指向虚基类的指针+C中的指向虚基类的指针+一个虚表指针的大小,由于字节对齐，结果为8+8+8+8=32
 
 ---
