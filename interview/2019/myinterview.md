@@ -389,15 +389,15 @@ class base1 : public base{
 };
 ```
 bAddress: 0x7ffeeb90f9f0  
-     vtptr:0x1042f7528  
-     vfunc1:0x1042f3a50
-     vfunc2:0x1042f3a90
-     vfunc3:0x1042f3ad0
-b1Address: 0x7ffeeb90f998
-     b1vtptr: 0x1042f7560
-     b1pfunc1: 0x1042f3a50
-     b1pfunc2: 0x1042f3b60
-     b1pfunc3: 0x1042f3ad0
+     vtptr:0x1042f7528    
+     vfunc1:0x1042f3a50  
+     vfunc2:0x1042f3a90  
+     vfunc3:0x1042f3ad0  
+b1Address: 0x7ffeeb90f998  
+     b1vtptr: 0x1042f7560  
+     b1pfunc1: 0x1042f3a50  
+     b1pfunc2: 0x1042f3b60  
+     b1pfunc3: 0x1042f3ad0  
 通过结果可以看出，当派生类重新定义了基类的函数后其虚函数表中的指针发生了覆盖，而没有重新定义的地方则维持了基类虚函数的地址
 
 #### 5.类的大小
