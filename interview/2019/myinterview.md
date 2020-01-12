@@ -509,5 +509,11 @@ STL采用2倍扩容机制
 3)C++标准中并没有规定使用哪个扩容因子
 * 参考地址:[C++ STL vector扩容机制](https://www.zhihu.com/question/36538542/answer/67929747)
 #### 3.libuv主要有哪些接口
+uv_default_lopp() uv_tcp_init() uv_tcp_bind() uv_listen() uv_run() uv_accept() uv_read_start() 等等
+#### 4.如果让你设计一个游戏背包，你会如何设计数据结构
+```C++
+vector<GoodBaseClass*>
+Weapon:public GoodBaseClass  HpClass:public GoodBaseClase
+```
 
 ---
