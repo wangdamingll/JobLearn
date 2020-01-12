@@ -388,8 +388,8 @@ class base1 : public base{
     }
 };
 ```
-bAddress: 0x7ffeeb90f9f0
-     vtptr:0x1042f7528
+bAddress: 0x7ffeeb90f9f0  
+     vtptr:0x1042f7528  
      vfunc1:0x1042f3a50
      vfunc2:0x1042f3a90
      vfunc3:0x1042f3ad0
