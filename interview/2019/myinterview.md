@@ -562,7 +562,7 @@ const int *P:指针的指向可以修改,但是不可修改*p的值
 * C++ 通过以下2中方式提供RTTI
 1. typeid运算符，该运算符返回其表达式或类型名的实际类型
 2. dynamic_cast运算符，该运算符将基类的指针或引用安全地转换为派生类类型的指针或引用
-* typeid和dynamic_cast运算符底层原理
+* typeid和dynamic_cast运算符底层原理  
 参考地址:[C++ RTTI机制](https://blog.csdn.net/ljianhui/article/details/46487951)
 #### 9.C++ 的四种转换类型
 * static_cast:内置的基本类型、有相互关系的类型
