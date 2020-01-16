@@ -600,11 +600,11 @@ vbptr指的是虚基类表指针(virtual base table pointer),该指针指向了�
 追问:如果是多线程情况下呢?  
 * 会产生资源竞争现象  
 追问:避免资源竞争的机制有哪些?从粒度范围来说
-* 1.std::call_once std::once_flag 初始化一次
-* 2.std::future 期物(可作为屏障)
-* 3.std::condition_variable 条件变量(需要配合互斥量使用)
-* 4.std::mutex 互斥量
-* 5.std::automic模板 原子操作  
+* 1.std::call_once std::once_flag 多个线程执行只初始化一次 [C++ std::call_once](https://zh.cppreference.com/w/cpp/thread/call_once)
+* 2.std::future 期物(可作为屏障) [C++ std::future](https://zh.cppreference.com/w/cpp/thread/future)
+* 3.std::condition_variable 条件变量(需要配合互斥量使用) [C++ std::condition_variable](https://zh.cppreference.com/w/cpp/thread/condition_variable)
+* 4.std::mutex 互斥量 [C++ std::mutex](https://zh.cppreference.com/w/cpp/thread/mutex)
+* 5.std::atomic模板 原子操作  [C++ atomic](https://zh.cppreference.com/w/cpp/atomic/atomic)
 追问:原子操作有哪些原语?
 * std::atomic<T>::is_lock_free
 * fetch_add
