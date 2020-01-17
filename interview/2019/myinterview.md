@@ -614,4 +614,28 @@ vbptr指的是虚基类表指针(virtual base table pointer),该指针指向了�
 * 利用队列先进先出的特性，现将根节点放入->队列不为空->弹出节点->访问数据->放入左孩子节点->放入右孩子节点->队列不为空->.......
 * 代码稍后统一写
 
+## 六.鼹鼠网络
+#### 1.epoll相关
+* 无
+#### 2.将一个有序数组打乱算法
+* [Fisher–Yates shuffle (洗牌算法)](https://en.wikipedia.org/wiki/Fisher–Yates_shuffle)
+* [C++ 随机数](https://blog.csdn.net/luotuo44/article/details/33690179)
+```c++
+int main(){
+    auto f = [](int* array,int size,std::default_random_engine& random){
+        while (size) {
+            std::uniform_int_distribution<int> dis(0,--size);
+            int i = dis(random);
+            int t = array[size];
+            array[size] = array[i];
+            array[i] = t;
+        }
+    };
+    int arr[] = {1,2,3};
+    std::default_random_engine random(time(nullptr));
+    f(arr, sizeof(arr)/ sizeof(int),random);
+    return 0;
+}
+
+```
 ---
