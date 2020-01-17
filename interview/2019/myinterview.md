@@ -636,6 +636,96 @@ int main(){
     f(arr, sizeof(arr)/ sizeof(int),random);
     return 0;
 }
-
 ```
+
+## 七.京东(上海)面试
+### 电话面试
+#### 1.Http Websocket Tcp三者之前的区别
+* [http1.0 1.1 2.0](https://juejin.im/entry/5981c5df518825359a2b9476)
+* http1.0 http1.1 http2.0的区别
+HTTP/1.* 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接。
+HTTP/1.1 默认支持长连接和请求的流水线（Pipelining）处理,建立一次连接，可以多个request共用。  
+注:Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞。
+HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行。
+* http和websocket区别和联系  
+相同点:  
+1. 都是基于tcp的应用层协议
+2. 都使用Request/Response模型进行连接的建立  
+不同点:
+1. WS连接建立之后,支持双向通信,而http需要客户端主动发起request请求，服务器response回复
+* tcp和websocket的区别和联系
+联系:  
+1. websocket是基于tcp的应用层协议
+2. 一旦websocket握手连接之后,采用tcp方式进行通信  
+区别:tcp是传输层协议,websocket是应用层协议  
+追问:有Http了,为什么还要用Websocket  
+* 最主要的是由客户端主动轮询变为服务端推送，降低了轮询消耗,避免了request/response这种请求回应模式，且ws支持双向通信,更加灵活
+### 二轮面试
+#### 1.Libevent用过吗?有哪些坑?是采用什么模式?具体定义了哪些宏?  
+1. 坑:
+* 稍等  
+2. 默认采取了LT模式  
+追问:LT/ET有什么区别?哪种效率更高?
+* 稍等  
+3. 相关宏  
+* BEV_EVENT_CONNECTED BEV_EVENT_ERROR BEV_EVENT_EOF BEV_EVENT_READING BEV_EVENT_WRITING (Epoll中有 EPOLLERROR EPOLLIN EPOLLOUT)  
+#### 2.Libevent timer有用过吗
+* 稍等  
+#### 3.Libevnet发送大量数据时,怎么办？
+* 稍等  
+#### 4.Libevent VS Libuv
+* 稍等  
+#### 5.你用过哪些设计模式?  
+* 稍等  
+追问:单例如何写呢?  
+*稍等  
+#### 6.内存池有用过吗?实现原理是什么
+* 稍等
+
+
+## 八.美团点评
+### 第一轮
+#### 1.设计模式
+* 单例
+* 工厂
+#### 2.你常用的加密算法是什么
+* AES
+* RSA  
+追问:RSA你们是如何使用的
+* 稍等
+#### 3.TCP为什么是三次握手,为什么不是两次或者是四次呢
+* 稍等
+追问:如果中途有一次ACK没有收到，会发生什么
+* 稍等
+#### 4.TCP有超时吗  
+* 稍等  
+追问:tcp闪断该如何处理  
+* 稍等  
+#### 5.Epoll? Epoll和Select有什么区别?
+* 稍等  
+追问:Select文件描述符超过1024会如何
+* 稍等  
+追问:Epoll底层是如何实现的?为什么要用红黑树结构？数据结构大概是什么样子的
+* 稍等  
+#### 6.Libevent有什么特点?你是用过程中有哪些坑呢?
+* 稍等   
+坑:  
+1. 底层默认是水平触发的,但是bufferevent_read()类似于边沿触发,每次最多读取4096个字节  
+2. 当传入的IP有问题时,bufferevent_connect()遇到的问题,先ERROR,后触发CONNECTED  
+#### 7.你用过智能指针吗?有哪些?各自有什么特点?
+* 稍等  
+#### 8.Zookeeper是什么?
+* 稍等  
+追问:zookeeper分布式锁的原理
+* 稍等  
+* zookeeper集群数量定义
+* 稍等  
+#### 9.ActiveMq消息会丢失吗
+* 稍等  
+#### 10.数据结构s实现(二选一)
+* hash表简单编程实现
+* std::share_ptr<T> 简单编程实现
+
+## 九.
+
 ---
