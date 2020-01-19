@@ -683,7 +683,8 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * 基于时间轮的时间复杂度:插入O(1)、删除O(1)、查找O(1),参考:[时间轮 定时器](https://www.cnblogs.com/zhongwencool/p/timing_wheel.html)
 * 基于升序链表的时间复杂度:插入O(n)、删除O(1)、查找O(1),参考上面网址
 #### 3.Libevnet发送大量数据时,怎么办？
-* 稍等  
+* 代码级别优化:send()->检查发送标识位(借助条件变量)->bufferevent_write()->res==-1->设置标示位不可写->write_cb->设置标示位(可写)->处理剩下的发送逻辑  
+* 系统级别优化:bufferevent_write()->res==-1,出现失败(考虑要不要缓存)->调整系统so_send_buff/so_recive_buff的大小->保证滑动窗口的大小>=带宽*延迟
 #### 4.Libevent VS Libuv
 * 稍等  
 #### 5.你用过哪些设计模式?  
