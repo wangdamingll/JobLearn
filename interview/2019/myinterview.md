@@ -663,14 +663,25 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 ### 二轮面试
 #### 1.Libevent用过吗?有哪些坑?是采用什么模式?具体定义了哪些宏?  
 1. 坑:
-* 稍等  
+* Libevent默认底层是采用LT模式的，但是bufferevent_read()默认每次最大读取4096个字节,所以必须要判断底层数据有没有读完
+* 如果给的ip不合法,调用befferconnect(),会先触发BEV_EVENT_ERROR,再触发BEV_EVENT_CONNECTED,所以要将这种情况区分开
 2. 默认采取了LT模式  
 追问:LT/ET有什么区别?哪种效率更高?
-* 稍等  
+* LT:水平触发，如果事件满足条件，会一直触发
+* ET:边沿触发，如果事件满足条件，只会触发一次
+* 相比较来说，ET的效率会高一些  
+追问:为什么ET的效率会高一些
+* ET满足条件的事件只会触发一次.所以操作系统在LT模式下维护的就绪队列大小相对于ET模式肯定大，且LT轮询所有的fd总比ET轮询的fd大。自然在性能上LT不如ET
 3. 相关宏  
 * BEV_EVENT_CONNECTED BEV_EVENT_ERROR BEV_EVENT_EOF BEV_EVENT_READING BEV_EVENT_WRITING (Epoll中有 EPOLLERROR EPOLLIN EPOLLOUT)  
 #### 2.Libevent timer有用过吗
-* 稍等  
+* 使用过  
+追问:如何使用的?  
+* 创建一个event_timer事件，设置好时间间隔和回调，加入到loop中，在回调函数中处理逻辑发送网络包逻辑
+补充:libevnet采用时间堆(最小堆)实现，最小堆是什么数据结构?  
+* 基于时间堆的时间复杂度:插入O(logn)、删除O(1)、查找O(1),参考:[时间堆(最小堆) 定时器](https://blog.csdn.net/liushall/article/details/81331591)
+* 基于时间轮的时间复杂度:插入O(1)、删除O(1)、查找O(1),参考:[时间轮 定时器](https://www.cnblogs.com/zhongwencool/p/timing_wheel.html)
+* 基于升序链表的时间复杂度:插入O(n)、删除O(1)、查找O(1),参考上面网址
 #### 3.Libevnet发送大量数据时,怎么办？
 * 稍等  
 #### 4.Libevent VS Libuv
