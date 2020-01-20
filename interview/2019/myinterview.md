@@ -683,16 +683,18 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * 基于时间轮的时间复杂度:插入O(1)、删除O(1)、查找O(1),参考:[时间轮 定时器](https://www.cnblogs.com/zhongwencool/p/timing_wheel.html)
 * 基于升序链表的时间复杂度:插入O(n)、删除O(1)、查找O(1),参考上面网址
 #### 3.Libevnet发送大量数据时,怎么办？
-* 代码级别优化:send()->检查发送标识位(借助条件变量)->bufferevent_write()->res==-1->设置标示位不可写->write_cb->设置标示位(可写)->处理剩下的发送逻辑  
+* 参考网址:[Libevent bufferevent工作流程](https://blog.csdn.net/luotuo44/article/details/39344743)
+* 代码级别优化:send()->bufferevent_write()->write_cb->处理剩下的发送逻辑(?)  
 * 系统级别优化:bufferevent_write()->res==-1,出现失败(考虑要不要缓存)->调整系统so_send_buff/so_recive_buff的大小->保证滑动窗口的大小>=带宽*延迟
 #### 4.Libevent VS Libuv
-* 稍等  
+* [Libevent和Libuv的对比](https://blog.csdn.net/lijinqi1987/article/details/71214974)
 #### 5.你用过哪些设计模式?  
-* 稍等  
+* 查看爱奇艺面试  
 追问:单例如何写呢?  
-*稍等  
+* 查看爱奇艺面试 
 #### 6.内存池有用过吗?实现原理是什么
-* 稍等  
+* 参考网址:[C++ placement new 简单内存池使用](https://www.jianshu.com/p/b52a5df69c88)
+* 参考网址:[SGI-STL内存池实现原理](https://blog.csdn.net/u012611878/article/details/79187348)
 #### 7.智能指针有用过吗?有哪几种类型 区别是什么  
 * 稍等  
 #### 8.你遇到过内存泄漏吗?如何检测的
