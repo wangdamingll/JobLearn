@@ -719,17 +719,22 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 #### 1.设计模式
 * 单例
 * 工厂
+* 具体参考爱奇艺面试
 #### 2.你常用的加密算法是什么
-* AES
-* RSA  
+* AES:参考网址:[AES算法介绍](https://blog.csdn.net/lisonglisonglisong/article/details/41909813)
+* RSA:RSA算法的核心,在于大整数的因数分解是一件非常困难的事情
+* RSA算法参考网址:[RSA算法原理一](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html) [RSA 算法原理二](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html)
 追问:RSA你们是如何使用的
-* 稍等
+* 先用对方的RSA公钥加密AES秘钥
+* 再用AES秘钥加密明文数据
 #### 3.TCP为什么是三次握手,为什么不是两次或者是四次呢
-* 稍等
+* [TCP为什么设置三次握手,而不是二次或者四次](https://www.zhihu.com/question/24853633)
 追问:如果中途有一次ACK没有收到，会发生什么
-* 稍等
-#### 4.TCP有超时吗  
-* 稍等  
+* 请参考上面网址
+追问:那Tcp为什么要四次挥手呢？3次不行吗?  
+* 不行,因为tcp是全双工通讯,主动关闭的一方数据可能已经发送完了，但是被动关闭的一方数据可能还没有发送完，四次挥手能够保证被动方把数据发送在通过FIN ACK 关闭连接
+#### 4.TCP连接中有出现异常的超时吗  
+* 有的，Keepalive Timer,通过设置TCP socket的SO_KEEPALIVE option，主要适用于这种场景：连接的双方一般情况下没有数据要发送，仅仅就想尝试确认对方是否依然在线
 追问:tcp闪断该如何处理  
 * 稍等  
 #### 5.Epoll? Epoll和Select有什么区别?
