@@ -752,14 +752,27 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * [epoll底层实现](https://blog.csdn.net/tianjing0805/article/details/76021440)  
 * 红黑树效率为logn(n为树的高度)
 #### 6.Libevent有什么特点?你是用过程中有哪些坑呢?
-* 稍等   
-坑:  
+* 特点:Libevent 是一个高性能，跨平台的C语言网络库，是基于Reactor模式的网络库，even_base循环->注册event事件->处理事件回调   
+* 坑:  
 1. 底层默认是水平触发的,但是bufferevent_read()类似于边沿触发,每次最多读取4096个字节  
 2. 当传入的IP有问题时,bufferevent_connect()遇到的问题,先ERROR,后触发CONNECTED  
 #### 7.你用过智能指针吗?有哪些?各自有什么特点?
-* 稍等  
+* 参考网址:[C++ 智能指针](https://www.jianshu.com/p/e4919f1c3a28)
+* 为什么使用智能指针? 1.忘记delete 2.当出现异常返回的时候，即使写了delete，也有可能执行不到  
+* C++11为什么舍弃auto_ptr? 或者说auto_ptr有什么缺陷，与unique_ptr有什么区别?
+* auto_ptr unique_ptr share_ptr weak_ptr 各有什么特点
+* 相互赋值?  
+1. share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
+2. share_ptr = weak_ptr.lock()  weak_ptr = share_ptr 
 #### 9.mongo索引
-* 稍等  
+* 参考网址:[B/B+Tree图示参考](https://www.cnblogs.com/nullzx/p/8729425.html)
+* [MongoDB 索引](http://www.mongoing.com/archives/2797)
+* mongoDB索引采用BTree
+补充:为什么采用BTree(为什么不用AVL,B+Tree or Hash table)  
+* 参考网址:[MongoDB索引采用BTree](https://draveness.me/whys-the-design-mongodb-b-tree)
+* MongoDB注重单个文档的查询，范围查询也要支持  
+1. 单个数据查询效率:AVL(O(logn)<B+Tree(O(logn))<BTree(O(1)<x<O(logn))<Hash table(O(1))
+2. 范围查询:B+Tree>Btree>Hash table
 #### 8.Zookeeper是什么?
 * 稍等  
 追问:zookeeper分布式锁的原理
