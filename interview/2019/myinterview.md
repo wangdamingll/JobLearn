@@ -736,13 +736,21 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 #### 4.TCP连接中有出现异常的超时吗  
 * 有的，Keepalive Timer,通过设置TCP socket的SO_KEEPALIVE option，主要适用于这种场景：连接的双方一般情况下没有数据要发送，仅仅就想尝试确认对方是否依然在线
 追问:tcp闪断该如何处理  
-* 稍等  
+* 首先如何保证tcp连接是存活的，利用心跳包机制  
+* tcp闪断后处理  
+1. 每创建一个连接，都会绑定一个类似session的会话，通过心跳包机制更新session会话状态  
+2. 检测到tcp不可用后(闪断),保存该session存货时间5分钟(设置),客户端重连，如果5分钟没有重连上来，则销毁session  
 #### 5.Epoll? Epoll和Select有什么区别?
-* 稍等  
+* [select poll epoll总结](https://www.cnblogs.com/anker/p/3265058.html)
+* select是跨平台的，默认的支持的文件描述符是1024个  
+* epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，可以配置  
+* select是遍历所有的fd找到可读写事件，epoll是直接返回可读写的事件(最大区别)  
 追问:Select文件描述符超过1024会如何
-* 稍等  
+* select的fd超过1024将会非常危险------FD_SET导致core dump  
+* 修改对应的宏，重新编译内核源码,但是效率会降低
 追问:Epoll底层是如何实现的?为什么要用红黑树结构？数据结构大概是什么样子的
-* 稍等  
+* [epoll底层实现](https://blog.csdn.net/tianjing0805/article/details/76021440)  
+* 红黑树效率为logn(n为树的高度)
 #### 6.Libevent有什么特点?你是用过程中有哪些坑呢?
 * 稍等   
 坑:  
