@@ -722,7 +722,7 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * 具体参考爱奇艺面试
 #### 2.你常用的加密算法是什么
 * AES:参考网址:[AES算法介绍](https://blog.csdn.net/lisonglisonglisong/article/details/41909813)
-* RSA:RSA算法的核心,在于大整数的因数分解是一件非常困难的事情
+* RSA:RSA算法的核心,在于大整数的质因数分解是一件非常困难的事情
 * RSA算法参考网址:[RSA算法原理一](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html) [RSA 算法原理二](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html)
 追问:RSA你们是如何使用的
 * 先用对方的RSA公钥加密AES秘钥
@@ -774,30 +774,52 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 1. 单个数据查询效率:AVL(O(logn)<B+Tree(O(logn))<BTree(O(1)<x<O(logn))<Hash table(O(1))
 2. 范围查询:B+Tree>Btree>Hash table
 #### 8.Zookeeper是什么?
-* 稍等  
+* 请查看三游族网络面试  
 追问:zookeeper分布式锁的原理
-* 稍等  
+* 请查看三游族网络面试   
 * zookeeper集群数量定义
-* 稍等  
+* 请查看三游族网络面试   
 #### 9.ActiveMq消息会丢失吗
-* 稍等  
+* 会的，消息可以持久化处理  
+1. 生产者发送消息给MQ服务器，MQ服务器接收到消息后，MQ宕机消息会不会丢失?
+2. TOPIC的消息模式下，MQ接收到消息，这时候订阅者宕机了或者重启了，那消息会丢失，有什么解决方案？
+* 第一个问题，ActiveMq支持消息的持久化，所以MQ服务器宕机了，重启后消息也不会丢失。
+* 第二个问题，关于发布-订阅的消息模式，即TOPIC，生产者跟消费者之间的时间严格依赖性，JMS提供了解决方案，订阅模式分持久订阅者与非持久订阅者，这样声明成持久订阅者即使宕机了，消息在broker也就是MQ服务器的磁盘里面不会丢失，订阅者重启后仍然可以消费消息
 #### 10.数据结构s实现(二选一)
-* hash表简单编程实现
-* std::share_ptr<T> 简单编程实现
+* hash表简单编程实现:稍后
+* std::share_ptr<T> 简单编程实现:稍后
 
 ## 九.蚂蚁金服电话面试  
 #### 1.同步IO/异步IO?
-* 稍等  
+* 参考网址:[block no-block 同步IO 异步IO](https://blog.csdn.net/historyasamirror/article/details/5778378?utm_source=blogxgwz0)
+* 同步I/O:当事件来临时，需要用户自己进行系统调用将数据copy到用户进程:example:select poll epoll
+* 异步I/O:当事件来临时，内核负责将数据copy到用户进程，同时发送信号告诉用户进程copy完毕，用户进程直接使用即可,example:asio  
 #### 2.常用的非对称加密有哪些?非对称加密的数学原理?根据数学上什么难题设计的?
-* 稍等  
+* 常用非对称加密算法:RSA [Elgamal](https://www.jianshu.com/p/cd36ae7dca47) [ECC(椭圆曲线加密算法)](https://juejin.im/post/5a67f3836fb9a01c9b661bd3)
+* RSA:RSA算法的核心,在于大整数的质因数分解是一件非常困难的事情
+* RSA算法参考网址:[RSA算法原理一](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html) [RSA 算法原理二](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html)
 #### 3.静态局部变量和静态全局变量的有什么区别?生成顺序和释放顺序是什么
-* 稍等  
+* 参考网址:[静态全局变量 静态局部变量](https://blog.csdn.net/lanzhihui_10086/article/details/39395059)  
+* 生成顺序:静态全局变量:程序开始运行的时候(main函数调用之前)初始化 静态局部变量:程序运行到该代码段的时候首次初始化
+* 释放顺序:先声明的后释放
 #### 4.tcp三次握手和四次挥手过程？为什么是三次和四次(不是两次和五次)?
-* 稍等  
+* [TCP为什么设置三次握手,而不是二次或者四次](https://www.zhihu.com/question/24853633)
+* 那Tcp为什么要四次挥手呢？3次不行吗?  
+* 不行,因为tcp是全双工通讯,主动关闭的一方数据可能已经发送完了，但是被动关闭的一方数据可能还没有发送完，四次挥手能够保证被动方把数据发送在通过FIN ACK 关闭连接
 #### 5.tcp的time_wait和close_wait的区别
-* 稍等  
+* 参考网址:[TCP状态](https://blog.csdn.net/kobejayandy/article/details/17655739)
+* time_wait:主动关闭的一方发送最后一个ack之后进入该状态 
+* close_wait:被动关闭的一方回应主动关闭一方ack之后进入该状态
 #### 6.2MSL的作用?服务器端出现了很多close_wait的原因?time_wait如何处理？
-* 稍等  
+* 参考网址:[TCP状态](https://blog.csdn.net/kobejayandy/article/details/17655739)  
+* 2MSL作用:
+1. 防止上一次连接中的包，迷路后重新出现，影响新连接（经过2MSL，上一次连接中所有的重复包都会消失）
+2. 可靠的关闭TCP连接。在主动关闭方发送的最后一个 ack(fin) ，有可能丢失，这时被动方会重新发fin, 如果这时主动方处于 CLOSED 状态 ，就会响应 rst 而不是 ack。所以主动方要处于TIME_WAIT状态，而不能是CLOSED 
+* 服务端出现很多close_wait:服务端回应主动关闭的一方ack之后，没有正确的进行close操作，会处于close_wait状态
+* time_wait过多如何处理
+* 参考网址:[time_wait处理](https://www.cnblogs.com/dadonggg/p/8778318.html)
+1. 单台机器修改内核文件:/etc/sysctl.conf
+2. 在1的基础上进行集群操作
 #### 7.tcp拥塞控制?tcp如何保证数据安全有序?常用的拥塞控制算法有哪些?
 * 稍等  
 #### 8.tcp和udp的区别
