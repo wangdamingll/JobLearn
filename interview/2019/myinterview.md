@@ -308,7 +308,9 @@ int main() {
 * 实现:C++只不过面向接口的方式，通过纯虚函数实现
 追问:组合和聚合之间有什么关系
 * 聚合:整体和部分之间的关系，has-a pointer 一个类含有另外一个类的指针
-* 组合:比聚合关系更强，也是整体和部分之间的关系，具有相同的生命周期，has-a，一个类包含另外一个类
+* 组合:比聚合关系更强，也是整体和部分之间的关系，具有相同的生命周期，has-a，一个类包含另外一个类  
+追问:各种关系耦合程度？
+* 组合>聚合>关联>依赖
 
 #### 5.你项目中的日志是如何实现输出到同一个文件中的
 通过生产消费者模型的方式
@@ -862,8 +864,10 @@ INDIVIDUAL_ACKNOWLEDGE = 4    单条消息确认 activemq 独有
 1. share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
 2. share_ptr = weak_ptr.lock()  weak_ptr = share_ptr 
 #### 13.并发编程?
-* 稍等  
+* 需要学习C++并发编程  
 #### 14.常用的Boost库，你用过哪些？
-* 稍等
+* Boost::Asio:异步IO网络库  
+* Boost::Filesystem:文件系统
+* Boost::Property Tree:解析配置文件 
 
 ---
