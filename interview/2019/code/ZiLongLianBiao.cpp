@@ -5,6 +5,7 @@ using namespace std;
 //题目:1->2->...->m...->n->...,将m->...->n部分翻转
 //思路:翻转链表采用透插法(带头链表)
 //然后将 1->m m->n n->.. 连接起来
+//O(n)
 
 struct LIST_NODE {
 	LIST_NODE() {

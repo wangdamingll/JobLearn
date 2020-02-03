@@ -582,7 +582,7 @@ vbptr指的是虚基类表指针(virtual base table pointer),该指针指向了�
 * 稍后学习 [寻路算法](https://www.jianshu.com/p/74ca39e670ba)
 #### 12.链表部分翻转
 题目:1->2->...->m...->n->...,将m->...->n部分翻转
-* 稍后统一做
+* [代码](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/ZiLongLianBiao.cpp)
 ### 紫龙游戏二面(CTO面试)
 #### 1.静态局部变量的作用有哪些
 * [C++ static关键字总结](https://zhuanlan.zhihu.com/p/37439983)
