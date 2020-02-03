@@ -804,7 +804,9 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * 第二个问题，关于发布-订阅的消息模式，即TOPIC，生产者跟消费者之间的时间严格依赖性，JMS提供了解决方案，订阅模式分持久订阅者与非持久订阅者，这样声明成持久订阅者即使宕机了，消息在broker也就是MQ服务器的磁盘里面不会丢失，订阅者重启后仍然可以消费消息
 #### 10.数据结构s实现(二选一)
 * std::share_ptr<T> 简单编程实现:[c++ share_ptr简单实现](http://blog.leanote.com/post/shijiaxin.cn@gmail.com/C-shared_ptr)
-* hash表简单编程实现:稍后
+* hash table简单编程实现set or map
+  1. 参考网址:[hash table 拉链法](https://blog.csdn.net/stpeace/article/details/81274233) 还需要线性探查法(比拉链法效率高)
+  2. 自己用模板去写
 
 ## 九.蚂蚁金服电话面试  
 #### 1.同步IO/异步IO?
