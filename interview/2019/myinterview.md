@@ -694,7 +694,7 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 #### 2.Libevent timer有用过吗
 * 使用过  
 追问:如何使用的?  
-* 创建一个event_timer事件，设置好时间间隔和回调，加入到loop中，在回调函数中处理逻辑发送网络包逻辑
+* 创建一个event_timer事件，设置好时间间隔和回调，加入到loop中，在回调函数中处理逻辑发送网络包逻辑  
 补充:libevnet采用时间堆(最小堆)实现，最小堆是什么数据结构?  
 * 基于时间堆的时间复杂度:插入O(logn)、删除O(1)、查找O(1),参考:[时间堆(最小堆) 定时器](https://blog.csdn.net/liushall/article/details/81331591)
 * 基于时间轮的时间复杂度:插入O(1)、删除O(1)、查找O(1),参考:[时间轮 定时器](https://www.cnblogs.com/zhongwencool/p/timing_wheel.html)
