@@ -614,7 +614,21 @@ vbptr指的是虚基类表指针(virtual base table pointer),该指针指向了�
 * 重载+ - 操作
 #### 3.树的广度优先遍历
 * 利用队列先进先出的特性，现将根节点放入->队列不为空->弹出节点->访问数据->放入左孩子节点->放入右孩子节点->队列不为空->.......
-* 代码稍后统一写
+```C++
+//广度优先搜索
+void BreathFirstSearch(BinaryTreeNode* root) {
+	queue<BinaryTreeNode*> binaryTreeQueue;
+	binaryTreeQueue.push(root);
+	while (!binaryTreeQueue.empty()) {
+		BinaryTreeNode* root = binaryTreeQueue.front();
+		binaryTreeQueue.pop();
+		cout << root->ch << " ";
+		if(root->lchild!=NULL) binaryTreeQueue.push(root->lchild);
+		if(root->rchild!=NULL) binaryTreeQueue.push(root->rchild);
+	}
+	return;
+}
+```
 
 ## 六.鼹鼠网络
 #### 1.epoll相关
