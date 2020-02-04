@@ -38,7 +38,7 @@ public:
         int index = std::hash<string>{}(key)%m_size; //std::hash C++ 17
         std::unique_ptr<Node<T>> newNode = std::make_unique<Node<T>>(key,value);
         if(m_ppNode[index] == nullptr){
-            m_ppNode[index] = std::move(newNode);//内存是否被正确回收？待验证
+            m_ppNode[index] = std::move(newNode);
             return ;
         }
         //map容器考虑去重
