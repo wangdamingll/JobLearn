@@ -806,7 +806,7 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * std::share_ptr<T> 简单编程实现:[c++ share_ptr简单实现](http://blog.leanote.com/post/shijiaxin.cn@gmail.com/C-shared_ptr)
 * hash table简单编程实现set or map
   1. 参考网址:[hashMap 拉链法](https://blog.csdn.net/stpeace/article/details/81274233) 还需要线性探查法(比拉链法效率高)
-  2. 自己用模板去写
+  2. [基于Hash Table简单实现的HashMap(拉链法解决冲突)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap1.cpp)
 
 ## 九.蚂蚁金服电话面试  
 #### 1.同步IO/异步IO?
