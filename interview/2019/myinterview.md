@@ -808,7 +808,7 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
   1. 参考网址:[hashMap 拉链法](https://blog.csdn.net/stpeace/article/details/81274233) 
   2. 参考网址:[hashMap 开放地址法](https://blog.csdn.net/qq_36221862/article/details/73488162)(比拉链法效率高)
   3. [基于Hash Table简单实现的HashMap(拉链法解决冲突)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap1.cpp)
-  4. [基于Hash Table简单实现的HashMap(拉链法解决冲突)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap2.cpp)
+  4. [基于Hash Table简单实现的HashMap(开放地址法解决冲突)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap2.cpp)
 
 ## 九.蚂蚁金服电话面试  
 #### 1.同步IO/异步IO?
