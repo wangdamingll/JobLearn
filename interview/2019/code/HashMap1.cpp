@@ -57,27 +57,17 @@ public:
         //没有重复的元素 采用尾插法
         node->pNode = std::move(newNode);
     }
-    U Get(const T&key){
+
+    pair<U,bool> Find(const T&key){
         int index = std::hash<T>{}(key)%m_size;
         auto p = m_ppNode[index].get();
         while(p!= nullptr){
             if(p->m_key == key){
-                return p->m_value;
+                return make_pair(p->m_value, true);
             }
             p = p->pNode.get();
         }
-        return U();
-    }
-    bool Find(const T&key){
-        int index = std::hash<T>{}(key)%m_size;
-        auto p = m_ppNode[index].get();
-        while(p!= nullptr){
-            if(p->m_key == key){
-                return true;
-            }
-            p = p->pNode.get();
-        }
-        return false;
+        return make_pair(U(), false);
     }
 private:
     std::unique_ptr<unique_ptr<Node<T,U>>[]> m_ppNode = nullptr;//unique_ptr对象数组
@@ -90,25 +80,26 @@ int main() {
         map.Insert("a","aaa");
         map.Insert("b","bbb");
 
-        if(map.Find("a")){
-            std::cout<<"True"<<std::endl;
-        }else{
-            std::cout<<"False"<<std::endl;
+        pair<string,bool> ret1 = map.Find("a");
+        if(ret1.second){
+            std::cout<<"find:value="<<ret1.first<<std::endl;
+        } else{
+            std::cout<<"not find"<<std::endl;
         }
 
-        if(map.Find("aa")){
-            std::cout<<"True"<<std::endl;
-        }else{
-            std::cout<<"False"<<std::endl;
+        pair<string,bool> ret2 = map.Find("b");
+        if(ret2.second){
+            std::cout<<"find:value="<<ret2.first<<std::endl;
+        } else{
+            std::cout<<"not find"<<std::endl;
         }
 
-        std::string valuea = map.Get("a");
-        std::cout<<"valuea="<<valuea<<std::endl;
-        std::string valueb = map.Get("b");
-        std::cout<<"valueb="<<valueb<<std::endl;
-
-        std::string valuec = map.Get("c");
-        std::cout<<"valuec="<<valuec<<std::endl;
+        pair<string,bool> ret3 = map.Find("c");
+        if(ret3.second){
+            std::cout<<"find:value="<<ret3.first<<std::endl;
+        } else{
+            std::cout<<"not find"<<std::endl;
+        }
     }
     return 0;
 }
