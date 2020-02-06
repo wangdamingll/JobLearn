@@ -802,7 +802,7 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 2. TOPIC的消息模式下，MQ接收到消息，这时候订阅者宕机了或者重启了，那消息会丢失，有什么解决方案？
 * 第一个问题，ActiveMq支持消息的持久化，所以MQ服务器宕机了，重启后消息也不会丢失。
 * 第二个问题，关于发布-订阅的消息模式，即TOPIC，生产者跟消费者之间的时间严格依赖性，JMS提供了解决方案，订阅模式分持久订阅者与非持久订阅者，这样声明成持久订阅者即使宕机了，消息在broker也就是MQ服务器的磁盘里面不会丢失，订阅者重启后仍然可以消费消息
-#### 10.数据结构s实现(二选一)
+#### 10.数据结构实现(二选一)
 * std::share_ptr<T> 简单编程实现:[c++ share_ptr简单实现](http://blog.leanote.com/post/shijiaxin.cn@gmail.com/C-shared_ptr)
 * hash table简单编程实现set or map
   1. 参考网址:[hashMap 拉链法](https://blog.csdn.net/stpeace/article/details/81274233) 
