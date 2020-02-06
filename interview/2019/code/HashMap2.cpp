@@ -32,6 +32,7 @@ public:
         CheckSize();
         unsigned int hashAddr = std::hash<K>{}(key)%m_table.size();//C++ 17
         unsigned int index = hashAddr;
+        unsigned int i = 1;
         while(m_table[index].m_state == EXIST){
             if(m_table[index].m_kv.first == key){
                 return false;
@@ -39,7 +40,7 @@ public:
             if(isLine){
                 index = DetectedLine(index);
             }else{
-
+                index = DetectedSquare(index,i++);
             }
         }
         m_table[index].m_kv = std::make_pair(key,value);
@@ -49,25 +50,28 @@ public:
     }
 
     std::pair<HashNode<K,V>*,bool> Find(const K&key){
-        unsigned int hashAddr = std::hash<K>{}(key)%m_size;//C++ 17
+        unsigned int hashAddr = std::hash<K>{}(key)%m_table.size();//C++ 17
         unsigned int index = hashAddr;
         HashNode<K, V>& elem = m_table[index];
         if(elem.m_kv.first!=key){ //产生冲突了 继续寻找
             if(isLine){//线性查找
                 while(true){
-                   index++;
-                   if(index == m_table.size()){
-                       index = 0;
-                   }
-                   if(index == hashAddr){
-                       return std::make_pair(&elem,false);
-                   }
-                   if(m_table[index].m_kv.first == key && m_table[index].m_state == EXIST){
-                       return std::make_pair(&m_table[index], true);
-                   }
+                    index = DetectedLine(index);
+                    if(index == hashAddr){
+                        return std::make_pair(&elem,false);
+                    }
+                    if(m_table[index].m_kv.first == key && m_table[index].m_state == EXIST){
+                        return std::make_pair(&m_table[index], true);
+                    }
                 }
             }else{//平方查找
-
+                unsigned int i = 1;
+                while(m_table[index].m_state != EMPTY){ //EXIST和DELETE都是要查找的目标
+                    index = DetectedSquare(index,i++);
+                    if(m_table[index].m_kv.first == key && m_table[index].m_state == EXIST){
+                        return std::make_pair(&m_table[index], true);
+                    }
+                }
             }
         }else{
             if(m_table[index].m_state == EXIST){
@@ -101,12 +105,14 @@ private:
         return hashAddr;
     }
 
-    unsigned int DetectedSquare(unsigned int hashAddr, unsigned int& index){//平方探查法
-        hashAddr = hashAddr + index * index;
-        if(hashAddr >= m_table.size()){
-            hashAddr = 0;
-            index = 0;
-        }
+    unsigned int DetectedSquare(unsigned int hashAddr, unsigned int i){//平方探查法
+        /*
+         * H(i) = H0 + i^2
+         * H(i-1) = H0 + (i-1)^2
+         * H(i) = H(i-1) + 2*i - 1 = H(i-1) + i<<1 - 1
+         * */
+        hashAddr = hashAddr + 2*i - 1;
+        hashAddr = hashAddr % m_table.size() ;
         return hashAddr;
     }
 
@@ -114,7 +120,7 @@ private:
         if(m_size/m_table.size()*10>=6){ //当装载因子a大于0.5时，需要将vector扩容处理
             m_table.resize(GetNextPrime(m_size));
 
-            HashMap<K,V> hm;
+            HashMap<K,V,isLine> hm;
             for(auto it : m_table){
                 if(it.m_state == EXIST){
                     hm.Insert(it.m_kv.first,it.m_kv.second);
@@ -124,7 +130,7 @@ private:
         }
     }
 
-    void Swap(HashMap<K,V> hm){
+    void Swap(HashMap<K,V,isLine> hm){
         std::swap(m_size,hm.m_size);
         m_table.swap(hm.m_table);
     }
@@ -155,7 +161,7 @@ private:
 
 int main() {
     {
-        HashMap<int,int> map;
+        HashMap<int,int,false> map;
         map.Insert(25, 1);
         map.Insert(25, 2);
         map.Insert(14, 2);
@@ -168,14 +174,14 @@ int main() {
 
         cout<<map.Size()<<endl;
 
-        auto ret = map.Find(11);
+        auto ret = map.Find(25);
         if(ret.second){
             std::cout<<"Find:key="<<ret.first->m_kv.first<<" value="<<ret.first->m_kv.second<<std::endl;
         }else{
             std::cout<<"not find"<<std::endl;
         }
 
-        ret = map.Find(25);
+        ret = map.Find(11);
         if(ret.second){
             std::cout<<"Find:key="<<ret.first->m_kv.first<<" value="<<ret.first->m_kv.second<<std::endl;
         }else{
@@ -186,10 +192,17 @@ int main() {
         if(ret.second){
             std::cout<<"Find:key="<<ret.first->m_kv.first<<" value="<<ret.first->m_kv.second<<std::endl;
         }else{
-            std::cout<<"not find"<<std::endl;
+            std::cout<<"not find:12"<<std::endl;
         }
 
         map.Remove(25);
+        ret = map.Find(25);
+        if(ret.second){
+            std::cout<<"Find:key="<<ret.first->m_kv.first<<" value="<<ret.first->m_kv.second<<std::endl;
+        }else{
+            std::cout<<"not find:25"<<std::endl;
+        }
+
         map.Remove(14);
         cout<<map.Size()<<endl;
     }
