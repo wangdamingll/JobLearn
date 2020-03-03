@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <mutex>
 
 using namespace std;
 
@@ -10,7 +11,10 @@ public:
     template <typename... Args>
     static T* Instance(Args&&... args){
         if(m_instance == nullptr){
-            m_instance.reset(new T(std::forward<Args>(args)...));
+            std::unique_lock<std::mutex> lock(mutex);
+            if(m_instance == nullptr){
+                m_instance.reset(new T(std::forward<Args>(args)...));
+            }
         }
         return m_instance.get();
     }
@@ -26,6 +30,7 @@ public:
     Singleton& operator=(Singleton&&) = delete;
 private:
     static std::unique_ptr<T> m_instance;
+    std::mutex;
 };
 template <typename T> std::unique_ptr<T> Singleton<T>::m_instance = nullptr;
 

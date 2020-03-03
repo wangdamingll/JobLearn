@@ -89,6 +89,10 @@ int main(){
     return 0;
 }
 ```
+[C++11 智能指针实现单例](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton1.cpp)
+[C++11 静态局部变量实现单例](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton2.cpp)
+
+
 ```C++
 //简单工厂模式基本代码
 #include <iostream>
