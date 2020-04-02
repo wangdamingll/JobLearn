@@ -8,7 +8,7 @@
   1.尽可能先做逻辑判断，减少枚举数字的范围，从而降低整体的时间复杂度
 * 枚举算法的应用:
   1.数的全排列系列问题:
-* 代码示例
+* [代码示例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/enumeration)
 
 ## 2.不撞南墙不回头-----深度优先搜索算法
 * 算法(Depth First Search)的思想:
