@@ -6,7 +6,7 @@
   1.数的全排列问题
   2.火柴棍问题
 * 注意事项:
-  1.尽可能先做逻辑判断，减少枚举数字的范围，从而降低整体的时间复杂度
+  1.尽可能先做逻辑判断，减少枚举数字的范围和需要枚举的个数，从而降低整体的时间复杂度
 * 枚举算法的应用:
   1.数的全排列系列问题:
 * [代码示例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/enumeration)
