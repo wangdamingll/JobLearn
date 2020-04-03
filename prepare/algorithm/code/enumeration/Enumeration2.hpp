@@ -47,7 +47,7 @@ int fun(int x){ //计算某个数字摆成需要的火柴棍个数 注意这里�
 }
 
 //0~11111枚举 其实时间要求达不到
-int testEnumeration2(){
+int TestEnumeration2(){
     auto start = std::chrono::steady_clock::now();
     int total = 0;
     //枚举A和B
@@ -68,7 +68,7 @@ int testEnumeration2(){
 }
 
 //优化枚举的数字范围:0~(m-4)/4
-int testEnumeration3(){
+int TestEnumeration3(){
     auto start = std::chrono::steady_clock::now();
     int total = 0;
 

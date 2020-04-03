@@ -21,7 +21,7 @@ using namespace std;
  * 3.此类问题用枚举算法最突出的问题是时间复杂度为O(N^9)(下面的例子),所以枚举的范围大的时候，不是好方方法
  * */
 
-int testEnumeration1(){
+int TestEnumeration1(){
     int a[10] = {0};//每个空格的数字
     int total = 0;
 

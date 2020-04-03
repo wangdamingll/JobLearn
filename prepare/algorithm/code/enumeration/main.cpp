@@ -1,5 +1,6 @@
 #include "Enumeration1.hpp"
 #include "Enumeration2.hpp"
+#include "Enumeration3.hpp"
 #include <algorithm>
 using namespace std;
 
@@ -35,7 +36,8 @@ using namespace std;
 
 int main() {
     STL();              //STL实现
-    testEnumeration1(); //数的全排列问题
-    testEnumeration2(); //火柴棍问题
-    testEnumeration3();
+    TestEnumeration1(); //全排列问题
+    TestEnumeration2(); //火柴棍问题
+    TestEnumeration3();
+    TestEnumeration4(); //全排列问题变形
 }
