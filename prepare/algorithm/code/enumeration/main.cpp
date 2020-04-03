@@ -38,7 +38,7 @@ int main() {
     STL();              //STL实现
     testEnumeration1(); //全排列问题
     testEnumeration2(); //火柴棍问题
-    testEnumeration3(); //枚举问题优化
+    testEnumeration21(); //枚举问题优化
     testEnumeration4(); //全排列问题变形
 }
 

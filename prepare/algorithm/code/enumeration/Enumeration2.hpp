@@ -68,7 +68,7 @@ int TestEnumeration2(){
 }
 
 //优化枚举的数字范围:0~(m-4)/4
-int TestEnumeration3(){
+int TestEnumeration21(){
     auto start = std::chrono::steady_clock::now();
     int total = 0;
 
