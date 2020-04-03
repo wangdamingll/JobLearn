@@ -51,7 +51,7 @@ void STL(){
 
 int main() {
     STL();              //STL实现
-    TestDFS1();         //数的全排列问题(dfs)
+    TestDFS1();         //全排列问题(dfs)
     TestDFS2();         //全排列问题变形
-    TestEnumeration1(); //数的全排列问题(枚举)
+    TestEnumeration1(); //全排列问题(枚举) 对比一下耗时
 }

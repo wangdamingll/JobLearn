@@ -5,18 +5,23 @@
 #include <chrono>
 using namespace std;
 
-/*不撞南墙不回头----深度优先搜索算法(DFS)
+/*全排列系列问题----深度优先搜索算法(DFS)
  *
  * 问题描述:
  * string= "abc"有多少种排列？
  *
- * 思考:这其实和将a b c 放入3个格子里是差不多的
+ * 思考:
+ * 1.这其实和将a b c 放入3个格子里是差不多的
+ * 2.下面例子的时间复杂度是多少？
+ * T(N)=T(N-1)+O(N)  ----> O(N^2)
  * */
 
-string a2[4]={};//存放a b c
-int book2[4]={0};//表示a b c 是否在手中. 全排列系列问题变形
+
 string str="abc";
 int total2=0;
+string a2[4]={};//存放a b c
+int book2[4]={0};//表示a b c 是否在手中. 全排列系列问题变形
+
 void DFS2(int step){
     //判断条件
     if(step>str.length()){
