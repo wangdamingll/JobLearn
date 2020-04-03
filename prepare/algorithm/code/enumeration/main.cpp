@@ -1,5 +1,6 @@
 #include "Enumeration1.hpp"
 #include "Enumeration2.hpp"
+#include <algorithm>
 using namespace std;
 
 /* 算法:枚举算法
@@ -15,7 +16,25 @@ using namespace std;
  *  2.火柴棍问题
  * */
 
+ void STL(){
+    int s1[]={1,2,3};
+    /**下面为next_permutation的用法::升序*/
+    do{
+        printf("%d %d %d\n",s1[0],s1[1],s1[2]);
+    }while(next_permutation(s1,s1+3));
+
+    std::cout<<"------------------"<<std::endl;
+
+    int s2[]={3,2,1};
+    /**下面为prev_permutation的用法:降序*/
+    do{
+        printf("%d %d %d\n",s2[0],s2[1],s2[2]);
+    }while(prev_permutation(s2,s2+3));
+
+}
+
 int main() {
+    STL();              //STL实现
     testEnumeration1(); //数的全排列问题
     testEnumeration2(); //火柴棍问题
     testEnumeration3();
