@@ -36,8 +36,9 @@ using namespace std;
 
 int main() {
     STL();              //STL实现
-    TestEnumeration1(); //全排列问题
-    TestEnumeration2(); //火柴棍问题
-    TestEnumeration3();
-    TestEnumeration4(); //全排列问题变形
+    testEnumeration1(); //全排列问题
+    testEnumeration2(); //火柴棍问题
+    testEnumeration3(); //枚举问题优化
+    testEnumeration4(); //全排列问题变形
 }
+
