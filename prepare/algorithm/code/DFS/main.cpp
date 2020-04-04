@@ -1,6 +1,7 @@
 #include "Enumeration1.hpp"
 #include "DFS1.hpp"
 #include "DFS2.hpp"
+#include "DFS3.hpp"
 #include <algorithm>
 using namespace std;
 
@@ -29,7 +30,7 @@ using namespace std;
  *
  * 深度优先搜索算法的应用
  *  1.全排列系列问题(枚举算法也能解决)
- *  2.
+ *  2.迷宫问题
  * */
 
 void STL(){
@@ -54,4 +55,6 @@ int main() {
     TestDFS1();         //全排列问题(dfs)
     TestDFS2();         //全排列问题变形
     TestEnumeration1(); //全排列问题(枚举) 对比一下耗时
+
+    TestDFS3();         //迷宫问题
 }
