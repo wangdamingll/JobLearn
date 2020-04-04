@@ -3,23 +3,96 @@
 
 #include <iostream>
 #include <chrono>
+#include <random>
+#include <ctime>
+#include <array>
 using namespace std;
 
-/*è¿·å®«é—®é¢˜----æ·±åº¦ä¼˜å…ˆæœç´¢ç®—æ³•(DFS)
+/*ÃÔ¹¬ÎÊÌâ----Éî¶ÈÓÅÏÈËÑË÷Ëã·¨(DFS)
  *
- * é—®é¢˜æè¿°:
- * è¿·å®«ç”±nè¡Œmåˆ—çš„å•å…ƒæ ¼ç»„æˆï¼ˆnå’Œméƒ½å°äºç­‰äº50ï¼‰ï¼Œæ¯ä¸ªå•å…ƒæ ¼è¦ä¹ˆæ˜¯ç©ºåœ°ï¼Œè¦ä¹ˆæ˜¯éšœç¢ç‰©ã€‚æ‰¾åˆ°ä¸€æ¡ä»è¿·å®«çš„èµ·ç‚¹é€šå¾€æŸä¸ªä½ç½®çš„æœ€çŸ­è·¯å¾„ã€‚
- * æ³¨æ„:éšœç¢ç‰©æ˜¯ä¸èƒ½èµ°çš„
+ * ÎÊÌâÃèÊö:
+ * ÃÔ¹¬ÓÉnĞĞmÁĞµÄµ¥Ôª¸ñ×é³É(nºÍm¶¼Ğ¡ÓÚµÈÓÚ50)£¬Ã¿¸öµ¥Ôª¸ñÒªÃ´ÊÇ¿ÕµØ£¬ÒªÃ´ÊÇÕÏ°­Îï¡£ÕÒµ½Ò»Ìõ´ÓÃÔ¹¬µÄÆğµãÍ¨ÍùÄ³¸öÎ»ÖÃµÄ×î¶ÌÂ·¾¶¡£
+ * ×¢Òâ:ÕÏ°­ÎïÊÇ²»ÄÜ×ßµÄ
  *
+ * Ë¼¿¼:
+ * 1.ÕâÀï²»µ«ÒªÊä³ö×î¶ÌÂ·¾¶£¬»¹Òª°Ñ×î¶ÌÂ·ÏßÊä³ö³öÀ´
  * */
 
 
 
+int a3[51][51]={0}; //ÃÔ¹¬µØÍ¼
+int book3[51][51]={0}; //ÓĞÃ»ÓĞÔÚÂ·¾¶ÀïÃæ
+struct Pos{
+public:
+    Pos() = default;
+    Pos(int x,int y,int fx,int fy){
+        this->x = x;
+        this->y = y;
+        this->fx = fx;
+        this->fy = fy;
+    }
+public:
+    int x {0}; //µ±Ç°Î»ÖÃĞĞÊı
+    int y {0}; //µ±Ç°Î»ÖÃÁĞÊı
+    int fx {0};//µ±Ç°Î»ÖÃ¸¸½ÚµãĞĞÊı
+    int fy {0};//µ±Ç°Î»ÖÃ¸¸½ÚµãÁĞÊı
+};
+
+/* 1 ±íÊ¾ÊÇÕÏ°­Îï
+ * 0 ±íÊ¾¿ÉÒÔÍ¨ĞĞ
+ * */
+void CreateMap(){
+    std::default_random_engine random(time(nullptr));
+    std::uniform_int_distribution<int> dis(0,3);
+    int n,m=0;
+    std::cout<<"ÇëÊäÈëÃÔ¹¬µÄĞĞÊı:";
+    std::cin>>n;
+    std::cout<<"ÇëÊäÈëÃÔ¹¬µÄÁĞÊı:";
+    std::cin>>m;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(i==0&&j==0){
+                a3[i][j]=0;//±£Ö¤ÃÔ¹¬Æğµã²»ÄÜÓĞÕÏ°­Îï
+            }else{
+                a3[i][j]=dis(random)/3;//ÎªÁËÈÃ0³öÏÖµÄ¸ÅÂÊ´óĞ©
+            }
+        }
+    }
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            std::cout<<a3[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+}
+
+//´ıÍêÉÆ
+void DFS(int x,int y,int step){
+    //ÅĞ¶ÏÌõ¼ş
+    //ÍË³ö
+
+    //³¢ÊÔÃ¿Ò»ÖÖ¿ÉÄÜ
+    //DFS(step+1)
+
+    //ÍË³ö
+}
 
 int TestDFS3(){
+    //¹¹ÔìÒ»¸öµØÍ¼
+    CreateMap();
+
     auto start = std::chrono::steady_clock::now();
 
+    Pos startPos;
+    std::cout<<"ÇëÊäÈëÃÔ¹¬µÄÆğµãx:";
+    std::cin>>startPos.x;
+    std::cout<<"ÇëÊäÈëÃÔ¹¬µÄÆğµãy:";
+    std::cin>>startPos.y;
 
+    book3[startPos.x][startPos.y]=1; //½«Æğµã±êÊ¶ÔÚÂ·¾¶ÖĞ
+
+    DFS(startPos.x,startPos.y,0);//Éî¶ÈÓÅÏÈËã·¨
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);

@@ -52,10 +52,10 @@ void STL(){
 }
 
 int main() {
-    STL();              //STL实现
-    TestDFS1();         //全排列问题(dfs)
-    TestDFS2();         //全排列问题变形
-    TestEnumeration1(); //全排列问题(枚举) 对比一下耗时
+//    STL();              //STL实现
+//    TestDFS1();         //全排列问题(dfs)
+//    TestDFS2();         //全排列问题变形
+//    TestEnumeration1(); //全排列问题(枚举) 对比一下耗时
 
     TestDFS3();         //图算法----迷宫问题
 }
