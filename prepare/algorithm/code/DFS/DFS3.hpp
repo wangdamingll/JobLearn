@@ -8,8 +8,13 @@ using namespace std;
 /*迷宫问题----深度优先搜索算法(DFS)
  *
  * 问题描述:
+ * 迷宫由n行m列的单元格组成（n和m都小于等于50），每个单元格要么是空地，要么是障碍物。找到一条从迷宫的起点通往某个位置的最短路径。
+ * 注意:障碍物是不能走的
  *
  * */
+
+
+
 
 int TestDFS3(){
     auto start = std::chrono::steady_clock::now();
