@@ -15,10 +15,9 @@ using namespace std;
  * 注意:障碍物是不能走的
  *
  * 思考:
- * 1.这里我自行测试过，有时候当地图比较大时，我测试的是10行10列，minStep计算有时候是错误的，并且有时候还会无限循环下去(无法寻到终点)，
- * 暂时没有找出来原因
+ * 1.这里我自行测试过，有时候当地图比较大时，我测试的是10行10列，minStep计算有时候是错误的
+ * 2.dfs处理迷宫问题(连通图问题)复杂度相当高的，我也不会算....
  * */
-
 
 
 int a3[51][51]={0}; //迷宫地图
@@ -126,8 +125,8 @@ int TestDFS3(){
     }
 
     auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
-    std::cout<<"time:"<<time.count()<<"ms"<<std::endl;
+    auto time = std::chrono::duration_cast<std::chrono::seconds>(end-start);
+    std::cout<<"time:"<<time.count()<<"s"<<std::endl;
 
     return 0;
 }
