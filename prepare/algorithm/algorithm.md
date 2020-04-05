@@ -31,7 +31,7 @@
 ```
 * 算法的应用:    
 1. 全排列问题
-2. ...
+2. 图算法----迷宫问题
 * [代码示例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/DFS)
 
 ---
