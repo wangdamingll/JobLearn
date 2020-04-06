@@ -74,20 +74,6 @@ void PrintPath(){
         }
     }
     std::cout<<std::endl;
-
-
-//    for(int i=1;i<=n;i++){
-//        for(int j=1;j<=m;j++){
-//            if(book3[i][j]==1){
-//                if(i==1&&j==1){
-//                    std::cout<<"("<<i<<","<<j<<")";
-//                }else{
-//                    std::cout<<"->("<<i<<","<<j<<")";
-//                }
-//            }
-//        }
-//    }
-//    std::cout<<std::endl;
 }
 
 void DFS3(int x, int y,int step){
