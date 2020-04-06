@@ -5,6 +5,8 @@
 #include <chrono>
 #include <random>
 #include <ctime>
+#include <array>
+
 using namespace std;
 
 /*迷宫问题----深度优先搜索算法(DFS)
@@ -25,6 +27,16 @@ int n,m =0; //迷宫的行数和列数
 int minStep = 999999; //最短路径
 int startx,starty=0;//起点位置
 int p,q=0;; //迷宫终点位置
+
+//记录路径 array模拟栈
+struct Pos{
+    Pos() = default;
+    Pos(int posx,int posy):x(posx),y(posy){}
+    int x {0};
+    int y {0};
+};
+std::array<Pos,51*51> que={};
+int top=0;
 
 /* 1 表示是障碍物
  * 0 表示可以通行
@@ -54,18 +66,28 @@ void CreateMap(){
 }
 
 void PrintPath(){
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            if(book3[i][j]==1){
-                if(i==1&&j==1){
-                    std::cout<<"("<<i<<","<<j<<")";
-                }else{
-                    std::cout<<"->("<<i<<","<<j<<")";
-                }
-            }
+    for(int i=0;i<top;i++){
+        if(i==0){
+            std::cout<<"("<<que[i].x<<","<<que[i].y<<")";
+        }else{
+            std::cout<<"->("<<que[i].x<<","<<que[i].y<<")";
         }
     }
     std::cout<<std::endl;
+
+
+//    for(int i=1;i<=n;i++){
+//        for(int j=1;j<=m;j++){
+//            if(book3[i][j]==1){
+//                if(i==1&&j==1){
+//                    std::cout<<"("<<i<<","<<j<<")";
+//                }else{
+//                    std::cout<<"->("<<i<<","<<j<<")";
+//                }
+//            }
+//        }
+//    }
+//    std::cout<<std::endl;
 }
 
 void DFS3(int x, int y,int step){
@@ -93,8 +115,14 @@ void DFS3(int x, int y,int step){
         }
         if(a3[nextx][nexty]==0 && book3[nextx][nexty]==0) { //不是障碍物并且不再路线中
             book3[nextx][nexty] = 1; //加入路线中
+            Pos pos{nextx,nexty};   //压栈
+            que[top] = pos;
+            top++;
+
             DFS3(nextx, nexty, step + 1);  //深搜
+
             book3[nextx][nexty] = 0;//从路径中删除
+            top--;//出栈
         }
     }
 }
