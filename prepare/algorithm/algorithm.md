@@ -40,14 +40,15 @@
 1. 全排列问题
 2. 迷宫问题(连通图问题)-----复杂度比较高
 3. 图中独立子图个数(种子填充法)
+4. 图遍历
 * [代码示例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/DFS)
 
 ### 3. 层层递进---广度优先搜索
 * 算法思想:
 
 * 算法应用:
-1. 迷宫问题(连通图问题)
-2. 
+1. 迷宫问题(连通图问题)--------复杂度比较低
+2. 图遍历------适合边权一样的情况
 * [代码示例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BFS)
 
 
