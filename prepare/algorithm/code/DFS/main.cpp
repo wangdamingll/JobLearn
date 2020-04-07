@@ -3,6 +3,7 @@
 #include "DFS2.hpp"
 #include "DFS3.hpp"
 #include "DFS4.hpp"
+#include <DFS5.hpp>
 #include <algorithm>
 using namespace std;
 
@@ -36,7 +37,7 @@ using namespace std;
  * 1. 全排列系列问题(枚举算法也能解决)
  * 2. 迷宫问题(连通图问题)-----复杂度比较高
  * 3. 图中独立子图个数(种子填充法)
- * 4. 图遍历
+ * 4. 图遍历-----无向图和有向图
  * */
 
 void STL(){
@@ -65,4 +66,5 @@ int main() {
 
     TestDFS3();         //迷宫问题(连通图问题)
     TestDFS4();         //求独立子图问题(种子填充法)
+    TestDFS5();         //图遍历----无向图和有向图
 }
