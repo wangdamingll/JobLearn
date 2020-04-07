@@ -2,6 +2,7 @@
 #include "DFS1.hpp"
 #include "DFS2.hpp"
 #include "DFS3.hpp"
+#include "DFS4.hpp"
 #include <algorithm>
 using namespace std;
 
@@ -62,5 +63,6 @@ int main() {
     TestDFS2();         //全排列问题变形
     TestEnumeration1(); //全排列问题(枚举) 对比一下耗时
 
-    TestDFS3();         //图算法----迷宫问题
+    TestDFS3();         //迷宫问题(连通图问题)
+    TestDFS4();         //求独立子图问题(种子填充法)
 }
