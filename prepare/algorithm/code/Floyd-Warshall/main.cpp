@@ -13,5 +13,6 @@ using namespace std;
 
 
 int main() {
-    TestFWS1();         //Floyd-Warshall
+    TestFWS1();         //Floyd-Warshall--多源最短路
+    TestFWS2();         //Floyd-Warshall--单源最短路(先算出多源最短路)
 }

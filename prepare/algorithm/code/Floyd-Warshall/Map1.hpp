@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <vector>
 using namespace std;
 
 
@@ -35,7 +36,7 @@ using namespace std;
  * 4. 事前需评估一下2个城市之间的最大距离,不要出现溢出的现象
  * */
 
-//存储生成的二维数组 记录图的顶点从索引1开始
+//存储生成的二维数组 记录图的顶点从索引1开始 用于多源最短路
 int a1[5][5]={
         {0,0,0,0,0},
         {0,0,2,6,4},
@@ -43,8 +44,6 @@ int a1[5][5]={
         {0,7,99999999,0,1},
         {0,5,99999999,12,0},
 };
-
-int visit1[5]={0};//标记图中顶点是否被访问
 
 void PrintMap1(){
     for(int i=1;i<=4;i++){
@@ -60,11 +59,10 @@ void PrintMap1(){
     }
 }
 
-
+//多源最短路
 int TestFWS1(){
     auto start = std::chrono::steady_clock::now();
     PrintMap1();//打印原始地图
-
     std::cout<<"----------------------------------------"<<std::endl;
 
     //在i和j中间引入所有图的顶点
@@ -87,5 +85,31 @@ int TestFWS1(){
     return 0;
 }
 
+//单源最短路
+int TestFWS2(){
+    auto start = std::chrono::steady_clock::now();
+    std::cout<<"----------------------------------------"<<std::endl;
+
+    std::cout<<"请输入图源点编号,求出此源点能到达城市的最短路程:";
+    int n = 0;
+    std::cin>>n;
+
+    int min1=999999;//最短路径
+    int index1=0;   //能到达的最短路程的城市编号
+    for(int i=1;i<=4;i++){//终点
+        if(a1[n][i]!=0 && a1[n][i]<min1){
+            min1 = a1[n][i];
+            index1 = i;
+        }
+    }
+
+    std::cout<<"源点"<<n<<"能到达的最短路程的城市是:"<<index1<<",最短路程是:"<<min1<<std::endl;
+
+    auto end = std::chrono::steady_clock::now();
+    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
+    std::cout<<"time:"<<time.count()<<"ms"<<std::endl;
+
+    return 0;
+}
 
 #endif //__MAP1__H__
