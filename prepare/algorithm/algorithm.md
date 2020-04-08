@@ -76,17 +76,19 @@
 [图遍历BFS---无向图](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Map)
 
 ## 图最短路径
-### 1. 深度优先算法(DFS)  
-* 解决问题  
-求图中多源(全源)最短路问题
-* 代码示例
-[最短路径DFS---无向图和有向图](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Map)
-
-### 2. 广度优先算法(BFS)
+### 1. 深度优先搜索算法(DFS)  
 * 解决问题  
 求图中多源(全源)最短路问题  
 * 时间复杂度  
-O(N^2)
+纯算法时间复杂度O(N^2)
+* 代码示例
+[最短路径DFS---无向图和有向图](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Map)
+
+### 2. 广度优先搜索算法(BFS)
+* 解决问题  
+求图中多源(全源)最短路问题  
+* 时间复杂度  
+纯算法时间复杂度O(N^2)
 * 特点  
 比深度优先算法块,更加适用于边权相同的情况  
 * 代码示例  
