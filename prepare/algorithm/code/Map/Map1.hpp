@@ -39,6 +39,7 @@ using namespace std;
 
 //存储生成的二维数组 记录图的顶点从索引1开始
 int a1[6][6]={
+        {0,0,0,0,0,0},
         {0,0,1,1,-1,1},
         {0,1,0,-1,1,-1},
         {0,1,-1,0,-1,1},
@@ -50,8 +51,8 @@ int visit1[10]={0};//标记图中顶点是否被访问
 int sum=0; //统计访问图中顶点的个数
 
 void PrintMap1(){
-    for(int i=0;i<5;i++){
-        for(int j=0;j<5;j++){
+    for(int i=1;i<=5;i++){
+        for(int j=1;j<=5;j++){
             if(a1[i][j]>=0){
                 std::cout<<" "<<a1[i][j]<<" ";
             }else{
@@ -67,7 +68,7 @@ void PrintMap1(){
 void DFS1(int cur){
 #if 0
     sum++;//只要访问过一个顶点就加1
-    if(sum>5) {//大于顶点数量
+    if(sum>5) {//所有顶点都访问
         return;
     }
     std::cout<<cur<<" ";
@@ -77,7 +78,6 @@ void DFS1(int cur){
         return;
     }
 #endif
-
 
     //尝试每一种可能
     for(int k=1;k<=5;k++){
