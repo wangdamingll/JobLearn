@@ -118,7 +118,7 @@ O(N^3)
 * 特点      
 1. 可以求图中单源最短路问题
 2. 时间复杂度为O(N^2),可以优化为O(M+N)log(N),N为顶点数,M为边数
-4. 图中边权不可以有负值
+3. 图中边权不可以有负值
 * 代码示例  
 [图邻接表存储法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Dijkstra)  
 [Dijkstra](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Dijkstra)
