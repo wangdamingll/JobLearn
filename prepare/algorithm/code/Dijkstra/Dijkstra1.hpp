@@ -40,31 +40,38 @@ static int n=4; //图的顶点数量(上面的数据)
 static int m=5; //图的边数量(上面的数据)
 
 //比m大1 分别存储顶点i到顶点j的权值,这里直接初始化上图数据
-static int u[6]={1,4,1,2,1};//顶点i
-static int v[6]={4,3,2,4,3};//顶点j
-static int w[6]={9,8,5,6,7};//权值
+static int u[6]={0,1,4,1,2,1};//顶点i
+static int v[6]={0,4,3,2,4,3};//顶点j
+static int w[6]={0,9,8,5,6,7};//权值
 
 //比n大1 分别存储编号i的第一条边的编号和编号i的边的下一条边的编号
-static int first[5]={0};
-static int next[5]={0};
+int first1[5]={0};
+int next1[5]={0};
 
 //存储图
 void StoreMap1(){
     //初始化first数组,-1表示没有出边
-    for(auto& it : first){
+    for(auto& it : first1){
         it = -1;
     }
 
-
-
-
-
-
+    //由于u v w 已经提前赋值好了,否则正常应该按行读取上面的数据,然后依次赋值
+    for(int i=1;i<=m;i++){ //读取每一行数据给first和next赋值
+        //邻接表核心语句
+        next1[i] = first1[u[i]];
+        first1[u[i]] = i;
+    }
 }
 
 //遍历图的每一条边
 void PrintMap1(){
-
+    for(int i=1;i<=n;i++){//遍历first中所有的顶点
+        int k = first1[i];//取出顶点
+        while(k!=-1){//从next中遍历出顶点i的所有出边
+            std::cout<<u[k]<<" "<<v[k]<<" "<<w[k]<<std::endl;
+            k=next1[k];
+        }
+    }
 }
 //图存储
 int TestMapStore(){
