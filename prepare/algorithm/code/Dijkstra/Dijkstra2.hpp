@@ -1,5 +1,5 @@
-#ifndef __MAP1__H__
-#define __MAP1__H__
+#ifndef __DIJKSTRA2__H__
+#define __DIJKSTRA2__H__
 
 #include <iostream>
 #include <chrono>
@@ -7,7 +7,7 @@
 using namespace std;
 
 
-/* 图最短路径-----Floyd-Warshall(弗洛伊德算法)
+/* 图最短路径-----Dijkstra(待完善)
  *
  * 问题描述:
  * 下面是一个由图(有向图)转换成的邻接矩阵存储的二维数组(邻接矩阵存储法),求任意两点之前的最短路径(多源最短路问题)
@@ -112,4 +112,4 @@ int TestFWS2(){
     return 0;
 }
 
-#endif //__MAP1__H__
+#endif //__DIJKSTRA2__H__
