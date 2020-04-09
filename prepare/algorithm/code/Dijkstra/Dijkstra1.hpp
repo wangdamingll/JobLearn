@@ -40,9 +40,9 @@ static int n=4; //图的顶点数量(上面的数据)
 static int m=5; //图的边数量(上面的数据)
 
 //比m大1 分别存储顶点i到顶点j的权值,这里直接初始化上图数据
-static int u[6]={1,4,1,2,1};
-static int v[6]={4,3,2,4,3};
-static int w[6]={9,8,5,6,7};
+static int u[6]={1,4,1,2,1};//顶点i
+static int v[6]={4,3,2,4,3};//顶点j
+static int w[6]={9,8,5,6,7};//权值
 
 //比n大1 分别存储编号i的第一条边的编号和编号i的边的下一条边的编号
 static int first[5]={0};
