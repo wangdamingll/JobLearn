@@ -58,12 +58,14 @@
 * [代码示例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BFS)
 
 
-## 图遍历
+## 图
 ### 1. 图定义  
 简单的说,图就是由一些小圆点(称为顶点)和连接这些小圆点的直线(称为边)组成的.
 ### 2. 图分类  
-图可以分为无向图和有向图
-### 3. 图遍历算法
+图可以分为无向图和有向图  
+### 3. 图存储  
+邻接矩阵存储法 邻接表存储法
+### 4. 图遍历
 #### 1. 深度优先搜索(DFS)
 ##### 图遍历DFS思想
 首先以一个未被访问过的顶点作为起始顶点,沿当前顶点的边走到未访问过的顶点;当没有未访问过的顶点时,则回到上一个顶点,继续试探访问别的顶点,直到所有的顶点都被访问过.显然,深度优先遍历是沿着图的某一条分支遍历直到末端,然后回溯,再沿着另一条进行同样的遍历,直到所有的顶点都被访问过为止.
@@ -120,6 +122,5 @@ O(N^3)
 * 代码示例  
 [图邻接表存储法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Dijkstra)  
 [Dijkstra](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Dijkstra)
-
 
 ---
