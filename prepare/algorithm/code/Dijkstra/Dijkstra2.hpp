@@ -149,7 +149,7 @@ int GetMinElem(){
         auto elem = disV.back();
         disV.pop_back();
 
-        if(visit22[elem.m_index]==0){//该顶点没有被松弛过
+        if(visit22[elem.m_index]==0){//该顶点没有被处理过
             index = elem.m_index;
             finish = true;
         }
