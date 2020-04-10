@@ -13,7 +13,7 @@ using namespace std;
  * */
 
 int main() {
-    TestMapStore();         //图存储----邻接表存储法
+    //TestMapStore();         //图存储----邻接表存储法
     TestDijkstra2();        //Dijkstra--单源最短路---邻接矩阵存储法
     //TestDijkstra3();         //Dijkstra--单源最短路---邻接表存储法(对于稀疏图的优化)
 }
