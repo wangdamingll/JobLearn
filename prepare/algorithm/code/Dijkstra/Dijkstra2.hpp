@@ -117,19 +117,10 @@ void Dijkstra21(){
 }
 
 //----------------------------------------------------------------------
-int GetMinElem(){
-//    std::make_heap();
-//    std::pop_heap();
-//    back();
-//    pop_back();
-
-    return 0;
-}
-
 //邻接矩阵存储---部分优化,使用堆
 void Dijkstra22(){
-    //PrintMap2();//原始地图
-
+    PrintMap2();//原始地图
+    //.....
 }
 
 //单源最短路
@@ -138,7 +129,7 @@ int TestDijkstra2(){
 
     Dijkstra21();//邻接矩阵存储---未优化O(N^2)
 
-    Dijkstra22();//邻接矩阵存储---部分优化,使用堆
+    //Dijkstra22();//邻接矩阵存储---部分优化,使用堆(待完善)
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
