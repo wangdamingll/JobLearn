@@ -132,7 +132,7 @@ void Dijkstra3(){
     //Dijkstra算法 这里以1号顶点为源点s,顶点s不能直接到达的依旧用99999999表示
     //初始化dis
     int dis[n3+1]={99999999,0,99999999,99999999,99999999,99999999,99999999};
-    int k = first3[1];//取出1号顶点
+    int k = first3[1];//取出1号顶点所在的行数(也就是上面源数据的1号顶点所在的行)
     while(k!=-1){
         dis[v3[k]]=w3[k];//取出1号顶点到顶点k的距离
         disV3.emplace_back(v3[k],w3[k]);
@@ -141,7 +141,6 @@ void Dijkstra3(){
 
     visit3[1] = 1; //表示顶点1的最短距离已知
 
-    //以下代码有bug 待完善
     int u =0;
     for(int i=1;i<=n3-1;i++){//松弛dis中的所有顶点
         //找到dis中距离顶点1最短距离的顶点编号
@@ -150,7 +149,7 @@ void Dijkstra3(){
         visit3[u] = 1;//标记
 
         //对u的每条出边进行处理
-        int k1 = first3[u];;
+        int k1 = first3[u];//取出u号顶点所在的行数(也就是上面源数据的u号顶点所在的行)
         while(k1!=-1){
             if(dis[v3[k1]]>dis[u] + w3[k1]){
                 dis[v3[k1]]=dis[u] + w3[k1];
