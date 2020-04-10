@@ -135,20 +135,21 @@ struct Info{
 
 constexpr int n2 = 6; //顶点数量本例为6
 int visit22[n2+1]={0};//标识顶点i是不是已经知道最短距离
-std::vector<Info> disV;//队列使用
+std::vector<Info> disV;//堆使用
 
 //dis中获取最小值堆优化
+//或者使用std::priority_queue 优先级队列优化
 int GetMinElem(){
     int index=0;
     int finish=false;
-    do{
-        std::make_heap(disV.begin(),disV.end(),std::greater<Info>{});//min heap
-        std::pop_heap(disV.begin(),disV.end(),std::greater<Info>{});//将最小元素移动到末尾
 
+    std::make_heap(disV.begin(),disV.end(),std::greater<Info>{});//min heap
+    do{
+        std::pop_heap(disV.begin(),disV.end(),std::greater<Info>{});//将最小元素移动到末尾
         auto elem = disV.back();
         disV.pop_back();
 
-        if(visit22[elem.m_index]==0){
+        if(visit22[elem.m_index]==0){//该顶点没有被松弛过
             index = elem.m_index;
             finish = true;
         }
@@ -172,7 +173,6 @@ void Dijkstra22(){
     int u2 = 0;  //u的顶点编号
     for(int i=1;i<=n2-1;i++){//为什么循环n2-1次,因为n2个顶点,由于1号顶点已经知道了最短距离为0,剩下n2-1个顶点是未知的
         //找到离源点s最短距离顶点u,这里s为1号顶点
-
         u2 = GetMinElem();//找到dis中离源点1最短距离的顶点u
 
         visit22[u2] = 1;//u顶点确定最短距离了,加入集合P中
@@ -182,16 +182,9 @@ void Dijkstra22(){
             if(a2[u2][v2]<99999999){//u->v有路线
                 if(dis[v2]>dis[u2]+a2[u2][v2]){
                     dis[v2]=dis[u2]+a2[u2][v2];
+                    disV.emplace_back(v2,dis[v2]);
                 }
             }
-        }
-
-        if(i==n2-1){ //处理最后一个顶点后 不需要再更新disV了
-            break;
-        }
-        disV.clear();
-        for(int k=1;k<=n2;k++){
-            disV.emplace_back(k,dis[k]);
         }
     }
 
@@ -209,8 +202,7 @@ int TestDijkstra2(){
 
     Dijkstra21();//邻接矩阵存储---未优化O(N^2)
 
-    Dijkstra22();//邻接矩阵存储---部分优化,使用堆(如果顶点不多的话实在没必要如此做,并且我认为并没有提高多少效率,因为多了disV更新操作
-                 //可能是我的方法不对,有没有更好的方法?)
+    Dijkstra22();//邻接矩阵存储---部分优化,使用堆(如果顶点不多的话实在没必要如此做)
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
