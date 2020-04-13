@@ -1,5 +1,6 @@
 #include "BellmanFord1.hpp"
 #include "BellmanFord2.hpp"
+#include "BellmanFord3.hpp"
 using namespace std;
 
 
@@ -15,4 +16,5 @@ using namespace std;
 int main() {
     TestMapStore();         //图存储----邻接表存储法
     TestBellmanFord2();     //Bellman-Ford--单源最短路---邻接矩阵存储法
+    TestBellmanFord3();     //Bellman-Ford--判断图中有无负权回路
 }

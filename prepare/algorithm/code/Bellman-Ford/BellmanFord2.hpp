@@ -212,4 +212,4 @@ int TestBellmanFord2(){
     return 0;
 }
 
-#endif //__BELLMAN_FORD1__H__
+#endif //__BELLMAN_FORD2__H__
