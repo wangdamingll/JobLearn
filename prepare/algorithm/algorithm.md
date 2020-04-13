@@ -118,9 +118,30 @@ O(N^3)
 * 特点      
 1. 可以求图中单源最短路问题
 2. 时间复杂度为O(N^2),可以优化为O((M+N)logN),N为顶点数,M为边数
-3. 图中边权不可以有负值
+3. 图中边权不可以有负值  
+* 优化  
+1. 可以使用堆进行优化:用堆查找出dis中每次最小路程的点  
+2. 如果是稀疏图,可以使用邻接表存储图法进行优化
 * 代码示例  
 [图邻接表存储法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Dijkstra)  
-[Dijkstra](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Dijkstra)
+[Dijkstra](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Dijkstra)  
+
+### 4. Bellman-Ford  
+* 解决问题  
+1. 求图中单源最短路问题  
+2. 求图中是否存在负权回路
+* 时间复杂度  
+1. 未使用队列优化过的:O(NM),N为顶点 M为边  
+2. 使用队列优化过的,最坏的时间复杂度是O(NM),N为顶点 M为边
+* 特点      
+1. 是一个无论是思想上还是代码实现上都堪称完美的最短路算法,核心代码只有4行
+2. 可以处理带有负权边的图
+3. 经常会在未达到n-1轮松弛前就已经计算出最短路(最多进行n-1轮边的松弛操作,n为顶点数量)  
+* 优化  
+1. 经常会在未达到n-1轮松弛前就已经计算出最短路,所以这时可以跳出循环,做优化
+2. 可以使用队列进行优化:每次仅对最短路程发生变化了的点的相邻边执行松弛操作,使用队列保存这些最短路程变化了的点
+* 代码示例  
+[图邻接表存储法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Bellman-Ford)  
+[Bellman-Ford](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Bellman-Ford)
 
 ---
