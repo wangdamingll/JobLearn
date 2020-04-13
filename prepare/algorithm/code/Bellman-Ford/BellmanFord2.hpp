@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <chrono>
-#include <vector>
 #include <algorithm>
+#include <queue>
 using namespace std;
 
 /* 图最短路径-----Bellman-Ford
@@ -56,7 +56,8 @@ int first2[n2+1]={0};
 //比m大1
 int next2[m2+1]={0};
 
-//int visit2[n2+1]={0};//表示顶点是否在队列中
+std::queue<int> queue2;
+int visit2[n2+1]={0};//表示顶点是否在队列中
 
 //邻接表存储
 void StoreMap2(){
@@ -88,14 +89,9 @@ void BellmanFord21(){
     StoreMap2();//存储图
     PrintMap2();//打印图
 
-    //Dijkstra算法 这里以1号顶点为源点s,顶点s不能直接到达的依旧用99999999表示
+    //Bellman-Ford算法 这里以1号顶点为源点s,顶点s不能直接到达的依旧用99999999表示
     //初始化dis
     int dis[n2+1]={99999999,0,99999999,99999999,99999999,99999999};
-    int k = first2[1];
-    while(k!=-1){
-        dis[v2[k]] = w2[k];
-        k = next2[k];
-    }
 
     //Bellman-Ford核心代码:对所有边进行n-1次松弛
     for(int i=1;i<=n2-1;i++){ //最多n-1次松弛
@@ -119,15 +115,10 @@ void BellmanFord22(){
     StoreMap2();//存储图
     PrintMap2();//打印图
 
-    //Dijkstra算法 这里以1号顶点为源点s,顶点s不能直接到达的依旧用99999999表示
+    //Bellman-Ford算法 这里以1号顶点为源点s,顶点s不能直接到达的依旧用99999999表示
     //初始化dis
     int dis[n2+1]={99999999,0,99999999,99999999,99999999,99999999};
     int bak[n2+1]={0};//每次松弛备份dis做比较
-    int k = first2[1];
-    while(k!=-1){
-        dis[v2[k]] = w2[k];
-        k = next2[k];
-    }
 
     //Bellman-Ford核心代码:对所有边进行n-1次松弛
     for(int i=1;i<=n2-1;i++){ //最多n-1次松弛
@@ -162,6 +153,48 @@ void BellmanFord22(){
 }
 
 
+//优化2:使用队列进行优化:每次仅对最短路程发生变化了的点的相邻边执行松弛操作,使用队列保存这些最短路程变化了的点
+void BellmanFord23(){
+    StoreMap2();//存储图
+    PrintMap2();//打印图
+
+    //Bellman-Ford算法 这里以1号顶点为源点s,顶点s不能直接到达的依旧用99999999表示
+    //初始化dis,和Dijkstra算法不同,dis不在需要初始化到源点s的直接边的估计值
+    int dis[n2+1]={99999999,0,99999999,99999999,99999999,99999999};
+
+    //Bellman-Ford队列优化
+    queue2.push(1); //源点1入队列
+    visit2[1] = 1;      //标记源点1已经在队列中
+
+    while(!queue2.empty()){
+        int i = queue2.front(); //取出顶点
+
+        int k2 = first2[i]; //邻接表遍历顶点i所有的出边,进行松弛操作, k2是顶点i在上面源数据中最后出现所在的行
+        while(k2!=-1){
+            //Bellman-Ford核心代码
+            if(dis[v2[k2]]>dis[u2[k2]]+w2[k2]){
+                dis[v2[k2]]=dis[u2[k2]]+w2[k2];
+
+                if(visit2[v2[k2]] == 0){ //该顶点不在队列中,其实如果重复入队列没有必要
+                    queue2.push(v2[k2]); //入队列
+                    visit2[v2[k2]] =1;  //标记
+                }
+            }
+            k2 = next2[k2];//顶点i下一条数据所在的行数
+        }
+
+        queue2.pop();   //出队列
+        visit2[i] =0;   //取消标记
+    }
+
+    //输出最终结果
+    std::cout<<"顶点1能够到达其他顶点的距离为:"<<std::endl;
+    for(int i=1;i<=n2;i++){
+        std::cout<<"1->"<<i<<":"<<dis[i]<<" ";
+    }
+    std::cout<<std::endl;
+}
+
 //单源最短路
 int TestBellmanFord2(){
     auto start = std::chrono::steady_clock::now();
@@ -169,6 +202,8 @@ int TestBellmanFord2(){
     BellmanFord21();//未优化
 
     BellmanFord22();//如果第k次松弛后,dis和结果和第K-1次一样,那就退出循环,因为目的以达到
+
+    BellmanFord23();//使用队列进行优化:每次仅对最短路程发生变化了的点的相邻边执行松弛操作,使用队列保存这些最短路程变化了的点
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
