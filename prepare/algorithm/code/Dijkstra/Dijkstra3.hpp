@@ -32,11 +32,11 @@ using namespace std;
  *
  * 时间复杂度
  * 1. 用一般的图的邻接矩阵法存的话,时间复杂度为O(N^2)
- * 2. 对于稀疏图来说,用堆和邻接表存储法,可以将时间复杂度优化为O(M+N)log(N),N为顶点数,M为边数.最坏的情况M等于N^2,那么O(M+N)log(N)比O(N^2)大,但是一般来说边没有那么多,所以O(M+N)log(N)比O(N^2)小很多
+ * 2. 对于稀疏图来说,用堆和邻接表存储法,可以将时间复杂度优化为O((M+N)logN),N为顶点数,M为边数.最坏的情况M等于N^2,那么O((M+N)logN)比O(N^2)大,但是一般来说边没有那么多,所以O((M+N)logN)比O(N^2)小很多
  *
  * 算法特点
  * 1. 可以求图中单源最短路问题
- * 2. 时间复杂度为O(N^2),可以优化为O(M+N)log(N),N为顶点数,M为边数
+ * 2. 时间复杂度为O(N^2),可以优化为O((M+N)logN),N为顶点数,M为边数
  * 3. 图中边权不可以有负值
 
  * 思考:
@@ -171,7 +171,7 @@ void Dijkstra3(){
 int TestDijkstra3(){
     auto start = std::chrono::steady_clock::now();
 
-    Dijkstra3();//Dijkstra优化-------堆优化和邻接表优化 时间复杂度O(M+N)log(N)
+    Dijkstra3();//Dijkstra优化-------堆优化和邻接表优化 时间复杂度O((M+N)logN)
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
