@@ -3,7 +3,8 @@
 
 ## 排序算法
 
-### 1. 待完善
+### 1. 堆排序  
+* 待完善
 
 ## 搜索算法
 
@@ -142,6 +143,20 @@ O(N^3)
 2. 可以使用队列进行优化:每次仅对最短路程发生变化了的点的相邻边执行松弛操作,使用队列保存这些最短路程变化了的点
 * 代码示例  
 [图邻接表存储法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Bellman-Ford)  
-[Bellman-Ford](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Bellman-Ford)
+[Bellman-Ford](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Bellman-Ford)  
+
+## 图最小生成树  
+### 1. Kruskal算法  
+* 待完善
+
+### 2. Prim算法  
+* 待完善  
+
+## 树  
+### 1. 神奇的优先队列  
+* 待完善  
+### 2. 并查集  
+* 待完善  
+
 
 ---
