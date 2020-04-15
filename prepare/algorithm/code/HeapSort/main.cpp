@@ -1,4 +1,5 @@
 #include "HeapSort1.hpp"
+#include "HeapSort2.hpp"
 using namespace std;
 
 
@@ -11,5 +12,6 @@ using namespace std;
 
 
 int main() {
-    TestHeapSort1();         //图遍历-DFS-无向图
+    TestHeapSort1();         //堆排序---数据升序排序
+    TestHeapSort2();         //堆排序---第K大(小)的数
 }
