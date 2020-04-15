@@ -161,7 +161,15 @@ O(N^3)
 
 ## 树  
 ### 1. 神奇的优先队列  
-* 待完善  
+#### 1. 堆排序  
+* 解决问题  
+1. 排序问题  
+2. 找出一组数中第K大(小)的问题
+* 时间复杂度  
+O(NlogN)
+* 代码示例  
+[堆排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/HeapSort)  
+
 ### 2. 并查集  
 * 待完善  
 
