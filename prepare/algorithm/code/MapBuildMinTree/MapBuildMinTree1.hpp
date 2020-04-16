@@ -4,6 +4,8 @@
 #include <iostream>
 #include <chrono>
 #include <algorithm>
+#include <vector>
+
 using namespace std;
 
 /*图最小生成树-----Kruskal算法
@@ -31,14 +33,91 @@ using namespace std;
  *  1 3 2
  *
  * 时间复杂度:
+ * 快速排序的时间复杂度:O(MlogM) M为边数
+ * 从M条边找出N-1条边时间复杂度:O(MlogN)
+ * 总时间复杂度:O(MlogM + MlogN),因为通常M比N大很多,所以Kruskal总的时间复杂度:O(MlogM)
+ *
+ * 思考:
+ * 1. Kruskal算法中最重要的判断两个顶点是否已经连通要用到并查集
  *
  * */
 
+//保存边信息
+struct Edge{
+    Edge() = default;
+    Edge(int u1,int v1,int w1):u(u1),v(v1),w(w1){}
+
+    bool operator <(const Edge& another) const{
+        return this->w<another.w;
+    }
+    int u {0};
+    int v {0};
+    int w {0};
+};
+
+constexpr int n1 = 6;//城市个数
+constexpr int m1 = 9;//边的个数
+int f1[n1+1] = {0}; //并查集使用
+
+//并查集Find
+int GetF(int v){
+    if(f1[v] == v){
+        return v;
+    }
+
+    f1[v] = GetF(f1[v]);
+    return f1[v];
+}
+
+//并查集Merge
+int Merge(int v,int u){
+    int t1 = GetF(v);
+    int t2 = GetF(u);
+    if(t1!=t2){
+        f1[t2] = t1;
+        return 1;//没有连通
+    }
+    return 0;//有连通
+}
+
+
 //图最小生成树-----Kruskal算法
 void MapBuildMinTree1(){
+    //初始化边信息
+    std::vector<Edge> v ={{0,0,0},//加了这组数据 为了是城市编号和v的index相同
+                          {2,4,11},
+                          {3,5,13},
+                          {4,6,3},
+                          {5,6,4},
+                          {2,3,6},
+                          {4,5,7},
+                          {1,2,1},
+                          {3,4,9},
+                          {1,3,2},
+    };
 
+    //对边进行排序,期望用的是快排吧
+    std::sort(v.begin(),v.end());
 
+    //并查集f初始化
+    for(int i=1;i<=n1;i++){
+        f1[i] = i;
+    }
 
+    //Kruskal核心语句
+    int count = 0; //最小生成树已经使用的边的数量
+    int sum =0;//消耗
+    for(int i=1;i<=m1;i++){//枚举每条边
+        if(1==Merge(v[i].u,v[i].v)){//两个城市没有连通
+            count++;
+            sum+=v[i].w;
+        }
+        if(count == n1-1){//n个城市的最小生成树用到的边是n-1
+            break;
+        }
+    }
+
+    std::cout<<"消耗银子:"<<sum<<std::endl;
 }
 
 int TestMapBuildMinTree1(){
