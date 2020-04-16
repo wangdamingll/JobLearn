@@ -5,6 +5,7 @@
 #include <chrono>
 #include <algorithm>
 #include <utility>
+#include <vector>
 using namespace std;
 
 /*堆排序----对整个数据进行升序排序
@@ -92,7 +93,7 @@ void CreatHeap(){
 }
 
 //堆排序
-void HeapSort1(){
+void HeapSort11(){
     Print();
     //创建堆
     CreatHeap();
@@ -107,10 +108,28 @@ void HeapSort1(){
     Print();
 }
 
+//堆排序
+void HeapSort12(){
+    std::vector<int> v = {3,8,9,6,5,4,2,1};
+    for(const auto& it : v){
+        std::cout<<it<<" ";
+    }
+    std::cout<<std::endl;
+
+    std::make_heap(v.begin(),v.end());//初始化最大堆
+    std::sort_heap(v.begin(),v.end());//在最大堆的基础上将堆转化为升序排序
+    for(const auto& it : v){
+        std::cout<<it<<" ";
+    }
+    std::cout<<std::endl;
+}
+
 int TestHeapSort1(){
     auto start = std::chrono::steady_clock::now();
 
-    HeapSort1();//堆排序
+    HeapSort11();//堆排序 ---- 自实现堆算法
+
+    HeapSort12();//堆排序----标准库
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);

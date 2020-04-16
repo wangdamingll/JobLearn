@@ -145,8 +145,14 @@ void HeapSortK22(){
 
         if(i>k2){//对源数据剩下的数据进行处理
             if(h2[i]>tmpV[0]){//比堆顶的数大,则替换堆顶
+#if 0
                 tmpV[0] = h2[i];
-                std::make_heap(tmpV.begin(),tmpV.end(),std::greater<int>{});
+                std::make_heap(tmpV.begin(),tmpV.end(),std::greater<int>{});//初始化堆需要从最后一个非叶子节点开始调整知道根节点,这里不需要遍历这些元素
+#else
+                tmpV[0] = h2[i];//更新堆顶元素
+                std::swap(tmpV[0],tmpV[k2-1]);//将堆顶的元素和堆尾互换
+                std::push_heap(tmpV.begin(),tmpV.end(),std::greater<int>{});//向上调整堆
+#endif
             }
         }
     }
