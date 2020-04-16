@@ -31,14 +31,108 @@ using namespace std;
  *  1 3 2
  *
  * 时间复杂度:
+ * 1. 不使用任何优化方法,用邻接矩阵存储的话,时间复杂度O(N^2) ,N为城市数
+ * 2. 使用堆和邻接表存储的话,时间复杂度O(MlogN),M为边数,N为顶点数
+ *
+ * 思考:
+ * 1. Prim算法用到了Dijkstra算法的"变种",即在dis数组中找到与生成树最短的距离,而不是离源点s的最短距离
+ * 2. 当生成树中顶点数量为n时,算法结束
+ * 3. 无向图的数据采用邻接表存储法,也可以用邻接矩阵存储
  *
  * */
 
+//保存边信息
+struct Edge2{
+    Edge2() = default;
+    Edge2(int index1,int dis1):index(index1),dis(dis1){}
+
+    bool operator >(const Edge2& another) const{
+        return this->dis>another.dis;
+    }
+    int index {0}; //城市编号
+    int dis {0};    //距离
+};
+
+constexpr int n2 = 6;//城市个数
+constexpr int m2 = 9;//边的个数
+
+//以下为了方便,直接初始化了
+int u2[m2+1] ={0,2, 3, 4,5,2,4,1,3,1};
+int v2[m2+1] ={0,4, 5, 6,6,3,5,2,4,3};
+int w2[m2+1] ={0,11,13,3,4,6,7,1,9,2};
+
+int first2[n2+1]={0}; //存储城市编号
+int next2[m2+1] ={0};//存储边
+
+int book2[n1+1] = {0}; //标识是否在生成树中
+
+int dis[n2+1] ={0,0,99999999,99999999,99999999,99999999,99999999};//Dijkstra算法
+std::vector<Edge2> disV;//堆排序使用
+
+//邻接表存储
+void StoreMap2(){
+    for(auto& it : first2){ //初始化城市编号数组信息
+        it = -1;
+    }
+    for(int i=1;i<=m2;i++){ //存储每一条边
+        next2[i] = first2[u2[i]];
+        first2[u2[i]] = i; //存储城市出发顶点对应数据所在的行号
+    }
+}
+
+//打印邻接表
+void PrintMap2(){
+    for(int i=1;i<=n2;i++){ //遍历每一个城市编号
+        int k = first2[i]; //取出城市编号对应的数据所在行数
+        while(k!=-1){
+            std::cout<<u2[k]<<" "<<v2[k]<<" "<<w2[k]<<std::endl;
+            k = next2[k];
+        }
+    }
+}
+
+//获取离生成树最近的城市编号
+int GetMinIndex(){
+    int index =0;
+    bool finish =false;
+    do{
+        std::pop_heap(disV.begin(),disV.end(),std::greater<Edge2>{});
+        Edge2 elem = disV.back();
+        disV.pop_back();
+        if(book2[elem.index] == 0){ //该顶点不在生成树中
+            index = elem.index;
+            finish = true;
+        }
+    }while(!finish);
+    return index;
+}
+
 //图最小生成树-----Prim算法
 void MapBuildMinTree2(){
+    StoreMap2();
+    PrintMap2();
 
+    //初始化dis数组
+    book2[1] = 1;//可以把任意城市加入生成树,这里以1号城市为例
+    int k = first2[1];
+    while(k!=-1) {
+        dis[v2[k]] = w2[k];
+        disV.emplace_back(v2[k],w2[k]);//用于堆排序
+        k = next2[k];
+    }
 
+    //先初始化disV为最小堆
+    std::make_heap(disV.begin(),disV.end(),std::greater<Edge2>{});
 
+    //Prim核心代码
+    int count = 0;//标识生成树种有多少个城市
+    while(count<n2){
+        int index  = GetMinIndex();
+
+        book2[index] = 1;//加入生成树
+        //枚举index所有的出边 进行松弛
+        //待完善
+    }
 }
 
 int TestMapBuildMinTree2(){
