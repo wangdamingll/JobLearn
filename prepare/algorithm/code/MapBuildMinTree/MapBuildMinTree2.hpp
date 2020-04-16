@@ -1,12 +1,12 @@
-#ifndef __MAP_BUILD_MIN_TREE1__H__
-#define __MAP_BUILD_MIN_TREE1__H__
+#ifndef __MAP_BUILD_MIN_TREE2__H__
+#define __MAP_BUILD_MIN_TREE2__H__
 
 #include <iostream>
 #include <chrono>
 #include <algorithm>
 using namespace std;
 
-/*图最小生成树-----Kruskal算法
+/*图最小生成树-----Prim算法
  *
  * 问题描述:
  * 镖局运输问题:
@@ -34,17 +34,17 @@ using namespace std;
  *
  * */
 
-//图最小生成树-----Kruskal算法
-void MapBuildMinTree1(){
+//图最小生成树-----Prim算法
+void MapBuildMinTree2(){
 
 
 
 }
 
-int TestMapBuildMinTree1(){
+int TestMapBuildMinTree2(){
     auto start = std::chrono::steady_clock::now();
 
-    MapBuildMinTree1();//图最小生成树-----Kruskal算法
+    MapBuildMinTree2();//图最小生成树-----Prim算法
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
@@ -54,4 +54,4 @@ int TestMapBuildMinTree1(){
 }
 
 
-#endif //__MAP_BUILD_MIN_TREE1__H__
+#endif //__MAP_BUILD_MIN_TREE2__H__
