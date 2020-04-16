@@ -1,5 +1,5 @@
-#ifndef __MAP_BUILD_MIN_TREE1__H__
-#define __MAP_BUILD_MIN_TREE1__H__
+#ifndef __UNION_FIND1__H__
+#define __UNION_FIND1__H__
 
 #include <iostream>
 #include <chrono>
@@ -41,6 +41,10 @@ using namespace std;
  *  "靠左"原则
  *  "擒贼先擒王"
  *
+ * 并查集编码模式:
+ *  并:Merge-----合并子集
+ *  查:Find -----查找父节点
+ *
  * 思考:
  * 1.这其实就是个类似"朋友圈"的问题
  *
@@ -59,35 +63,23 @@ struct Info{
 };
 
 //递归查找团队最高BOSS
-int getF(int v){
+int GetF(int v){
     if(f[v] == v){
         return v;
-    }else{
-        //这里是路径压缩,每次在函数返回的时候,顺带把路上遇到的人的"BOSS"改为最后找
-        //到的祖宗编号,也就是犯罪团伙的最高领导人编号.这样可以提高今后找到犯罪团伙的最高领导人(其实就是树的祖先)的速度
-        f[v] = getF(f[v]);
-        return f[v];
     }
+
+    //这里是路径压缩,每次在函数返回的时候,顺带把路上遇到的人的"BOSS"改为最后找
+    //到的祖宗编号,也就是犯罪团伙的最高领导人编号.这样可以提高今后找到犯罪团伙的最高领导人(其实就是树的祖先)的速度
+    f[v] = GetF(f[v]);
+    return f[v];
 }
 
 //合并两个子集
 void Merge(int v, int u){
-    int t1 = getF(v);//查找团队领导人
-    int t2 = getF(u);
+    int t1 = GetF(v);//查找团队领导人
+    int t2 = GetF(u);
     if(t1!=t2){//判断两个结点是否在同一个集合中,即是否为同一个祖先.
-#if 0
-        //打开这个函数,不影响统计的独立团伙个数,但是路径压缩彻底,影响输出的团伙成员信息,优点是效率高
         f[t2] = t1;//"靠左"原则,左边变成右边的BOSS.即把右边的集合,作为左边集合的子集合,经过路径压缩以后.将f[u]的根的值也赋值为v的祖先f[t1]
-#else
-        //打开这个函数,能统计出独立团伙数量和团伙成员,但是效率低
-        //以下不属于并查集算法,这里添加是为了输出强盗团伙成员信息
-        //函数功能:当把t2的BOSS指定为t1时,需要将原f中所有BOSS为t2的强盗也指定BOSS为t1.进一步路径压缩
-        for(auto& it:f){
-            if(it == t2){
-                it = t1;
-            }
-        }
-#endif
     }
 }
 
@@ -108,13 +100,13 @@ void UnionFind1(){
                           {1,6},
                           {2,4},
                         };
-    std::unordered_map<int,unordered_set<int>> um;//保存强盗团伙信息<BOSS,...>
 
     //开始合并团伙数据
     for(auto it : v){
         Merge(it.x,it.y);
     }
 
+    std::unordered_map<int,unordered_set<int>> um;//保存强盗团伙信息<BOSS,...>
     //扫描有多少个独立团伙
     for(int i=1;i<=n;i++){
         if(f[i] == i){
@@ -124,17 +116,18 @@ void UnionFind1(){
     }
 
     //存储每个强盗团伙成员信息
-    for(auto& it : um){
-        for(int i=1;i<=n;i++){
-            if(f[i] == it.first){
-                it.second.emplace(i);
-            }
+    for(int i=1;i<=n;i++){
+        int boss = GetF(i); //查找BOSS
+        auto iter = um.find(boss);
+        if(iter==um.end()){
+            continue;
         }
+        iter->second.emplace(i);
     }
 
     std::cout<<"独立的强盗团伙数量:"<<sum<<std::endl;
     std::cout<<"独立的强盗团伙成员信息:"<<std::endl;
-    for(auto it : um){
+    for(auto& it : um){
         std::cout<<"强盗团伙BOSS:"<<it.first<<std::endl;
         std::cout<<"团伙成员信息:";
         for(auto iter:it.second){
@@ -157,4 +150,4 @@ int TestUnionFind1(){
 }
 
 
-#endif //__MAP_BUILD_MIN_TREE1__H__
+#endif //__UNION_FIND1__H__
