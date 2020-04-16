@@ -1,8 +1,7 @@
 # 算法
 ---
 
-## 排序算法
-
+## 排序算法  
 ### 1. 堆排序  
 * 解决问题  
 1. 排序问题  
@@ -10,7 +9,21 @@
 * 时间复杂度  
 O(NlogN)
 * 代码示例  
-[堆排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/HeapSort)
+[堆排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/HeapSort)  
+
+### 2. 快速排序  
+* 解决问题  
+排序问题  
+* 算法思想:  
+1. 二分法思想  
+2. 递归思想
+* 时间复杂度:  
+1. 最坏的时间复杂度:O(N^2)  
+2. 平均时间复杂度:O(NlogN)  
+* 算法特点:  
+1.数据越有序,越快  
+* 代码示例    
+[快速排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/QuickSort)  
 
 
 ## 搜索算法
