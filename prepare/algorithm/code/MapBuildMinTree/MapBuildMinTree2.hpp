@@ -104,10 +104,19 @@ void PrintMap2(){
 
 //获取离生成树最近的城市编号
 int GetMinIndex(){
-    std::pop_heap(disV.begin(),disV.end(),std::greater<Edge2>{});
-    Edge2 elem = disV.back();
-    disV.pop_back();
-    return elem.index;
+    int index=0;
+    int finish=false;
+    do{
+        std::pop_heap(disV.begin(),disV.end(),std::greater<Edge2>{});//将最小元素移动到末尾
+        auto elem = disV.back();
+        disV.pop_back();
+
+        if(book2[elem.index]==0){//有无在生成树中
+            index = elem.index;
+            finish = true;
+        }
+    }while(!finish);
+    return index;
 }
 
 //图最小生成树-----Prim算法
@@ -138,7 +147,7 @@ void MapBuildMinTree2(){
         //枚举index所有的出边 进行松弛
         int k2 = first2[index];
         while(k2!=-1){
-            if(book2[v2[k2]]==0 && dis[v2[k2]]>w2[k2]){//不在生成树中,w2[k2]表示index->v2[k2]顶点的距离,因为index已经加入生成树了,所以也就是v2[k2]到生成树的距离,Dijkstra算法思想
+            if(dis[v2[k2]]>w2[k2]){//不在生成树中,w2[k2]表示index->v2[k2]顶点的距离,因为index已经加入生成树了,所以也就是v2[k2]到生成树的距离,Dijkstra算法思想
                 dis[v2[k2]]=w2[k2];//松弛
                 disV.emplace_back(v2[k2],w2[k2]);
                 std::push_heap(disV.begin(),disV.end(),std::greater<Edge2>{});//调整堆
