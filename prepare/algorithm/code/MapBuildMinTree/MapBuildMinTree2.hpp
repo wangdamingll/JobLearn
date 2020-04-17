@@ -19,7 +19,7 @@ using namespace std;
  * 1. 无向图的概念
  * 边无方向的图称为无向图
  * 2. 第一行两个整数n m,n表示城市个数(城市编号为1~n),m表示道路条数. 接下来m行,每行有3个数x y z,表示从城市x到城市y所需的银子数量z
- *  6 9
+ *  6 9      //注意注意是无向图
  *  2 4 11
  *  3 5 13
  *  4 6 3
@@ -29,6 +29,15 @@ using namespace std;
  *  1 2 1
  *  3 4 9
  *  1 3 2
+ *  4 2 11  //和上面数据对称
+ *  5 3 13
+ *  6 4 3
+ *  6 5 4
+ *  3 2 6
+ *  5 4 7
+ *  2 1 1
+ *  4 3 9
+ *  3 1 2
  *
  * 时间复杂度:
  * 1. 不使用任何优化方法,用邻接矩阵存储的话,时间复杂度O(N^2) ,N为城市数
@@ -38,7 +47,7 @@ using namespace std;
  * 1. Prim算法用到了Dijkstra算法的"变种",即在dis数组中找到与生成树最短的距离,而不是离源点s的最短距离
  * 2. 当生成树中顶点数量为n时,算法结束
  * 3. 无向图的数据采用邻接表存储法,也可以用邻接矩阵存储
- *
+ * 4. Dijkstra + 邻接表 的方式一定要注意图是有向图还是无向图,也就是说 Dijkstra + 邻接表要求边是有向的
  * */
 
 //保存边信息
@@ -54,17 +63,19 @@ struct Edge2{
 };
 
 constexpr int n2 = 6;//城市个数
-constexpr int m2 = 9;//边的个数
+constexpr int m2 = 18;//边的个数(无向图)
 
 //以下为了方便,直接初始化了
-int u2[m2+1] ={0,2, 3, 4,5,2,4,1,3,1};
-int v2[m2+1] ={0,4, 5, 6,6,3,5,2,4,3};
-int w2[m2+1] ={0,11,13,3,4,6,7,1,9,2};
+int u2[m2+1] ={0,2, 3, 4,5,2,4,1,3,1, 4, 5, 6,6,3,5,2,4,3};
+int v2[m2+1] ={0,4, 5, 6,6,3,5,2,4,3, 2, 3, 4,5,2,4,1,3,1};
+int w2[m2+1] ={0,11,13,3,4,6,7,1,9,2, 11,13,3,4,6,7,1,9,2};
 
 int first2[n2+1]={0}; //存储城市编号
 int next2[m2+1] ={0};//存储边
 
 int book2[n1+1] = {0}; //标识是否在生成树中
+int count2 = 0;//标识生成树种有多少个城市
+int sum2 =0;//累计消耗
 
 int dis[n2+1] ={0,0,99999999,99999999,99999999,99999999,99999999};//Dijkstra算法
 std::vector<Edge2> disV;//堆排序使用
@@ -93,18 +104,10 @@ void PrintMap2(){
 
 //获取离生成树最近的城市编号
 int GetMinIndex(){
-    int index =0;
-    bool finish =false;
-    do{
-        std::pop_heap(disV.begin(),disV.end(),std::greater<Edge2>{});
-        Edge2 elem = disV.back();
-        disV.pop_back();
-        if(book2[elem.index] == 0){ //该顶点不在生成树中
-            index = elem.index;
-            finish = true;
-        }
-    }while(!finish);
-    return index;
+    std::pop_heap(disV.begin(),disV.end(),std::greater<Edge2>{});
+    Edge2 elem = disV.back();
+    disV.pop_back();
+    return elem.index;
 }
 
 //图最小生成树-----Prim算法
@@ -113,7 +116,6 @@ void MapBuildMinTree2(){
     PrintMap2();
 
     //初始化dis数组
-    book2[1] = 1;//可以把任意城市加入生成树,这里以1号城市为例
     int k = first2[1];
     while(k!=-1) {
         dis[v2[k]] = w2[k];
@@ -125,14 +127,27 @@ void MapBuildMinTree2(){
     std::make_heap(disV.begin(),disV.end(),std::greater<Edge2>{});
 
     //Prim核心代码
-    int count = 0;//标识生成树种有多少个城市
-    while(count<n2){
-        int index  = GetMinIndex();
-
+    book2[1] = 1;//可以把任意城市加入生成树,这里以1号城市为例
+    count2++;
+    while(count2<n2){
+        int index  = GetMinIndex(); //选取离生成树最近的城市编号
         book2[index] = 1;//加入生成树
+        sum2+=dis[index];//计算消耗
+        count2++;//累加
+
         //枚举index所有的出边 进行松弛
-        //待完善
+        int k2 = first2[index];
+        while(k2!=-1){
+            if(book2[v2[k2]]==0 && dis[v2[k2]]>w2[k2]){//不在生成树中,w2[k2]表示index->v2[k2]顶点的距离,因为index已经加入生成树了,所以也就是v2[k2]到生成树的距离,Dijkstra算法思想
+                dis[v2[k2]]=w2[k2];//松弛
+                disV.emplace_back(Edge2 {v2[k2],w2[k2]});
+                std::push_heap(disV.begin(),disV.end(),std::greater<Edge2>{});//调整堆
+            }
+            k2 = next2[k2];
+        }
     }
+
+    std::cout<<"消耗银子:"<<sum2<<std::endl;
 }
 
 int TestMapBuildMinTree2(){
