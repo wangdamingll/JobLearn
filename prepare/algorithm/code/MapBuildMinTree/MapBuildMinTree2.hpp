@@ -140,7 +140,7 @@ void MapBuildMinTree2(){
         while(k2!=-1){
             if(book2[v2[k2]]==0 && dis[v2[k2]]>w2[k2]){//不在生成树中,w2[k2]表示index->v2[k2]顶点的距离,因为index已经加入生成树了,所以也就是v2[k2]到生成树的距离,Dijkstra算法思想
                 dis[v2[k2]]=w2[k2];//松弛
-                disV.emplace_back(Edge2 {v2[k2],w2[k2]});
+                disV.emplace_back(v2[k2],w2[k2]);
                 std::push_heap(disV.begin(),disV.end(),std::greater<Edge2>{});//调整堆
             }
             k2 = next2[k2];
