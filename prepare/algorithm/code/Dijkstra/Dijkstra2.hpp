@@ -143,7 +143,6 @@ int GetMinElem(){
     int index=0;
     int finish=false;
 
-    std::make_heap(disV.begin(),disV.end(),std::greater<Info>{});//min heap
     do{
         std::pop_heap(disV.begin(),disV.end(),std::greater<Info>{});//将最小元素移动到末尾
         auto elem = disV.back();
@@ -168,6 +167,8 @@ void Dijkstra22(){
         disV.emplace_back(i,a2[1][i]);
     }
 
+    std::make_heap(disV.begin(),disV.end(),std::greater<Info>{});//min heap
+
     visit22[1] = 1; //1号顶点已经知道最短距离了,为0
 
     int u2 = 0;  //u的顶点编号
@@ -182,7 +183,9 @@ void Dijkstra22(){
             if(a2[u2][v2]<99999999){//u->v有路线
                 if(dis[v2]>dis[u2]+a2[u2][v2]){
                     dis[v2]=dis[u2]+a2[u2][v2];
-                    disV.emplace_back(v2,dis[v2]);
+                    //disV.push_back(Info{v2,dis[v2]});
+                    disV.emplace_back(v2,dis[v2]);//v2相同但是dis[v2]不相同,这是2个对象,不会覆盖,这个函数不会出错
+                    std::push_heap(disV.begin(),disV.end(),std::greater<Info>{});
                 }
             }
         }

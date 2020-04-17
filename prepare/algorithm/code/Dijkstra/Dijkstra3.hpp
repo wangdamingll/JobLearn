@@ -44,6 +44,7 @@ using namespace std;
  * 2. 需要一个一维数组dis,记录源点s能到达其他顶点i的距离,到自己的距离为0,能直接到达的其他顶点i为d[i]为a2[s][i],不能到达的设为无穷大
  * 3. 每次集合Q中选择离源点s最近的顶点u(dis[u]在一维数组中最小),并考察所有以顶点u为起点,对每条边进行松弛操作,如果存在一条从u->v的边,
  *    使得dis[v]>(dis[u]+a2[u][v]),则更新dis[v];
+ * 4. Dijkstra + 邻接表 的方式一定要注意图是有向图还是无向图,也就是说根据题意要求判断有无向图,给出正确的图源数据
  *
  * */
 
@@ -109,14 +110,14 @@ void PrintMap3(){
 //dis中获取最小值堆优化
 //或者使用std::priority_queue 优先级队列优化
 int GetMinElem3(){
-    int index =0;
-    bool finish = false;
-    std::make_heap(disV3.begin(),disV3.end(),std::greater<Info3>{});
+    int index=0;
+    int finish=false;
     do{
-        std::pop_heap(disV3.begin(),disV3.end(),std::greater<Info3>{});
+        std::pop_heap(disV3.begin(),disV3.end(),std::greater<Info3>{});//将最小元素移动到末尾
         auto elem = disV3.back();
         disV3.pop_back();
-        if(visit3[elem.m_index]==0){//没有被处理过的顶点
+
+        if(visit3[elem.m_index]==0){//该顶点没有被处理过
             index = elem.m_index;
             finish = true;
         }
@@ -139,6 +140,8 @@ void Dijkstra3(){
         k=next3[k];
     }
 
+    std::make_heap(disV3.begin(),disV3.end(),std::greater<Info3>{});//初始化 min heap
+
     visit3[1] = 1; //表示顶点1的最短距离已知
 
     int u =0;
@@ -154,6 +157,7 @@ void Dijkstra3(){
             if(dis[v3[k1]]>dis[u] + w3[k1]){
                 dis[v3[k1]]=dis[u] + w3[k1];
                 disV3.emplace_back(v3[k1],dis[v3[k1]]);
+                std::push_heap(disV3.begin(),disV3.end(),std::greater<Info3>{});
             }
             k1=next3[k1];
         }
