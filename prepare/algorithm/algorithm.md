@@ -1,5 +1,8 @@
 # 算法
----
+---  
+## 常见问题算法  
+###  寻找最多元素问题(主元素问题)  
+* 待完善
 
 ## 排序算法  
 ### 1. 堆排序  
@@ -178,6 +181,15 @@ O(N^3)
 ### 3. Prim算法  
 * [算法示例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/MapBuildMinTree)  
 
+## 图的割点  
+* 待完善  
+
+## 图的割边  
+* 待完善  
+  
+## 二分图最大匹配  
+* 待完善  
+
 ## 树  
 ### 1. 神奇的优先队列  
 #### 1. 堆排序  
@@ -207,6 +219,7 @@ O(NlogN)
 2)"朋友圈"问题-------找出一堆数据中有联系的各个组等 
 * 代码示例  
 [并查集](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/UnionFind)  
+
 
 
 ---
