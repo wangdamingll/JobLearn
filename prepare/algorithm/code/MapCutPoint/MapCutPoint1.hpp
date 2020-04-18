@@ -49,20 +49,101 @@ using namespace std;
  * */
 
 
-constexpr int n2 = 6;//
-constexpr int m2 = 14;//
+constexpr int n1 = 6;//
+constexpr int m1 = 14;//
 
 //以下为了方便,直接初始化了
-int u2[m2+1] ={0,1,1,4,3,2,2,5, 4,3,2,2,5,6,6};
-int v2[m2+1] ={0,4,3,2,2,5,6,6, 1,1,4,3,2,2,5};
-int w2[m2+1] ={0,1,1,1,1,1,1,1, 1,1,1,1,1,1,1};
+int u1[m1+1] ={0,1,1,4,3,2,2,5, 4,3,2,2,5,6,6};
+int v1[m1+1] ={0,4,3,2,2,5,6,6, 1,1,4,3,2,2,5};
+int w1[m1+1] ={0,1,1,1,1,1,1,1, 1,1,1,1,1,1,1};
 
-int first2[n2+1]={0}; //存储城市编号
-int next2[m2+1] ={0};//存储边
+int first1[n1+1]={0}; //存储城市编号
+int next1[m1+1] ={0};//存储边
+
+int nums1[n1+1] = {0};//保存深度遍历图时顶点对应的时间戳 nums[顶点] = 时间戳
+int lows1[n1+1] = {0};//保存子节点v不经过父节点u能够达到的最小时间戳 lows[顶点] = 时间戳
+int flag1[n1+1] ={0};//标识是否是割点
+int index1=0;//时间戳起点
+int root1 = 0; //标识根节点
+
+//保存地图
+void StoreMap(){
+    for(auto& it : first1){ //初始化
+        it = -1;
+    }
+
+    for(int i=1;i<=m1;i++){
+        next1[i] = first1[u1[i]];
+        first1[u1[i]] = i;
+    }
+}
+
+//打印地图
+void PrintMap(){
+    for(int i=1;i<=n1;i++){
+        int k = first1[i];
+        while(k!=-1){
+            std::cout<<u1[k]<<" "<<v1[k]<<" "<<w1[k]<<std::endl;
+            k = next1[k];
+        }
+    }
+}
+
+//深搜遍历图顶点
+void DFS(int cur, int father){
+    int child = 0;//统计cur子节点的个数
+    index1++; //时间戳累计
+    nums1[cur] = index1;//初始化为自己
+    lows1[cur] = index1;
+
+    //枚举cur顶点的所有出边,找到子节点
+    int k = first1[cur];
+    while(k!=-1){
+        child++;
+
+        int v = v1[k];//子节点
+        if(nums1[v] == 0){//节点有没有被访问过
+            DFS(v,cur);//继续深搜
+            //更新当前顶点cur能否访问到最早顶点的时间戳
+            lows1[cur] = std::min(lows1[cur],lows1[v]);
+            if(cur!=root1 && lows1[v]>=nums1[cur]){
+                flag1[cur] = 1;
+            }
+
+            if(cur==root1 && child==2){//如果是根节点,则生成树的子节点必然为2个才是割点
+                flag1[cur] = 1;
+            }
+
+        } else if(v!=father){//节点被访问过,但是不是cur的父节点,则需要更新当前节点cur能否访问到最早顶点的时间戳
+            lows1[cur] = std::min(lows1[cur],nums1[v]);
+        }
+
+        k = next1[k];
+    }
+
+}
+
+//求地图割点
+void MapCutPoint(){
+    StoreMap();
+    PrintMap();
+
+    root1 =1;
+    DFS(1,1);//从1号顶点开始
+
+    std::cout<<"图的割点:";
+    for(int i=1;i<=n1; i++){
+        if(flag1[i]==1){
+            std::cout<<i<<" ";
+        }
+    }
+    std::cout<<std::endl;
+}
 
 int TestMapCutPoint1(){
     auto start = std::chrono::steady_clock::now();
 
+    MapCutPoint();
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
