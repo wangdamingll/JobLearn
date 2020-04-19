@@ -99,13 +99,14 @@ void DFS(int cur, int father){
     //枚举cur顶点的所有出边,找到子节点
     int k = first1[cur];
     while(k!=-1){
-        child++;
-
         int v = v1[k];//子节点
         if(nums1[v] == 0){//节点有没有被访问过
+            child++;
             DFS(v,cur);//继续深搜
             //更新当前顶点cur能否访问到最早顶点的时间戳
             lows1[cur] = std::min(lows1[cur],lows1[v]);
+
+            //如果当前节点不是根节点,且cur的子节点最小时间戳大于或者等于cur节点,说明子节点v不能避开cur节点,也就是cur是割点
             if(cur!=root1 && lows1[v]>=nums1[cur]){
                 flag1[cur] = 1;
             }
@@ -114,7 +115,8 @@ void DFS(int cur, int father){
                 flag1[cur] = 1;
             }
 
-        } else if(v!=father){//节点被访问过,但是不是cur的父节点,则需要更新当前节点cur能否访问到最早顶点的时间戳
+        } else if(v!=father){//节点被访问过,但是不是cur的父节点(递归生成树中father是cur的父节点),
+                             //但是在对cur再次递归时,发现cur的父节点不止一个,即v也是cur的父节点,则需要更新当前节点cur能否访问到最早顶点的时间戳
             lows1[cur] = std::min(lows1[cur],nums1[v]);
         }
 
@@ -129,7 +131,7 @@ void MapCutPoint(){
     PrintMap();
 
     root1 =1;
-    DFS(1,1);//从1号顶点开始
+    DFS(1,root1);//从1号顶点开始
 
     std::cout<<"图的割点:";
     for(int i=1;i<=n1; i++){
