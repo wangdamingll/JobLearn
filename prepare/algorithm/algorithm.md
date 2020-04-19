@@ -188,13 +188,24 @@ O(N^3)
 1. 需要用DFS遍历图的所有顶点,记录num[顶点编号] = 顶点深度遍历时间戳
 2. 当遍历到顶点u时,枚举顶点u的所有出边,比如v,如何知道v不经过父节点u能否回到祖先节点呢?对子节点v再次DFS
 3. 需要记录每个子节点v在不经过父节点u的情况下,能够回到的最小时间戳(若存在v的父节点不止u一个的情况下):lows[v] = min(lows[v],nums[f])
-4. v回溯的时候判断获取当前节点的low[u]=min(low[u],low[v]),如果low[v]>=num[u],表示v不能不经过u回到祖先,即u为割点   
+4. v回溯的时候获取当前节点的最小时间戳low[u]=min(low[u],low[v]),如果low[v]>=num[u],表示v不能不经过u回到祖先,即u为割点   
 ##### * 代码示例  
 [图割点--tarjan](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/MapCutPoint)  
 
-
 ## 图的割边  
-* 待完善  
+### 1. tarjan算法  
+##### * 时间复杂度:
+1. 深度优先遍历或广度优先遍历:O(N(N+M))
+2. tarjan算法:  
+用邻接矩阵存储:O(N^2)  
+用邻接表存储:O(N+M)  
+##### * 算法特点:
+1. 需要用DFS遍历图的所有顶点,记录num[顶点编号] = 顶点深度遍历时间戳
+2. 当遍历到顶点u时,枚举顶点u的所有出边,比如v,如何知道v不经过父节点u能否回到祖先节点呢?对子节点v再次DFS
+3. 需要记录每个子节点v在不经过父节点u的情况下,能够回到的最小时间戳(若存在v的父节点不止u一个的情况下):lows[v] = min(lows[v],nums[f])
+4. v回溯的时候获取当前节点的最小时间戳low[u]=min(low[u],low[v]),如果low[v]>=num[u],表示v不能不经过u回到祖先,即u为割点,如果low[v]>num[u],表示v不经过u,也没有其他的父节点,即u<->v是割边
+##### * 代码示例  
+[图割边--tarjan](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/MapCutEdge)  
   
 ## 二分图最大匹配  
 * 待完善  
