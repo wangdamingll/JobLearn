@@ -177,7 +177,7 @@ O(N^3)
 ### 3. Prim算法  
 * [算法示例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/MapBuildMinTree)  
 
-## 图的割点--
+## 图的割点
 ### 1. tarjan算法  
 ##### * 时间复杂度:
 1. 深度优先遍历或广度优先遍历:O(N(N+M))
