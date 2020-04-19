@@ -187,7 +187,7 @@ O(N^3)
 ##### * 算法特点:
 1. 需要用DFS遍历图的所有顶点,记录num[顶点编号] = 顶点深度遍历时间戳
 2. 当遍历到顶点u时,枚举顶点u的所有出边,比如v,如何知道v不经过父节点u能否回到祖先节点呢?对子节点v再次DFS
-3. 需要记录每个子节点v在不经过父节点u的情况下,能够回到的最小时间戳
+3. 需要记录每个子节点v在不经过父节点u的情况下,能够回到的最小时间戳(若存在v的父节点不止u一个的情况下):lows[v] = min(lows[v],nums[f])
 4. v回溯的时候判断获取当前节点的low[u]=min(low[u],low[v]),如果low[v]>=num[u],表示v不能不经过u回到祖先,即u为割点   
 ##### * 代码示例  
 [图割点--tarjan](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/MapCutPoint)  
