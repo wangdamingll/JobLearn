@@ -1,4 +1,5 @@
 #include "BipartiteMapMaxMatch1.hpp"
+#include "BipartiteMapMaxMatch2.hpp"
 using namespace std;
 
 
@@ -13,6 +14,6 @@ using namespace std;
 
 
 int main() {
-    TestBipartiteMapMaxMatch();         //无权二分图最大匹配---匈牙利算法
-                                        //带权二分图最大匹配---KM算法
+    TestBipartiteMapMaxMatch1();         //无权二分图最大匹配---匈牙利算法
+    TestBipartiteMapMaxMatch2();         //带权二分图最大匹配---KM算法(acm)
 }
