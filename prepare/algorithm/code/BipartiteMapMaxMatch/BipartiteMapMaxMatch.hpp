@@ -9,13 +9,13 @@ using namespace std;
 /*无权二分图最大匹配----匈牙利算法
  *
  * 问题描述:
- *  1 2 3 为女生, 1' 2' 3'为男生,1可以和1' 2' 匹配,2可以和2' 3'匹配,3可以和1'匹配,要求最终的匹配都是男女相互认识的,求最大匹配数?
+ *  1 2 3 为女生, 4 5 6为男生,1可以和4 5匹配,2可以和5 6匹配,3可以和4匹配,要求最终的匹配都是男女相互认识的,求最大匹配数?
  *
- *  1    1'
+ *  1    4
  *
- *  2    2'
+ *  2    5
  *
- *  3    3'
+ *  3    6
  *
  * 说明:
  * 1. 也就是求无权二分图(无向图)的最大匹配数
@@ -47,6 +47,7 @@ using namespace std;
  * 思考:
  * 1. 二分图数据可以用邻接矩阵存储,也可以用邻接表存储
  * 2. 遍历二分图点可以用DFS,也可以BFS
+ * 3. n个顶点,最多有n/2条增广路
  *
  * */
 
@@ -124,12 +125,17 @@ void BipartiteMapMaxMatch(){
     }
 
     std::cout<<"最大匹配数为:"<<num<<std::endl;
+    std::cout<<"匹配关系为:"<<std::endl;
+    for(int i=1;i<=n1/2;i++){//后3个重复了,最多有n/2条增广路
+        std::cout<<i<<"<->"<<match1[i]<<" ";
+    }
+    std::cout<<std::endl;
 }
 
 int TestBipartiteMapMaxMatch(){
     auto start = std::chrono::steady_clock::now();
 
-    BipartiteMapMaxMatch();
+    BipartiteMapMaxMatch();//无权二分图最大匹配----匈牙利算法
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
