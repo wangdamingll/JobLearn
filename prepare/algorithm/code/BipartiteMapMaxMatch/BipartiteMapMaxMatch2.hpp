@@ -4,6 +4,7 @@
 #include <iostream>
 #include <chrono>
 #include <algorithm>
+#include <cstring>
 using namespace std;
 
 /* 带权二分图匹配,权和最大----KM算法
@@ -67,6 +68,8 @@ int exv2b[m2+1] = {0};//标识每个男生的期望值
 
 int slack2[n2+1]={0};//记录每个男生如果能被女生倾心最少还需要多少期望值
 
+constexpr int INF = 0x3f3f3f3f;
+
 //保存地图
 void StoreMap2(){
     for(auto& it : first2){ //初始化
@@ -91,10 +94,31 @@ void PrintMap2(){
 }
 
 //深度优先搜索
-int DFS2(int u){
+bool DFS2(int girl){
+    visit2g[girl] = 1;//标识
+    //找出girl所有有好感的男生
+    int k = first2[girl];
+    while(k!=-1){
+        if(visit2b[v2[k]] == 1){//每个男生只能每轮只能被匹配一次
+            k = next2[k];
+            continue;
+        }
+        int gap = exv2g[u2[k]] + exv2b[v2[k]] - w2[k]; //exv2g[u2[k]] + exv2b[v2[k]] == w2[k],即女生和男生的期望值和等于比边权
+        if(gap==0 ){//满足要求
+            visit2b[v2[k]] = 1; //标识
+            if(match2[v2[k]]==0 || DFS2(match2[v2[k]])){//该男生没有被匹配成功过 或者 "连锁反应"
+                match2[v2[k]] = girl;
+                return true;
+            }
 
+        } else{
+            slack2[v2[k]] = std::min(slack2[v2[k]],gap);//slack 可以理解为该男生要得到女生的倾心 还需多少期望值 取最小值
+        }
 
-   return 0;
+        k = next2[k];
+    }
+
+   return false;
 }
 
 //带权二分图匹配,权和最大----KM算法
@@ -102,6 +126,69 @@ void BipartiteMapMaxMatch2(){
     StoreMap2();
     PrintMap2();
 
+    //KM算法核心部分
+    //每个女生的初始期望值是与她相连的男生最大的好感度
+    for(int i=1;i<=n2/2;i++){
+        int k = first2[i];
+        exv2g[i] = w2[k];//先假设第一个为最大值
+        while(k!=-1){
+            exv2g[i] = std::max(exv2g[i],w2[k]);
+            k = next2[k];
+        }
+    }
+
+    //尝试为每一个女生解决归宿问题
+    for(int i=1;i<=n2/2;i++){
+        //因为要求最小值,所以需要初始化无穷大
+        std::memset(slack2,INF, sizeof(slack2));
+
+        while (true){//为每个女生解决归宿问题的方法是:如果找不到就降低期望值,直到找到为止
+            //记录每轮匹配中男生女生是否被尝试匹配过
+            std::memset(visit2b,0, sizeof(visit2b));
+            std::memset(visit2g,0, sizeof(visit2g));
+
+            if(DFS2(i)) break; //尝试成功 则退出
+
+            //不成功则降低期望值
+            //最少可降低的期望值
+            int d = INF;
+            for(int j=1;j<=n2;j++){//任意一个参与匹配女生能换到任意一个这轮没有被选择过的男生所需要降低的最小值
+                if(!visit2b[j]){
+                    d = std::min(d,slack2[j]);//slack可以理解为该男生要得到女生的倾心 还需多少期望值 取最小值
+                }
+            }
+
+            for(int i2=1;i2<=n2;i2++){
+                if(visit2g[i2]){//为所有访问过的女生降低期望值
+                    exv2g[i2] -= d;
+                }
+            }
+
+            for(int j=1;j<=n2;j++){
+                if(visit2b[j]){//所有访问过的男生增加期望值
+                    exv2b[j] += d;
+                }else{//没有访问过的男生们 因为女生们的期望值降低,距离得到女生倾心又进了一步!
+                    slack2[j] -= d;
+                }
+            }
+        }
+    }
+
+    //匹配完成 求出所有配对的好感度的和
+    std::cout<<"匹配情况:";
+    int sum =0;
+    for(int i3=1;i3<=n2/2;i3++){
+        int k = first2[i3];
+        while(k!=-1){
+            if(i3 == match2[v2[k]]){
+                sum+=w2[k];
+                std::cout<<u2[k]<<"<->"<<v2[k]<<std::endl;
+            }
+            k = next2[k];
+        }
+    }
+    std::cout<<std::endl;
+    std::cout<<"匹配总和:"<<sum<<std::endl;
 }
 
 int TestBipartiteMapMaxMatch2(){
