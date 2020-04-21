@@ -220,14 +220,14 @@ O(N^3)
 #### * 代码示例  
 [无权二分图最大匹配--匈牙利算法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BipartiteMapMaxMatch)  
 
-### 2. 带权二分图匹配,权和最大---KM算法  
+### 2. 带权二分图最佳完美匹配---KM算法  
 #### * 时间复杂度:
 1. 邻接矩阵存储:O(N^3),N为点的总数
 2. 邻接表存储:O(M*N^2),M为边数,N为点的总数
 #### * 算法特点  
 请查看代码注释部分
 #### * 代码示例  
-[带权二分图匹配,权和最大---KM算法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BipartiteMapMaxMatch)  
+[带权二分图最佳完美匹配---KM算法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BipartiteMapMaxMatch)  
 
 ## 树  
 ### 1. 神奇的优先队列  

@@ -7,7 +7,7 @@
 #include <cstring>
 using namespace std;
 
-/* 带权二分图匹配,权和最大----KM算法
+/* 带权二分图最佳完美匹配----KM算法
  *
  * 问题描述:
  *  1 2 3 为女生, 4 5 6为男生,1可以和4 5匹配,2可以和5 6匹配,3可以和4匹配,要求最终的匹配都是男女相互认识的,求匹配的权和最大?
@@ -130,7 +130,7 @@ bool DFS2(int girl){
    return false;
 }
 
-//带权二分图匹配,权和最大----KM算法
+//带权二分图最佳完美匹配----KM算法
 void BipartiteMapMaxMatch2(){
     StoreMap2();
     PrintMap2();
@@ -203,7 +203,7 @@ void BipartiteMapMaxMatch2(){
 int TestBipartiteMapMaxMatch2(){
     auto start = std::chrono::steady_clock::now();
 
-    BipartiteMapMaxMatch2();//带权二分图匹配,权和最大----KM算法
+    BipartiteMapMaxMatch2();//带权二分图最佳完美匹配----KM算法
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
