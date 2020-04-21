@@ -208,7 +208,26 @@ O(N^3)
 [图割边--tarjan](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/MapCutEdge)  
   
 ## 二分图最大匹配  
-* 待完善  
+### 1. 无权二分图最大匹配---匈牙利算法  
+#### * 时间复杂度:
+用邻接表存储:O(NM)  
+#### * 算法特点:
+1. 首先从任意一个未被配对的点u开始,从点u的边中任意选一条边(假设这条边是u→ν)开始配对,如果此时点v还没有被配对,则配对成功.此时便找到了一条增广路(只不过这条增广路比较简单).  
+如果此时点v已经被配对了,那就要尝试进行"连锁反应".如果尝试成功了,则找到一条增广路,此时需要更新原来的配对关系.这里要用一个数组match来记录配对关系,比如点v与点配对了,就记作match[v]=u和match[u]=v配对成功后,记得要将配对数加1.  
+配对的过程我们可以通过深度优先搜索来实现,当然广度优先搜索也可以.
+2. 如果刚才所选的边配对失败,要从点u的边中再重新选一条边,进行尝试.直到点u配对成功,或者尝试过点u所有的边为止.
+3. 接下来继续对剩下没有被配对的点一一进行配对,直到所有的点都尝试完毕,找不到新的增广路为止,输出配对数.
+#### * 代码示例  
+[无权二分图最大匹配--匈牙利算法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BipartiteMapMaxMatch)  
+
+### 2. 带权二分图匹配,权和最大---KM算法  
+#### * 时间复杂度:
+1. 邻接矩阵存储:O(N^3),N为点的总数
+2. 邻接表存储:O(M*N^2),M为边数,N为点的总数
+#### * 算法特点  
+请查看代码注释部分
+#### * 代码示例  
+[带权二分图匹配,权和最大---KM算法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BipartiteMapMaxMatch)  
 
 ## 树  
 ### 1. 神奇的优先队列  
