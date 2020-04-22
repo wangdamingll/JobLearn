@@ -16,6 +16,19 @@
 * 代码示例  
 [冒泡排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BubbleSort)  
 
+### 2. 选择排序  
+* 解决问题  
+1. 排序问题  
+* 时间复杂度  
+不稳定排序:O(N^2)
+* 算法思想  
+1. 选择排序是在每一趟查找最大值(或最小值),并标记该最大值的下标位置.如果该趟查找完毕之后,最大值下标和当前i的元素下标不同,就开始交换.  
+2. 每一趟都会有一个元素的最终位置被确定  
+* 算法特点  
+1. 标记每轮起始元素,并从其后一位开始到结束与起始元素相比,选择最值后交换  
+* 代码示例  
+[选择排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/SelectSort)  
+
 ### 4. 桶排序  
 * 解决问题  
 1. 排序问题  
