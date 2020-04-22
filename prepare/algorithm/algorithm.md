@@ -6,13 +6,14 @@
 * 解决问题  
 1. 排序问题  
 * 时间复杂度  
-稳定排序:O(N^2)
+O(N^2)
 * 算法思想  
 1. 均是前一项同后一项进行比较  
 * 算法特点  
 1. 相邻元素之间比较  
 2. 经过i次扫描后,数列的末尾i项必然是最大(小)的i项,就是每轮必定将最值放到末尾  
-3. 如果数列为n个,最多需要处理n-1轮即可  
+3. 如果数列为n个,最多需要处理n-1轮即可 
+4. 稳定排序   
 * 代码示例  
 [冒泡排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BubbleSort)  
 
@@ -20,12 +21,13 @@
 * 解决问题  
 1. 排序问题  
 * 时间复杂度  
-不稳定排序:O(N^2)
+O(N^2)
 * 算法思想  
 1. 选择排序是在每一趟查找最大值(或最小值),并标记该最大值的下标位置.如果该趟查找完毕之后,最大值下标和当前i的元素下标不同,就开始交换.  
 2. 每一趟都会有一个元素的最终位置被确定  
 * 算法特点  
 1. 标记每轮起始元素,并从其后一位开始到结束与起始元素相比,选择最值后交换  
+2. 不稳定排序  
 * 代码示例  
 [选择排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/SelectSort)  
 
@@ -34,13 +36,13 @@
 排序问题  
 * 时间复杂度  
 1. 最坏和平均的时间复杂度均为:O(N^2)  
-2. 稳定排序  
 * 算法思想  
 插入排序将数列划分为"已排序的"和"未排序的"两部分,每次从"未排序的"元素中选择一个插入到"已排序的"元素中的正确位置  
 * 算法特点  
 1. 插入排序第一趟是将第一个元素视为有序,从第二个元素(索引为i)开始与它的前一个元素比较,如果比它前一个元素小(升序),就将arr[i]临时存放,将i前面比arr[i]大的元素往后移动一位,直到前一元素比arr[i]小,最后将arr[i]插入到正确位置  
 2. 把数拿出来(产生坑)->比较->把数放回去(填坑)  
 3. 在数列几乎有序的时候效率很高  
+3. 稳定排序  
 * 代码示例  
 [插入排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/InsertSort)  
 
@@ -70,7 +72,8 @@
 1. 最坏的时间复杂度:O(N^2)  
 2. 平均时间复杂度:O(NlogN)  
 * 算法特点:  
-1.数据越有序,越快  
+1. 数据越有序,越快  
+2. 不稳定排序  
 * 代码示例    
 [快速排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/QuickSort)  
 
@@ -94,7 +97,9 @@
 1. 排序问题  
 2. 找出一组数中第K大(小)的问题
 * 时间复杂度  
-O(NlogN)
+O(NlogN)  
+* 算法特点  
+1. 不稳定排序
 * 代码示例  
 [堆排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/HeapSort)  
 
