@@ -29,6 +29,21 @@
 * 代码示例  
 [选择排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/SelectSort)  
 
+### 3. 插入排序  
+* 解决问题  
+排序问题  
+* 时间复杂度  
+1. 最坏和平均的时间复杂度均为:O(N^2)  
+2. 稳定排序  
+* 算法思想  
+插入排序将数列划分为"已排序的"和"未排序的"两部分,每次从"未排序的"元素中选择一个插入到"已排序的"元素中的正确位置  
+* 算法特点  
+1. 插入排序第一趟是将第一个元素视为有序,从第二个元素(索引为i)开始与它的前一个元素比较,如果比它前一个元素小(升序),就将arr[i]临时存放,将i前面比arr[i]大的元素往后移动一位,直到前一元素比arr[i]小,最后将arr[i]插入到正确位置  
+2. 把数拿出来(产生坑)->比较->把数放回去(填坑)  
+3. 在数列几乎有序的时候效率很高  
+* 代码示例  
+[插入排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/InsertSort)  
+
 ### 4. 桶排序  
 * 解决问题  
 1. 排序问题  
