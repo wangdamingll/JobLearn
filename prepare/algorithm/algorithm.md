@@ -44,29 +44,21 @@
 * 代码示例  
 [插入排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/InsertSort)  
 
-### 4. 桶排序  
+### 3. 希尔排序  
 * 解决问题  
-1. 排序问题  
-2. 可以统计某个数出现的次数 
-3. 可以对某个数出现进行标记(记数排序)
+排序问题  
 * 时间复杂度  
-期望的时间复杂度:O(N)  
+1. 平均时间复杂度:O(N^(3/2))  
+2. 最差时间复杂度:O(n*log2n)  
 * 算法思想  
-1. 对值域进行分块,每块分别排序.由于每块元素不多,一般使用插入排序.如果使用稳定的内层排序,并且将元素插入桶中时不改变相对顺序,那么桶排序就是稳定的.  
+希尔排序相当于插入排序的加强版,它将一个待排序数组以步长step分为N组,在每组中执行插入排序操作,插入排序可以看成是步长为1的希尔排序  
 * 算法特点  
-1. 适用于待排序数据值域较大但分布比较均匀的情况  
-2. 如果要排序的数组非常大且有规律或者大体分布均匀或者通过某种方式能够对数据进行放大缩小,可以考虑桶排序  
+1. 元素分组 + 插入排序
+2. 不稳定排序
+3. 数列中等大小规模表现良好,对规模非常大的数据排序不是最优选择  
+4. 几乎任何排序工作在开始时都可以用希尔排序,若在实际使用中证明它不够快,再改成快速排序这样更高级的排序算法  
 * 代码示例  
-[桶排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BucketSort)  
-
-### 5. 堆排序  
-* 解决问题  
-1. 排序问题  
-2. 找出一组数中第K大(小)的问题
-* 时间复杂度  
-O(NlogN)
-* 代码示例  
-[堆排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/HeapSort)  
+[希尔排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/ShellSort)  
 
 ### 6. 快速排序  
 * 解决问题  
@@ -81,6 +73,30 @@ O(NlogN)
 1.数据越有序,越快  
 * 代码示例    
 [快速排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/QuickSort)  
+
+### 7. 桶排序  
+* 解决问题  
+1. 排序问题  
+2. 可以统计某个数出现的次数 
+3. 可以对某个数出现进行标记(记数排序)
+* 时间复杂度  
+期望的时间复杂度:O(N)  
+* 算法思想  
+1. 对值域进行分块,每块分别排序.由于每块元素不多,一般使用插入排序.如果使用稳定的内层排序,并且将元素插入桶中时不改变相对顺序,那么桶排序就是稳定的.  
+* 算法特点  
+1. 适用于待排序数据值域较大但分布比较均匀的情况  
+2. 如果要排序的数组非常大且有规律或者大体分布均匀或者通过某种方式能够对数据进行放大缩小,可以考虑桶排序  
+* 代码示例  
+[桶排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BucketSort)  
+
+### 8. 堆排序  
+* 解决问题  
+1. 排序问题  
+2. 找出一组数中第K大(小)的问题
+* 时间复杂度  
+O(NlogN)
+* 代码示例  
+[堆排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/HeapSort)  
 
 
 ## 搜索算法
