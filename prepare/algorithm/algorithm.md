@@ -2,7 +2,21 @@
 ---  
 ## 排序算法  
 
-### 1. 桶排序  
+### 1. 冒泡排序  
+* 解决问题  
+1. 排序问题  
+* 时间复杂度  
+稳定排序:O(N^2)
+* 算法思想  
+1. 均是前一项同后一项进行比较  
+* 算法特点  
+1. 相邻元素之间比较  
+2. 经过i次扫描后,数列的末尾i项必然是最大(小)的i项,就是每轮必定将最值放到末尾  
+3. 如果数列为n个,最多需要处理n-1轮即可  
+* 代码示例  
+[冒泡排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BubbleSort)  
+
+### 4. 桶排序  
 * 解决问题  
 1. 排序问题  
 2. 可以统计某个数出现的次数 
@@ -17,7 +31,7 @@
 * 代码示例  
 [桶排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BucketSort)  
 
-### 1. 堆排序  
+### 5. 堆排序  
 * 解决问题  
 1. 排序问题  
 2. 找出一组数中第K大(小)的问题
@@ -26,7 +40,7 @@ O(NlogN)
 * 代码示例  
 [堆排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/HeapSort)  
 
-### 2. 快速排序  
+### 6. 快速排序  
 * 解决问题  
 排序问题  
 * 算法思想:  
