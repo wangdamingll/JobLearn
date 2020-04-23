@@ -101,8 +101,9 @@ void RadixSort(int* arr, int n){
     int max = GetMax(arr, n);    // 数组a中的最大值
 
     // 从个位开始，对数组a按"指数"进行排序
-    for (exp = 1; max/exp > 0; exp *= 10)
+    for (exp = 1; max/exp > 0; exp *= 10){
         CountSort(arr, n, exp);
+    }
 }
 
 int TestRadixSort1(){
