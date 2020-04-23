@@ -396,6 +396,14 @@ O(NlogN)
 * 代码示例  
 [并查集](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/UnionFind)  
 
+## 游戏  
+### 视野控制(AOI)-----九宫格  
+* [九宫格介绍](https://blog.csdn.net/wangdamingll/article/details/105207975)  
+* [示例代码](https://github.com/wangdamingll/Cplusplus-Common-Tools/blob/master/NineBoxView)  
+
+### A* 寻路算法  
+* 略
+
 
 
 ---
