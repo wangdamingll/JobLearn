@@ -46,7 +46,7 @@ O(N^2)
 * 代码示例  
 [插入排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/InsertSort)  
 
-### 3. 希尔排序  
+### 4. 希尔排序  
 * 解决问题  
 排序问题  
 * 时间复杂度  
@@ -62,7 +62,7 @@ O(N^2)
 * 代码示例  
 [希尔排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/ShellSort)  
 
-### 6. 快速排序  
+### 5. 快速排序  
 * 解决问题  
 排序问题  
 * 算法思想:  
@@ -76,6 +76,25 @@ O(N^2)
 2. 不稳定排序  
 * 代码示例    
 [快速排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/QuickSort)  
+
+### 6. 归并排序    
+* 解决问题  
+1. 排序问题  
+2. 求逆序对的个数  
+* 算法思想:  
+1. 分治思想    
+2. 递归思想
+* 时间复杂度:  
+O(NlogN)  
+* 算法特点:  
+1. 归并排序 = 归并排序主体递归 + 合并算法  
+2. 归并排序的主体部分的temp参数是主调函数分配内存  
+3. 合并其实是递归回溯的时候自下而上的合并  
+4. 该排序可以说是以空间换时间的排序算法  
+5. 稳定排序  
+* 代码示例    
+[归并排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/MergeSort)  
+
 
 ### 7. 桶排序  
 * 解决问题  
