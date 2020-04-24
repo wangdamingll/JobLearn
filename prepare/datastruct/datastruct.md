@@ -30,6 +30,15 @@
 * 示例代码  
 [二叉搜索树的第K大节点](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeKNode)   
 
+### 求二叉树第K层节点数 
+* 算法思想  
+1. 递归思想  
+* 算法特点  
+1. 求第K层的节点数,也就是要求第K-1层有无左右子树,存在就统计  
+2. 第K-1层先序判断处理  
+* 示例代码  
+[求二叉树第K层节点数](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeNodeNumKthLevel)   
+
 
 
 
