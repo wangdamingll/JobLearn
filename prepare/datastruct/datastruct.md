@@ -49,6 +49,16 @@
 * 示例代码  
 [求二叉树叶子节点个数](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeLeafNum)   
 
+#### 4. 求二叉树节点个数  
+* 算法思想  
+1. 深度优先思想(递归)  
+2. 广度优先思想   
+* 算法特点  
+1. 深度优先借助递归  
+2. 广度优先借助队列  
+* 示例代码  
+[求二叉树节点个数](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeNodeNum)   
+
 
 
 
