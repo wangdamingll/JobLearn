@@ -34,15 +34,15 @@ void BTreeEach(TreeNode* root){
 }
 
 //二叉树---计算二叉树叶子节点个数
-void BTreeKNodeNum(TreeNode* root,int& k){
+void BTreeLeafNum(TreeNode* root,int& k){
     if(root== nullptr){
         return ;
     }
     if(root->lc== nullptr&& root->rc== nullptr){
         k++;
     }
-    BTreeKNodeNum(root->lc,k);
-    BTreeKNodeNum(root->rc,k);
+    BTreeLeafNum(root->lc,k);
+    BTreeLeafNum(root->rc,k);
 }
 
 int TestBTreeLeafNum(){
@@ -70,7 +70,7 @@ int TestBTreeLeafNum(){
     std::cout<<std::endl;
 
     int num =0;
-    BTreeKNodeNum(&root,num);
+    BTreeLeafNum(&root,num);
     std::cout<<"leaf:"<<num<<std::endl;
 
     auto end = std::chrono::steady_clock::now();
