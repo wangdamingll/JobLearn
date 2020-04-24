@@ -18,7 +18,8 @@
 * 示例代码  
 [树的广度优先遍历](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeEach)  
 
-### 二叉搜索树的第K大节点 
+### 树的常见习题  
+#### 1. 二叉搜索树的第K大节点 
 * 算法思想  
 1. 递归思想  
 2. 递归左节点回溯的时候判断是否是第K大节点  
@@ -30,7 +31,7 @@
 * 示例代码  
 [二叉搜索树的第K大节点](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeKNode)   
 
-### 求二叉树第K层节点数 
+#### 2. 求二叉树第K层节点数 
 * 算法思想  
 1. 递归思想  
 * 算法特点  
@@ -38,6 +39,15 @@
 2. 第K-1层先序判断处理  
 * 示例代码  
 [求二叉树第K层节点数](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeNodeNumKthLevel)   
+
+#### 3. 求二叉树叶子节点个数  
+* 算法思想  
+1. 递归思想  
+* 算法特点  
+1. 节点无左右子树就是叶子节点  
+2. 先序处理(节点会被访问三次,先序 中序 后序处理都可以)  
+* 示例代码  
+[求二叉树叶子节点个数](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeLeafNum)   
 
 
 
