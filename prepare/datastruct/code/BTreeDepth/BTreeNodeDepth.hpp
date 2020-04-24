@@ -1,12 +1,12 @@
-#ifndef __BTREE_NODE_NUM__H__
-#define __BTREE_NODE_NUM__H__
+#ifndef __BTREE_DEPTH__H__
+#define __BTREE_DEPTH__H__
 
 #include <iostream>
 #include <chrono>
 #include <queue>
 using namespace std;
 
-/* 二叉树-----计算二叉树节点个数
+/* 二叉树-----计算二叉树深度
  *
  * 算法思想:
  * 1. 深度优先思想(递归)
@@ -17,7 +17,7 @@ using namespace std;
  * 2. 广度优先借助队列
  *
  * 思考:
- * 1. 既然要递归求节点个数,当然要知道当前节点的左右子树节点各是多少,所以要用后序处理统计了
+ * 1. 既然要递归求树的深度,当然要知道当前节点的左右子树的深度各是多少,然后取最大值,所以要后序处理
  * */
 
 namespace BTree1{
@@ -38,44 +38,44 @@ void BTreeEach(TreeNode* root){
     BTreeEach(root->rc);
 }
 
-//二叉树---计算二叉树节点个数(深度优先)
-int BTreeNodeNumDFS(TreeNode* root){
+//二叉树---计算二叉树深度(深度优先)
+int BTreeDepthDFS(TreeNode* root){
     if(root== nullptr){
         return 0;
     }
-    int leftNum = BTreeNodeNumDFS(root->lc);
-    int rightNum = BTreeNodeNumDFS(root->rc);
-    return (leftNum+rightNum+1); //后序处理:左子树节点数 + 右子树节点数 + 当前节点
+    int leftDepth = BTreeDepthDFS(root->lc);
+    int rightDepth = BTreeDepthDFS(root->rc);
+    return (std::max(leftDepth,rightDepth)+1); //后序处理:选取最大值
 }
 
-//二叉树---计算二叉树节点个数(广度优先)
-int BTreeNodeNumBFS(TreeNode* root){
+//二叉树---计算二叉树深度(广度优先)
+int BTreeDepthBFS(TreeNode* root){
     if(root == nullptr){
         return 0;
     }
 
-    int num=0;
+    int depth=0;//树的深度
+    int lDepth=0;//左子树深度
+    int rDepth =0;//右子树深度
     std::queue<TreeNode*> queue;
     queue.push(root);
-    num++;
-
     while(!queue.empty()){
         TreeNode* node = queue.front();
         queue.pop();
         if(node->lc!= nullptr){
             queue.push(node->lc);
-            num++;
+            lDepth++;
         }
         if(node->rc!= nullptr){
             queue.push(node->rc);
-            num++;
+            rDepth++;
         }
+        depth = std::max(lDepth,rDepth);
     }
-    return num;
+    return depth;
 }
 
-
-int TestBTreeLeafNum(){
+int TestBTreeDepth(){
     auto start = std::chrono::steady_clock::now();
 
     //创建结点
@@ -94,16 +94,17 @@ int TestBTreeLeafNum(){
     node1.lc = &node3;
     node1.rc = &node4;
     node2.lc = &node5;
-    node2.rc = &node6;
+    //node2.rc = &node6;
+    node4.lc = &node6;
 
     BTreeEach(&root);
     std::cout<<std::endl;
 
-    int num = BTreeNodeNumDFS(&root); //深度优先
-    std::cout<<"node num(dfs):"<<num<<std::endl;
+    int depth = BTreeDepthDFS(&root); //深度优先
+    std::cout<<"tree depth(dfs):"<<depth<<std::endl;
 
-    num = BTreeNodeNumDFS(&root); //广度优先
-    std::cout<<"node num(bfs):"<<num<<std::endl;
+    depth = BTreeDepthBFS(&root); //广度优先
+    std::cout<<"tree depth(bfs):"<<depth<<std::endl;
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
@@ -113,4 +114,4 @@ int TestBTreeLeafNum(){
 }
 
 }
-#endif //__BTREE_NODE_NUM__H__
+#endif //__BTREE_DEPTH__H__
