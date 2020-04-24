@@ -1,10 +1,14 @@
 #include "BTreeEach.hpp"
+#include "BTreeBroadCastEach.hpp"
 
-/* 二叉树-----递归遍历
+using namespace BTreeEach1;
+using namespace BTreeEach2;
+
+/* 二叉树-----遍历
  *
  * */
 
-
 int main() {
-    TestBTreeEach();//二叉树递归遍历
+    BTreeEach1::TestBTreeEach();//二叉树深度优先遍历(递归)
+    BTreeEach2::TestBTreeEach();//二叉树广度优先遍历
 }
