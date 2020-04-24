@@ -12,7 +12,6 @@ using namespace std;
  *
  * 算法特点:
  * 1. 每个节点会访问三次
- * 2. 二叉搜索树中序遍历是一个升序数列
  * */
 
 namespace BTreeEach1{

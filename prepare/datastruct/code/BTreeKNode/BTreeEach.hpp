@@ -5,17 +5,20 @@
 #include <chrono>
 using namespace std;
 
-/* 二叉树-----递归遍历
+/* 二叉树-----寻找二叉搜索树的第K大节点
  *
  * 算法思想:
  * 1. 递归思想
+ * 2. 递归左节点回溯的时候判断是否是第K大节点
+ * 3. 二叉搜索树深度优先遍历,如果是中序遍历,则输出的序列是升序序列
  *
  * 算法特点:
  * 1. 每个节点会访问三次
- * 2. 二叉搜索树中序遍历是一个升序数列
+ * 2. 递归左节点回溯的时候判断是否是第K大节点
+ * 3. 右左节点回溯,一旦找到第K大节点,便不能再次递归进入右节点
  * */
 
-namespace BTreeEach1{
+namespace BTreeKNode{
 
 //二叉树结点 二叉链表
 struct TreeNode {
@@ -24,20 +27,33 @@ struct TreeNode {
     struct TreeNode* rc = nullptr;//右孩子节点
 };
 
-
-//二叉树---递归遍历
 void BTreeEach(TreeNode* root){
     if(root == nullptr){
-        return ;
+        return;
     }
-    //std::cout<<root->val<<std::endl; 先序:根左右
     BTreeEach(root->lc);
-    std::cout<<root->val<<" ";//中序(左节点回溯时访问):左根右
+    std::cout<<root->val<<" ";
     BTreeEach(root->rc);
-    //std::cout<<root->val<<std::endl;//后序(右节点回溯的时访问):左右根
 }
 
-int TestBTreeEach(){
+//二叉树---二叉搜索树寻找第K大节点
+TreeNode* BTreeKNode(TreeNode* root,int& k){
+    if(root == nullptr|| k==0){
+        return nullptr;
+    }
+    TreeNode* res = nullptr;
+    res = BTreeKNode(root->lc,k);//递归左子树
+    if(k==1){
+        res = root; //这里真正赋值
+    }
+    k--;//计数
+    if(k>0){ //找到了第K大节点,则不需要再递归右子树
+        res = BTreeKNode(root->rc,k);
+    }
+    return  res;
+}
+
+int TestBTreeKNode(){
     auto start = std::chrono::steady_clock::now();
 
     //创建结点
@@ -58,9 +74,14 @@ int TestBTreeEach(){
     node2.lc = &node5;
     node2.rc = &node6;
 
-    //遍历
-    BTreeEach(&root);//二叉树---递归遍历
-    std::cout << std::endl;
+    BTreeEach(&root);
+    std::cout<<std::endl;
+
+    int k=0;
+    std::cout<<"请输入第K大节点:";
+    std::cin>>k;
+    TreeNode* kNode = BTreeKNode(&root,k);//二叉树搜索树寻找第K大节点
+    std::cout <<kNode->val<< std::endl;
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);

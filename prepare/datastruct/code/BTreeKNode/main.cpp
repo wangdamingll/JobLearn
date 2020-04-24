@@ -1,14 +1,11 @@
 #include "BTreeEach.hpp"
-#include "BTreeBroadCastEach.hpp"
 
-using namespace BTreeEach1;
-using namespace BTreeEach2;
+using namespace BTreeKNode;
 
-/* 二叉树-----遍历
+/* 二叉树-----寻找二叉搜索树的第K大节点
  *
  * */
 
 int main() {
-    BTreeEach1::TestBTreeEach();//二叉树深度优先遍历(递归)
-    BTreeEach2::TestBTreeEach();//二叉树广度优先遍历
+    BTreeKNode::TestBTreeKNode();//寻找二叉搜索树的第K大节点
 }
