@@ -102,7 +102,7 @@ int TestBTreeLeafNum(){
     int num = BTreeNodeNumDFS(&root); //深度优先
     std::cout<<"node num(dfs):"<<num<<std::endl;
 
-    num = BTreeNodeNumDFS(&root); //广度优先
+    num = BTreeNodeNumBFS(&root); //广度优先
     std::cout<<"node num(bfs):"<<num<<std::endl;
 
     auto end = std::chrono::steady_clock::now();
