@@ -23,8 +23,8 @@ public:
      * 无
      * */
     void InitMap(int mapWidth,int mapHeight,int gridSize){
-        m_ColCount = mapWidth / gridSize + 1;
-        m_RowCount = mapHeight / gridSize + 1;
+        m_ColCount = mapWidth / gridSize +1;
+        m_RowCount = mapHeight / gridSize +1;
         m_GridSize = gridSize;
         m_MapWidth = mapWidth;
         m_MapHeight = mapHeight;
@@ -87,6 +87,16 @@ public:
      * */
     MapGrid& GetMapGridByPos(const Vector2i& pos){
         return m_MapGridVec[pos.m_y*m_ColCount + pos.m_x];
+    }
+
+    /* 根据格子索引获取地图格子对象
+     * 参数:
+     * index:格子索引
+     * 返回值:
+     * 格子对象
+     * */
+    MapGrid& GetMapGridByIndex(const int index){
+        return m_MapGridVec[index];
     }
 
     /* 根据格子坐标获取地图格子对象
@@ -204,7 +214,16 @@ public:
         for(int i=0;i<m_MapWidth;i++){
             for(int j=0;j<m_MapHeight;j++){
                 if(m_MapGridVec[j*m_RowCount+i].property.barrier==0){
-                    std::cout<<"*"<<" ";
+                    if(m_MapGridVec[j*m_RowCount+i].property.show==1){//打印寻路路线
+                        if(m_MapGridVec[j*m_RowCount+i].property.dstPost==1){
+                            std::cout<<"$"<<" ";
+                        }else{
+                            std::cout<<"@"<<" ";
+                        }
+
+                    }else{
+                        std::cout<<"*"<<" ";
+                    }
                 } else{
                     std::cout<<"#"<<" ";
                 }
@@ -214,7 +233,11 @@ public:
     }
 
     void PrintMap(std::vector<Vector2i>& path){
-
+        for(auto& it : path){
+            auto& curGrid = m_MapGridVec[it.m_y*m_ColCount + it.m_x];
+            curGrid.property.show =1;
+        }
+        PrintMap();
     }
 
     //... 其他函数

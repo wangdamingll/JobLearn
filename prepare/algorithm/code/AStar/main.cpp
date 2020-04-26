@@ -5,8 +5,8 @@
 #include "AStar.hpp"
 using namespace std;
 
-constexpr int MAP_WIDTH = 13;
-constexpr int MAP_HEIGHT = 13;
+constexpr int MAP_WIDTH = 5;
+constexpr int MAP_HEIGHT = 5;
 constexpr int MAP_GRID_SIZE = 1;
 
 std::random_device rd;
@@ -43,17 +43,33 @@ int main() {
 
     Vector2i from = map.ComputerGrid(fromPosX,fromPosY);
     Vector2i dst = map.ComputerGrid(dstPosX, dstPosY);
+
+    int fromIndex = map.ComputerGridIndex(from.m_x,from.m_y);
+    int dstIndex = map.ComputerGridIndex(dst.m_x,dst.m_y);
+    std::cout<<"fromIndex:"<<fromIndex<<"->"<<dstIndex<<std::endl;
+
     if(from == dst){
         std::cout<<"same grid"<<std::endl;
         return 0;
     }
 
     //A* 寻路算法
-    AStar aStar;
-    std::vector<Vector2i> path = aStar.AStarAlgorithm(from,dst,map);
+    AStar aStar(&map);
+    std::vector<Vector2i> path = aStar.AStarAlgorithm(from,dst);
+
+    //打印路线
+    int size = path.size();
+    for(int i=size-1;i>=0;i--){
+        if(i==size-1){
+            std::cout<<"("<<path[i].m_x<<","<<path[i].m_y<<")";
+        }else {
+            std::cout << "->(" << path[i].m_x << "," << path[i].m_y << ")";
+        }
+    }
+    std::cout<<std::endl;
 
     //打印寻路结果
-    map.PrintMap();
+    map.PrintMap(path);
 
     return 0;
 }
