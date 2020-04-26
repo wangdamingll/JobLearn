@@ -31,6 +31,12 @@ public:
 
         m_MaxIndex = m_ColCount * m_RowCount;
         m_MapGridVec.resize(m_MaxIndex);
+
+        //初始化地图对象的index,用于快速查找
+        int index=0;
+        for(auto& it:m_MapGridVec){
+            it.property.index = index++;
+        }
     }
 
     /*计算移动坐标所在的格子坐标
@@ -61,6 +67,37 @@ public:
         if(posX>m_MapWidth) posX = m_MapWidth;
         if(posY>m_MapHeight) posY = m_MapHeight;
         return (posY/m_GridSize * m_ColCount + posX/m_GridSize);
+    }
+
+    /* 根据格子坐标计算出格子索引
+     * 参数:
+     * pos:格子坐标
+     * 返回值:
+     * 格子对象的索引
+     * */
+    int GetGridIndexByPos(const Vector2i& pos){
+        return (pos.m_y*m_ColCount+pos.m_x);
+    }
+
+    /* 根据格子坐标获取地图格子对象
+     * 参数:
+     * pos:格子坐标
+     * 返回值:
+     * 格子对象
+     * */
+    MapGrid& GetMapGridByPos(const Vector2i& pos){
+        return m_MapGridVec[pos.m_y*m_ColCount + pos.m_x];
+    }
+
+    /* 根据格子坐标获取地图格子对象
+     * 参数:
+     * posX:格子坐标横坐标
+     * posY:格子纵坐标
+     * 返回值:
+     * 格子对象
+     * */
+    MapGrid& GetMapGridByPos(const int posX,const int posY){
+        return m_MapGridVec[posY*m_ColCount + posX];
     }
 
     /*计算移动过程中增加或者减少的格子区域
@@ -122,8 +159,8 @@ public:
      * 返回值:
      * 无
      * */
-    void SetMapGridProperty(const int index,GridProperty&& property){
-        m_MapGridVec[index].property=std::forward<GridProperty>(property);
+    void SetMapGridProperty(const int index,GridProperty& property){
+        m_MapGridVec[index].property=std::move(property);
     }
 
     /*将角色添加到对应的格子中
@@ -145,6 +182,39 @@ public:
      * */
     void RemoveObj(const ObjBase& obj){
         m_MapGridVec[obj.GetPosY()*m_ColCount + obj.GetPosX()].RemoveObj(obj.GetId());
+    }
+
+    /* 获取地图
+     * 参数:
+     * 无
+     * 返回值:
+     * 地图
+     * */
+    std::vector<MapGrid>& GetMap(){
+        return m_MapGridVec;
+    }
+
+    /* 打印地图
+     * 参数:
+     * 无
+     * 返回值:
+     * 无
+     * */
+    void PrintMap(){
+        for(int i=0;i<m_MapWidth;i++){
+            for(int j=0;j<m_MapHeight;j++){
+                if(m_MapGridVec[j*m_RowCount+i].property.barrier==0){
+                    std::cout<<"*"<<" ";
+                } else{
+                    std::cout<<"#"<<" ";
+                }
+            }
+            std::cout<<std::endl;
+        }
+    }
+
+    void PrintMap(std::vector<Vector2i>& path){
+
     }
 
     //... 其他函数
@@ -212,7 +282,7 @@ private:
         std::cout<<")"<<std::endl;
     }
 
-private:
+public://不考虑封装了
     int m_GridSize {0};
     int m_MapWidth {0};
     int m_MapHeight {0};
