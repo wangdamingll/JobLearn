@@ -1,7 +1,7 @@
 #ifndef __VECTOR2I__
 #define __VECTOR2I__
 
-//9宫格左下角坐标
+//地图格子坐标(以格子左下角坐标为准)
 class Vector2i{
 public:
     Vector2i() = default;

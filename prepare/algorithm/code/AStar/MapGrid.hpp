@@ -2,8 +2,9 @@
 #define __MAP_GRID__H_
 
 #include <unordered_map>
+#include "Vector2i.hpp"
 
-//角色对象
+//格子中存储的对象
 struct ObjBase{
 public:
     ObjBase() = default;
@@ -11,26 +12,33 @@ public:
 
 public:
     inline void SetPosX(int posX){
-        m_posX = posX;
+        pos.m_x = posX;
     }
     inline void SetPosY(int posY){
-        m_posY = posY;
+        pos.m_y = posY;
     }
 
     inline int GetPosX() const{
-        return m_posX;
+        return pos.m_x;
     }
     inline int GetPosY() const{
-        return m_posY;
+        return pos.m_y;
     }
 
-    uint64_t GetUid()const{
-        return uid;
+    uint64_t GetId()const{
+        return m_id;
     }
 private:
-    int m_posX {0};
-    int m_posY {0};
-    uint64_t uid {0};
+    uint64_t m_id {0};
+    Vector2i pos;
+};
+
+//描述地图格子属性
+struct GridProperty{
+    int barrier {0};//该格子是否是障碍物:0 不是   1 是
+    int fCost {0};//总消耗:F = G + H
+    int gCost {0};//G
+    int hCost {0};//H
 };
 
 //地图格子类 容纳角色和NPC等等
@@ -40,7 +48,7 @@ public:
 
 public:
     void AddObj(const ObjBase& obj){
-        m_Obj.emplace(obj.GetUid(),obj); //举个例子
+        m_Obj.emplace(obj.GetId(),obj); //举个例子
     }
 
     void RemoveObj(const uint64_t& uid){
@@ -54,6 +62,8 @@ public:
 
     //.... 其他函数
 
+public://不考虑封装性了
+    GridProperty property;
 private:
     std::unordered_map<uint64_t,ObjBase> m_Obj; //简单举个例子 可以用内存池等等
 };

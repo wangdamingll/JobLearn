@@ -6,7 +6,7 @@ using namespace std;
 
 constexpr int MAP_WIDTH = 256;
 constexpr int MAP_HEIGHT = 256;
-constexpr int MAP_GRID_SIZE = 10;
+constexpr int MAP_GRID_SIZE = 1;
 
 static std::random_device rd;
 static std::mt19937 gen(rd());
@@ -40,16 +40,7 @@ int main() {
         return 0;
     }
 
-    //different grid
-    set<int> deleteArea,addArea;
-    map.InterestArea(from,dst,deleteArea,addArea);
-
-    //具体更新玩家视野 简单举个例子
-    ObjBase * obj = new ObjBase();
-    obj->SetPosX(dst.m_x);
-    obj->SetPosY(dst.m_y);
-    map.AddObj(dst,*obj);
-    map.RemoveObj(*obj);
+    //
 
     return 0;
 }

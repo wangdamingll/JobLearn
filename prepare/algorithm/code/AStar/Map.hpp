@@ -115,6 +115,16 @@ public:
         return InterestArea(from,dst,deleteArea,addArea);
     }
 
+    /* 设置地图格子属性
+     * 参数:
+     * index:地图格子索引
+     * property:地图属性
+     * 返回值:
+     * 无
+     * */
+    void SetMapGridProperty(const int index,GridProperty&& property){
+        m_MapGridVec[index].property=std::forward<GridProperty>(property);
+    }
 
     /*将角色添加到对应的格子中
      * 参数:
@@ -134,7 +144,7 @@ public:
      * 无
      * */
     void RemoveObj(const ObjBase& obj){
-        m_MapGridVec[obj.GetPosY()*m_ColCount + obj.GetPosX()].RemoveObj(obj.GetUid());
+        m_MapGridVec[obj.GetPosY()*m_ColCount + obj.GetPosX()].RemoveObj(obj.GetId());
     }
 
     //... 其他函数
