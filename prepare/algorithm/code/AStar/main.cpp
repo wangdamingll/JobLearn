@@ -53,14 +53,14 @@ int main() {
 
         //A* 寻路算法
         //DEBUG LOG
-        auto& startMapGrid = map.GetMapGridByPos(from);//寻路起点
-        auto& dstMapGrid = map.GetMapGridByPos(dst);//寻路终点
-        startMapGrid.property.startPost =1;//标记起点
-        dstMapGrid.property.dstPost = 1;//标记终点
-        startMapGrid.property.show = 1;
-        dstMapGrid.property.show =1;
-        //打印地图
-        map.PrintMap();
+//        auto& startMapGrid = map.GetMapGridByPos(from);//寻路起点
+//        auto& dstMapGrid = map.GetMapGridByPos(dst);//寻路终点
+//        startMapGrid.property.startPost =1;//标记起点
+//        dstMapGrid.property.dstPost = 1;//标记终点
+//        startMapGrid.property.show = 1;
+//        dstMapGrid.property.show =1;
+//        //打印地图
+//        map.PrintMap();
         //---------------------------------------------
 
         AStar aStar(&map);

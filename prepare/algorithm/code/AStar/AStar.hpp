@@ -33,6 +33,10 @@ public:
 
         auto& startMapGrid = map->GetMapGridByPos(from);//寻路起点
         auto& dstMapGrid = map->GetMapGridByPos(dst);//寻路终点
+        if(startMapGrid.property.barrier==1||dstMapGrid.property.barrier==1){
+            std::cout<<"起点或者终点是障碍物"<<std::endl;
+            return {};
+        }
         startMapGrid.property.startPost =1;//标记起点
         dstMapGrid.property.dstPost = 1;//标记终点
 
@@ -73,6 +77,44 @@ public:
                         nextMapGrid.property.gCost = curMapGrid.property.gCost + 10;//假设十字方向移动为10
 
                     }else{//斜方向移动
+                        //对角穿过不合法判断
+                        static int barrierPos[4][4]={{0,1},//向上
+                                                  {1,0},//向右
+                                                  {0,-1},//向下
+                                                  {-1,0},//向左
+                                            };
+                        bool bFlag = false;
+                        for(int j=0;j<4;j++){//对nextPost四个十字方向枚举
+                            int btx = tx + barrierPos[j][0];
+                            int bty = ty + barrierPos[j][1];
+
+                            //越界
+                            if(btx<0||btx>map->m_MapWidth||bty<0||bty>map->m_MapHeight){
+                                continue;
+                            }
+
+                            const MapGrid& bMapGrid = map->GetMapGridByPos(btx,bty);
+                            if(bMapGrid.property.barrier==1){//如果是障碍物,判断是不是当前格子(curMapGrid)和nextMapGrid的夹角的障碍物
+                                //障碍物点到nextPos的坐标差
+                                int dx1 = btx - tx;
+                                int dy1 = bty - ty;
+
+                                //障碍物点到当前节点的坐标差
+                                int dx2 = btx - curMapGrid.property.pos.m_x;
+                                int dy2 = bty - curMapGrid.property.pos.m_y;
+
+                                //总共四个可能的夹角
+                                if((dx1==0&&dy2==0)||(dy1==0&&dx2==0)){//对称的
+                                    bFlag = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(bFlag){
+                            continue;
+                        }
+
+                        //如果当前节点和nextPos的夹角没有障碍物的话,那么这个节点是符合要求的
                         nextMapGrid.property.gCost = curMapGrid.property.gCost + 14;//假设斜方向移动消耗14
                     }
                     nextMapGrid.property.hCost = (std::abs(dstMapGrid.property.pos.m_x-tx)+std::abs(dstMapGrid.property.pos.m_y-ty))*10;//曼哈顿距离消耗

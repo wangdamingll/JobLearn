@@ -110,7 +110,7 @@ public:
         return m_MapGridVec[posY*m_ColCount + posX];
     }
 
-    /*计算移动过程中增加或者减少的格子区域
+    /*计算移动过程中增加或者减少的格子区域(AOI-九宫格视野控制)
      * 参数:
      * from:出发坐标点所在的格子坐标
      * dst:目的坐标点所在的格子坐标
@@ -212,8 +212,8 @@ public:
      * */
     void PrintMap(){
         std::cout<<"起点:& 终点:? 路线:@ 障碍物:# 可通行:*"<<std::endl;
-        for(int i=m_MapWidth-1;i>=0;i--){ //纵坐标
-            for(int j=0;j<m_MapHeight;j++){//横坐标
+        for(int i=m_MapWidth;i>=0;i--){ //纵坐标
+            for(int j=0;j<=m_MapHeight;j++){//横坐标
                 if(m_MapGridVec[i*m_RowCount+j].property.barrier==0){
                     if(m_MapGridVec[i*m_RowCount+j].property.show==1){//打印寻路路线
                         if(m_MapGridVec[i*m_RowCount+j].property.startPost==1){ //起点
