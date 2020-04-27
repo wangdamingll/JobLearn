@@ -402,8 +402,12 @@ O(NlogN)
 * [示例代码](https://github.com/wangdamingll/Cplusplus-Common-Tools/blob/master/NineBoxView)  
 
 ### A* 寻路算法  
-* 略
-
+* 定义  
+是一种启发式的寻路算法  
+* A* 算法思想  
+1. F = G + H 公式的理解  
+2. Dijkstra算法思想  
+* [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/AStar)  
 
 
 ---
