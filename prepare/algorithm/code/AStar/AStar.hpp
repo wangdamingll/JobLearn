@@ -14,7 +14,10 @@ public:
     AStar(Map* map1):map(map1){}
 
 public:
-
+    /* A* 寻路算法demo
+     * 1. 当起点和终点是障碍物时,寻路可能会失败
+     * 2. 当经过障碍物时,可以对角穿过障碍物,这里没有做处理
+     * */
     std::vector<Vector2i> AStarAlgorithm(const Vector2i& from,const Vector2i& dst){
         static int addOpenListIndex=0;
         //逆时针坐标访问
@@ -30,9 +33,11 @@ public:
 
         auto& startMapGrid = map->GetMapGridByPos(from);//寻路起点
         auto& dstMapGrid = map->GetMapGridByPos(dst);//寻路终点
+        startMapGrid.property.startPost =1;//标记起点
         dstMapGrid.property.dstPost = 1;//标记终点
 
-        startMapGrid.property.pos = from;
+        startMapGrid.property.pos = from;//设置起点坐标
+        dstMapGrid.property.pos = dst; //设置终点坐标
         startMapGrid.index = ++addOpenListIndex;    //加入openList的顺序.
                                                     //从速度上考虑,选择最后加入 openList 的方格更快.这导致了在寻路过程中,当靠近目标时,
                                                     //优先使用新找到的方格的偏好.但是这并不重要
@@ -84,12 +89,18 @@ public:
                     auto& curFMapGrid =map->GetMapGridByIndex(curMapGrid.property.fIndex);
                     int G1=0;   //从当前节点的父节点到这个节点的G消耗
                     int G2=0;   //从当前节点到这个节点的G消耗
-                    if(nextPos[k][0]==0 || nextPos[k][1]==0){//十字方向移动
-                        G1 = curFMapGrid.property.gCost+10;//假设十字方向移动为10
-                        G2 = curMapGrid.property.gCost+10;
 
-                    }else{//斜方向移动
+                    //判断这个next格子在其父节点的方位
+                    if(curFMapGrid.property.pos.m_x-tx==0 ||curFMapGrid.property.pos.m_y-ty==0){//这个格子在父节点的十字方向
+                        G1 = curFMapGrid.property.gCost+10;//假设十字方向移动为10
+                    }else{
                         G1 = curFMapGrid.property.gCost+14;//假设斜方向移动消耗14
+                    }
+
+                    //判断这个next格子在当前节点的方位
+                    if(nextPos[k][0]==0 || nextPos[k][1]==0){//十字方向移动
+                        G2 = curMapGrid.property.gCost+10;
+                    }else{//斜方向移动
                         G2 = curMapGrid.property.gCost+14;
                     }
 
@@ -130,6 +141,7 @@ public:
     }
 
 private:
+    //获取寻路路线
     std::vector<Vector2i> GetAStarPath(const Vector2i& from, const Vector2i& dst){
         std::vector<Vector2i> pathV;//寻路路线
         pathV.emplace_back(dst);//添加终点

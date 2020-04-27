@@ -40,6 +40,7 @@ public:
 
 public:
     int show {0};//打印最终路线显示
+    int startPost{0};//是否是起点
     int dstPost{0};//是否是终点
     int barrier{0};//该格子是否是障碍物:0 不是   1 是
     int fCost {0};//总消耗:F = G + H

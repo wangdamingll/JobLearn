@@ -211,21 +211,23 @@ public:
      * 无
      * */
     void PrintMap(){
-        for(int i=0;i<m_MapWidth;i++){
-            for(int j=0;j<m_MapHeight;j++){
-                if(m_MapGridVec[j*m_RowCount+i].property.barrier==0){
-                    if(m_MapGridVec[j*m_RowCount+i].property.show==1){//打印寻路路线
-                        if(m_MapGridVec[j*m_RowCount+i].property.dstPost==1){
-                            std::cout<<"$"<<" ";
-                        }else{
-                            std::cout<<"@"<<" ";
+        std::cout<<"起点:& 终点:? 路线:@ 障碍物:# 可通行:*"<<std::endl;
+        for(int i=m_MapWidth-1;i>=0;i--){ //纵坐标
+            for(int j=0;j<m_MapHeight;j++){//横坐标
+                if(m_MapGridVec[i*m_RowCount+j].property.barrier==0){
+                    if(m_MapGridVec[i*m_RowCount+j].property.show==1){//打印寻路路线
+                        if(m_MapGridVec[i*m_RowCount+j].property.startPost==1){ //起点
+                            std::cout<<"& ";
+                        }else if(m_MapGridVec[i*m_RowCount+j].property.dstPost==1){//终点
+                            std::cout<<"? ";
+                        }else{//路线
+                            std::cout<<"@ ";
                         }
-
                     }else{
-                        std::cout<<"*"<<" ";
+                        std::cout<<"* ";//可以通行
                     }
                 } else{
-                    std::cout<<"#"<<" ";
+                    std::cout<<"#"<<" ";//障碍物
                 }
             }
             std::cout<<std::endl;
@@ -312,7 +314,7 @@ public://不考虑封装了
     int m_ColCount {0};
     int m_RowCount {0};
     int m_MaxIndex {0};
-    std::vector<MapGrid> m_MapGridVec;
+    std::vector<MapGrid> m_MapGridVec;//格子对象数据
 };
 
 
