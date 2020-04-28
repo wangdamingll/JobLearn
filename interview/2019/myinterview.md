@@ -583,7 +583,8 @@ const int *P:指针的指向可以修改,但是不可修改*p的值
 vbptr指的是虚基类表指针(virtual base table pointer),该指针指向了一个虚基类表(virtual table)虚表中记录了虚基类与本类的偏移地址,通过偏移地址，这样就找到了虚基类成员,而虚继承也不用像普通多继承那样维持着公共基类(虚基类)的两份同样的拷贝，节省了存储空间
 * 参考网址:[C++ 虚拟继承实现内存布局](https://blog.csdn.net/xiejingfa/article/details/48028491)
 #### 11.寻路算法
-* 稍后学习 [寻路算法](https://www.jianshu.com/p/74ca39e670ba)
+* [寻路算法介绍](https://www.jianshu.com/p/74ca39e670ba)  
+* [A*寻路算法示例代码](https://blog.csdn.net/wangdamingll/article/details/105793918)  
 #### 12.链表部分翻转
 题目:1->2->...->m...->n->...,将m->...->n部分翻转
 * [代码](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/ZiLongLianBiao.cpp)
