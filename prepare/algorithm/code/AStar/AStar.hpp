@@ -16,7 +16,6 @@ public:
 public:
     /* A* 寻路算法demo
      * 1. 当起点和终点是障碍物时,寻路可能会失败
-     * 2. 当经过障碍物时,可以对角穿过障碍物,这里没有做处理
      * */
     std::vector<Vector2i> AStarAlgorithm(const Vector2i& from,const Vector2i& dst){
         static int addOpenListIndex=0;
