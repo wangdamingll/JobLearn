@@ -24,7 +24,6 @@ using namespace std;
  * 1. 借助有向无环图描述一系列任务关系,用拓扑排序来确定这一系列任务发生的顺序
  * 2. 可以判断有向图是否存在闭环
  *
- * https://blog.csdn.net/lrgdongnan/article/details/51679781
  * */
 
 
