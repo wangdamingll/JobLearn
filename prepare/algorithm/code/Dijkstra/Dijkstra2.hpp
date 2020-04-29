@@ -76,11 +76,13 @@ void Dijkstra21(){
 
     constexpr int n2 = 6; //顶点数量本例为6
     int visit[n2+1]={0};//标识顶点i是不是已经知道最短距离
+    std::vector<int> path[n2+1];//记录路线
 
     //dis初始化赋值,这里直接以1号顶点为源点s
     int dis[n2+1]={0};
     for(int i=1;i<=n2;i++){
         dis[i] = a2[1][i];
+        path[i].emplace_back(1);//路线起点
     }
 
     visit[1] = 1; //1号顶点已经知道最短距离了,为0
@@ -103,6 +105,7 @@ void Dijkstra21(){
             if(a2[u2][v2]<99999999){//u->v有路线
                 if(dis[v2]>dis[u2]+a2[u2][v2]){
                     dis[v2]=dis[u2]+a2[u2][v2];
+                    path[v2].push_back(u2);
                 }
             }
         }
@@ -111,7 +114,12 @@ void Dijkstra21(){
     //输出最终结果
     std::cout<<"顶点1能够到达其他顶点的距离为:"<<std::endl;
     for(int i=1;i<=n2;i++){
-        std::cout<<"1->"<<i<<":"<<dis[i]<<" ";
+        std::cout<<"1->"<<i<<":"<<dis[i]<<std::endl;
+        std::cout<<"路线为:";
+        for(auto it:path[i]){
+            std::cout<<it<<"->";
+        }
+        std::cout<<i<<std::endl;
     }
     std::cout<<std::endl;
 }
