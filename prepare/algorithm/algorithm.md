@@ -162,7 +162,7 @@ O(N+M),N为顶点数,M为边数(因为图广度搜索共处理N个顶点,将所�
 * 背包问题  
 注意,此类问题贪婪算法虽然能得到解,但不是最优解,但是非常接近  
 * 集合覆盖问题  
-1. 时间复杂度为:O(N^2)
+1. 时间复杂度为:O(2^N)  
 2. [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/SetCover)  
 * 旅行商问题  
 1. 可以考虑使用Dijskstra算法得到近似解  
