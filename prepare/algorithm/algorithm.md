@@ -165,8 +165,9 @@ O(N+M),N为顶点数,M为边数(因为图广度搜索共处理N个顶点,将所�
 1. 时间复杂度为:O(2^N)  
 2. [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/SetCover)  
 * 旅行商问题  
-1. 可以考虑使用Dijskstra算法得到近似解  
-2. [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/TSP)  
+1. 时间复杂度为:O(N!)  
+2. 可以考虑使用Dijskstra算法得到近似解  
+3. [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/TSP)  
 ### 如何识别NPC问题  
 1. 元素较少时算法的运行速度非常快,但随着元素数量的增加,速度会变得非常慢.  
 2. 涉及"所有组合"的问题通常是NPC问题.    
