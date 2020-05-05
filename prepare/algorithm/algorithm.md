@@ -186,8 +186,8 @@ O(N+M),N为顶点数,M为边数(因为图广度搜索共处理N个顶点,将所�
 1. [小偷偷东西示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/ThiefBackPack)    
 2. 旅游问题:和上面小偷偷东西代码基本相似,行代表旅游地点,列代表每个地点耗费天数,网格值代表想去该地点的期望值,都采用相同的网格计算公式,这里不再给出示例代码     
 * 最长公共子串(子序列)问题  
-1. [最长公共子串长度]():待补充  
-2. [最长公共子序列]():待补充  
+1. [最长公共子串长度](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/LongestCommonSubStr)  
+2. [最长公共子序列](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/LongestCommonSubSeq)  
 ### 算法特点  
 1. 动态规划可帮助你在给定约束条件下找到最优解.在背包问题中,你必须在背包容量给定的情况下,偷到价值最高的商品.  
 2. 在问题可分解为彼此独立且离散的子问题时,就可使用动态规划来解决(很重要)    
