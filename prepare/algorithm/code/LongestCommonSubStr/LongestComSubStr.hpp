@@ -63,7 +63,19 @@ void LongestComSunStr(){
                 maxCol=col;
                 maxRow=row;
             }
-            std::cout<<cell[col][row]<<" ";//debug
+        }
+    }
+
+    std::cout<<"网格信息:"<<std::endl;
+    std::cout<<"   ";
+    for(auto it : a){
+        std::cout<<it<<"  ";
+    }
+    std::cout<<std::endl;
+    for(int i=1;i<=COL;i++){
+        std::cout<<b[i-1]<<"  ";
+        for(int j=1;j<=ROW;j++){
+            std::cout<<cell[i][j]<<"  ";
         }
         std::cout<<std::endl;
     }
