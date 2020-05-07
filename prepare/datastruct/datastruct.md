@@ -14,7 +14,7 @@
 例如后缀表达式:6 5 2 3 + 8 * + 3 + * ,其结果为:288  
 * 函数调用  
 ### 4. 示例代码  
-[栈的应用]()  
+[栈的应用](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/StackUse)      
 
 
 ## 哈希表  
