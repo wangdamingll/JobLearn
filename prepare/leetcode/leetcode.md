@@ -6,7 +6,9 @@
 * 分治思想(递归)
 * 联机算法
 ### 代码示例  
-[最大子序列和]():待完善  
+[最大子序列和](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/MaxSubSeqSum)  
+
+
 
 
 ---
