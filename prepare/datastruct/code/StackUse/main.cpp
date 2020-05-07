@@ -12,5 +12,5 @@ using namespace BTree1;
  * */
 
 int main() {
-    BTree1::TestBTreeDepth();//计算二叉树深度
+    TestStackUse();//栈----栈的应用
 }
