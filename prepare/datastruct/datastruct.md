@@ -1,5 +1,21 @@
 # 数据结构
 ---  
+## 栈  
+### 1. 栈模型  
+* 栈是后进先出的数据模型  
+### 2. 栈的实现  
+* 可以用数组和链表模拟实现  
+### 3. 栈的应用  
+* 平衡符号  
+可以用来检查语法是否有错误  
+* 中缀表达式转后缀表达式(逆波兰记法)   
+例如中缀表达式a + b * c + (d * e + f) * g 转换成后缀表达式: a b c * + d e * f + g * + 
+* 用后缀表达式计算结果(后缀表达式其实是中缀表达式的一个表现形式)    
+例如后缀表达式:6 5 2 3 + 8 * + 3 + * ,其结果为:288  
+### 4. 示例代码  
+[栈的应用]()  
+
+
 ## 哈希表  
 * [哈希表介绍(CSDN)](https://blog.csdn.net/wangdamingll/article/details/104198484)  
 * [基于哈希表简单实现HashMap(拉链法)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap1.cpp)  
