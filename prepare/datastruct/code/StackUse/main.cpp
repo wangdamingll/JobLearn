@@ -1,4 +1,5 @@
 #include "StackUse.hpp"
+#include "StackUse2.hpp"
 
 /* 栈-----栈的应用
  * 1. 平衡符号
@@ -12,4 +13,5 @@
 
 int main() {
     TestStackUse();//栈----栈的应用
+    TestStackUse2();//由后缀表达式构建一颗表达式树
 }
