@@ -1,5 +1,4 @@
 #include "StackUse.hpp"
-using namespace BTree1;
 
 /* 栈-----栈的应用
  * 1. 平衡符号
