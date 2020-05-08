@@ -13,6 +13,7 @@
 * 用后缀表达式计算结果(后缀表达式其实是中缀表达式的一个表现形式)    
 例如后缀表达式:6 5 2 3 + 8 * + 3 + * ,其结果为:288  
 * 函数调用  
+* 由后缀表达式构造一颗表达式树  
 ### 4. 示例代码  
 [栈的应用](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/StackUse)      
 
