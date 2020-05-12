@@ -45,7 +45,7 @@ O(logN)
 2) 双旋转  
 对a的左儿子的右子树进行一次插入  
 对a的右儿子的左子树进行一次插入  
-* [示例代码]()  
+* [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/AVLTree)  
   
 #### 3. 伸展树  
 * 定义  
