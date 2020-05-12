@@ -37,8 +37,9 @@
 (2)装填因子a必须要小于等于0.5,并且tablesize必须为素数.因为这样的话,表至少有一半为空时,产生冲突时,平方探测法总能够插入成功   
 (3)惰性删除  
 * 双散列    
-尝试位置:f(i)=ihash2(x)    
-第二个散列函数:hash2(x) = R -(x mod R),R为小于tablesize的素数  
+f(i)=i*hash2(x)    
+hash2(x) = R -(x mod R),R为小于tablesize的素数  
+hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i*hash2(x)) mod tablesize  
 ### 示例代码
 * [哈希表介绍(CSDN)](https://blog.csdn.net/wangdamingll/article/details/104198484)  
 * [基于哈希表简单实现HashMap(拉链法)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap1.cpp)  
