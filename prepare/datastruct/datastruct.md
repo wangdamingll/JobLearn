@@ -30,7 +30,7 @@
 左子树值比父亲值小,右子树值比父亲值大    
 * 时间复杂度  
 在没有删除或者惰性删除的情况下,所有操作的时间复杂度平均为O(logN)  
-* [示例代码]()  
+* [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinarySearchTree)    
 
 #### 2. AVL树(平衡二叉搜索树)  
 * 定义  
