@@ -60,12 +60,13 @@ O(logN)
 * [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SplayTree)  
 * [具体介绍](https://blog.csdn.net/wangdamingll/article/details/106080019)  
 
-#### 4. B树/B+树 
+#### 4. B树
 * 定义  
 类似二叉搜索树且带有一系列限制使其平衡的M阶树,树的高度比AVL其他树小,多用于数据存储    
 * 插入和删除操作   
 1) 插入操作会导致节点分裂  
 2) 删除操作会导致节点领养  
+* [具体介绍](https://blog.csdn.net/wangdamingll/article/details/106080496)
 
 #### 5. 红黑树  
 * 暂略  
