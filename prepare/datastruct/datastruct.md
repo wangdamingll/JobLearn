@@ -56,7 +56,7 @@ O(logN)
 具体情形可以查阅其他资料  
 1) 之字形:执行AVL那样双旋转  
 2) 一字型:类似AVL的单旋转
-* [示例代码]()  
+* [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SplayTree)  
 
 #### 4. B树/B+树 
 * 定义  
