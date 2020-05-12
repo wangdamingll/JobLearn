@@ -27,7 +27,7 @@
 1. hash(x)=x mod tablesize  
 2. 装填因子a约等于1(tablesize应该为素数)  
 3. 产生冲突时,元素应插入对应链表的前端,因为不仅方便,而且这个元素最有可能不久又被访问  
-* 开发地址法(线性探测法、平方探测法)  
+* 开放地址法(线性探测法、平方探测法)  
 1. 线性探测法  
 (1)hi(x) = ( hash(x) + f(i)) mod tablesize,且f(0)=0;f(i)=i;  
 (2)装填因子a必须要小于等于0.5  
@@ -40,6 +40,13 @@
 f(i)=i*hash2(x)    
 hash2(x) = R -(x mod R),R为小于tablesize的素数  
 hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i*hash2(x)) mod tablesize  
+### 3. 以最坏情形O(1)访问的散列表  
+* 完美散列  
+* 杜鹃散列(布谷鸟散列)  
+1. 常用较小的填装因子(小于0.5不包括0.5)且多于两个散列函数实现  
+* 跳房子散列  
+1. 尝试改进线性探测算法  
+2. 定义:通过预先确定的、在计算机结构体系的基础上优化的常数,来为探测序列的最大长度定界.  
 ### 示例代码
 * [哈希表介绍(CSDN)](https://blog.csdn.net/wangdamingll/article/details/104198484)  
 * [基于哈希表简单实现HashMap(拉链法)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap1.cpp)  
