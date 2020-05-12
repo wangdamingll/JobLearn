@@ -29,17 +29,17 @@
 3. 产生冲突时,元素应插入对应链表的前端,因为不仅方便,而且这个元素最有可能不久又被访问  
 * 开放地址法(线性探测法、平方探测法)  
 1. 线性探测法  
-(1)hi(x) = ( hash(x) + f(i)) mod tablesize,且f(0)=0;f(i)=i;  
+(1)hi(x) = ( hash(x) + f(i) ) mod tablesize,且f(0)=0;f(i)=i;  
 (2)装填因子a必须要小于等于0.5  
 (3)惰性删除  
 1. 平方探测法  
-(1)hi(x) = ( hash(x) + f(i)) mod tablesize,且f(0)=0;f(i)=i^2;  
+(1)hi(x) = ( hash(x) + f(i) ) mod tablesize,且f(0)=0;f(i)=i^2;  
 (2)装填因子a必须要小于等于0.5,并且tablesize必须为素数.因为这样的话,表至少有一半为空时,产生冲突时,平方探测法总能够插入成功   
 (3)惰性删除  
 * 双散列    
-f(i)=i*hash2(x)    
+f(i)=i * hash2(x)    
 hash2(x) = R -(x mod R),R为小于tablesize的素数  
-hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i*hash2(x)) mod tablesize  
+hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i * hash2(x)) mod tablesize  
 ### 3. 以最坏情形O(1)访问的散列表  
 * 完美散列  
 * 杜鹃散列(布谷鸟散列)  
