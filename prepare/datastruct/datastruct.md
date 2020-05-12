@@ -47,6 +47,7 @@ O(logN)
 对a的左儿子的右子树进行一次插入  
 对a的右儿子的左子树进行一次插入  
 * [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/AVLTree)  
+* [具体介绍](https://blog.csdn.net/wangdamingll/article/details/106078459)    
   
 #### 3. 伸展树  
 * 定义  
