@@ -44,6 +44,7 @@ hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i * hash2(x)) mod tablesize
 * 完美散列  
 * 杜鹃散列(布谷鸟散列)  
 1. 常用较小的填装因子(小于0.5不包括0.5)且多于两个散列函数实现  
+2. [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/CuckooHashTable)  
 * 跳房子散列  
 1. 尝试改进线性探测算法  
 2. 定义:通过预先确定的、在计算机结构体系的基础上优化的常数,来为探测序列的最大长度定界.  
