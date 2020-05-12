@@ -18,7 +18,28 @@
 [栈的应用](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/StackUse)      
 
 
-## 哈希表  
+## 哈希表(散列表)  
+### 1. 定义  
+* 散列表的实现常常叫作散列(hashing),散列是一种用于以常数平均时间执行插入,删除和查找的技术.但是,那些需要元素间任何序信息的树操作在这里将不会得到有效的支持.  
+* 注意:表的大小(tablesize)一般是素数,这样产生冲突的时候会有更多的备选空间,更好的散列分布    
+### 2. 散列表解决冲突的方法  
+* 拉链法  
+1. hash(x)=x mod tablesize  
+2. 装填因子a约等于1(tablesize应该为素数)  
+3. 产生冲突时,元素应插入对应链表的前端,因为不仅方便,而且这个元素最有可能不久又被访问  
+* 开发地址法(线性探测法、平方探测法)  
+1. 线性探测法  
+(1)hi(x) = ( hash(x) + f(i)) mod tablesize,且f(0)=0;f(i)=i;  
+(2)装填因子a必须要小于等于0.5  
+(3)惰性删除  
+1. 平方探测法  
+(1)hi(x) = ( hash(x) + f(i)) mod tablesize,且f(0)=0;f(i)=i^2;  
+(2)装填因子a必须要小于等于0.5,并且tablesize必须为素数.因为这样的话,表至少有一半为空时,产生冲突时,平方探测法总能够插入成功   
+(3)惰性删除  
+* 双散列    
+尝试位置:f(i)=ihash2(x)    
+第二个散列函数:hash2(x) = R -(x mod R),R为小于tablesize的素数  
+### 示例代码
 * [哈希表介绍(CSDN)](https://blog.csdn.net/wangdamingll/article/details/104198484)  
 * [基于哈希表简单实现HashMap(拉链法)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap1.cpp)  
 * [基于哈希表简单实现HashMap(线性探查法.二次探查法)](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/HashMap2.cpp)  
