@@ -55,16 +55,15 @@ O(logN)
 * 时间复杂度  
 任意连续M次操作在最坏的情形下花费时间O(MlogN),所以每次操作的摊还代价是O(logN)    
 * 展开方法  
-具体情形可以查阅其他资料  
 1) 之字形:执行AVL那样双旋转  
 2) 一字型:类似AVL的单旋转
 * [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SplayTree)  
+* [具体介绍](https://blog.csdn.net/wangdamingll/article/details/106080019)  
 
 #### 4. B树/B+树 
 * 定义  
 类似二叉搜索树且带有一系列限制使其平衡的M阶树,树的高度比AVL其他树小,多用于数据存储    
-* 插入和删除操作  
-具体可以查阅其他资料  
+* 插入和删除操作   
 1) 插入操作会导致节点分裂  
 2) 删除操作会导致节点领养  
 
