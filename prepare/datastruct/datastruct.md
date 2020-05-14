@@ -76,19 +76,42 @@ hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i * hash2(x)) mod tablesize
 3. 删除除堆中的某个关键字:先执行1,降低无穷大的差值,再执行删除最值操作    
 * [二叉堆代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinaryHeap)  
 
-
-
 #### 2. d堆  
-* 暂略  
+* 定义  
+d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿子  
+* 使用场景  
+用法与B树用法相似,d堆高度低,适用于主存存不下的情况    
 
 #### 3. 左式堆  
-* 暂略  
+* 定义  
+又称作最左堆、左倾堆,是堆的一种,保留了堆的结构性和堆序性  
+* 时间复杂度  
+插入 删除 合并: O(logN)  
+* 特点  
+1. 结构性:不再是一棵完全二叉树(Complete tree),而且是一棵极不平衡的树  
+2. 堆序性:任意结点的值比其子树任意结点值均小(最小堆的特性)    
+* 使用场景  
+适用于合并(merge)较多的场景  
+* [左式堆代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/LeftistHeap)  
 
 #### 4. 斜堆  
-* 暂略  
-#### 5. 二项队列  
-* 暂略  
+* 定义   
+是左式堆的自调节形式,是具有堆序的二叉树,不存在对树的结构性的限制  
+* 时间复杂度  
+对任意M次连续操作,总的最坏情形运行时间是O(MlogN),摊还开销为O(logN)   
+* 特点 
+堆序性:任意结点的值比其子树任意结点值均小(最小堆的特性)    
+* 使用场景  
+适用于合并(merge)较多的场景    
 
+#### 5. 二项队列  
+* 定义  
+二项队列不同于左式堆和二叉堆等优先队列的实现之处在于,一个二项队列不是一棵堆序的树,而是堆序树的集合,即森林.堆序树中的每棵树都是由约束形式的,叫做二项树.  
+* 时间复杂度  
+合并 插入 删除:最坏的时间复杂度O(logN), 但是插入的平均时间复杂度O(1)    
+* 使用场景  
+适用于合并(merge)和插入较多的场景  
+* [二项队列示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinomialQueue)    
 
 
 
