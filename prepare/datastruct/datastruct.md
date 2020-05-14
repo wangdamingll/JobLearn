@@ -111,7 +111,7 @@ d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿�
 合并 插入 删除:最坏的时间复杂度O(logN), 但是插入的平均时间复杂度O(1)    
 * 使用场景  
 适用于合并(merge)和插入较多的场景  
-* [二项队列示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinomialQueue)    
+* [二项队列代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinomialQueue)    
 
 
 ## 树  
