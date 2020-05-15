@@ -5,37 +5,18 @@
 using namespace std;
 
 // Test program
-int main( ){
-    int minItem = 10000;  // same number of digits
-    int maxItem = 99999;
-    BinaryHeap<string> h;
-    string str = "hello";
-    int i = 37;
-    string x;
+int main(){
+    BinaryHeap<int> h;
+    h.Insert(1);
+    h.Insert(5);
+    h.Insert(3);
+    h.Insert(3);
 
-    cout << "Begin test... " << endl;
-
-    for( i = 37; i != 0; i = ( i + 37 ) % maxItem ){
-        // should use to_string in C++11
-        ostringstream sout;
-        sout << "hello" << i;
-        if( i >= minItem ){
-            string s = sout.str( );
-            h.Insert( s );
-        }
-    }
-    for( i = minItem; i < maxItem; ++i ){
-        ostringstream sout;
-        sout << "hello" << i;
-        
+    int x = 0;
+    while(!h.IsEmpty()){
         h.DeleteMin( x );
-
-        if( x != sout.str( ) )
-            cout << "Oops! " << i << endl;
+        std::cout<<x<<" ";
     }
-
-    
-    
-    cout << "End test... no other output is good" << endl;
+    std::cout<<std::endl;
     return 0;
 }

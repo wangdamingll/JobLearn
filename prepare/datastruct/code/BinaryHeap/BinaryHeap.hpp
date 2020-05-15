@@ -19,9 +19,8 @@ using namespace std;
 // Throws UnderflowException as warranted
 
 template <typename T>
-class BinaryHeap
-{
-  public:
+class BinaryHeap{
+public:
     explicit BinaryHeap( int capacity = 100 ):array(capacity + 1 ),currentSize{0}{}
     explicit BinaryHeap( const vector<T> & items ):array( items.size( )+10 ),currentSize{items.size()}{
         for( int i=0; i<items.size();++i){
@@ -39,11 +38,12 @@ class BinaryHeap
      * Return the smallest item, or throw Underflow if empty.
      */
     const T& FindMin() const{
-        if( IsEmpty() )
-            throw UnderflowException{ };
+        if( IsEmpty() ){
+            return nullptr;
+        }
         return array[1];
     }
-    
+
     /**
      * Insert item x, allowing duplicates.
      */
@@ -52,16 +52,12 @@ class BinaryHeap
             array.resize( array.size()*2);
         }
 
-        // Percolate up
-        int hole = ++currentSize;
         T copy = x;
-        array[0] = std::move( copy );
-        for(; x<array[hole/2];hole/=2){
-            array[ hole ] = std::move(array[hole/2]);
-        }
-        array[hole] = std::move(array[0]);
+        int hole = ++currentSize;
+        array[hole] = std::move(x);
+        PercolateUp(hole);
     }
-    
+
 
     /**
      * Insert item x, allowing duplicates.
@@ -71,20 +67,19 @@ class BinaryHeap
             array.resize( array.size() * 2 );
         }
 
-        // Percolate up
         int hole = ++currentSize;
-        for(;hole>1 && x<array[hole/2]; hole/=2 )
-            array[hole] = std::move(array[hole/2]);
         array[hole] = std::move(x);
+        PercolateUp(hole);
     }
-    
+
     /**
      * Remove the minimum item.
      * Throws UnderflowException if empty.
      */
     void DeleteMin(){
-        if(IsEmpty())
-            throw UnderflowException{};
+        if(IsEmpty()){
+            return;
+        }
 
         array[1] = std::move(array[currentSize--]);
         PercolateDown(1);
@@ -95,9 +90,9 @@ class BinaryHeap
      * Throws Underflow if empty.
      */
     void DeleteMin(T& minItem){
-        if(IsEmpty())
-            throw UnderflowException{ };
-
+        if(IsEmpty()){
+            return ;
+        }
         minItem = std::move(array[1]);
         array[1] = std::move(array[currentSize--]);
         PercolateDown(1);
@@ -107,10 +102,7 @@ class BinaryHeap
         currentSize = 0;
     }
 
-  private:
-    int currentSize;  // Number of elements in heap
-    vector<T> array;        // The heap array
-
+private:
     /**
      * Establish heap order property from an arbitrary
      * arrangement of items. Runs in linear time.
@@ -139,6 +131,22 @@ class BinaryHeap
         }
         array[hole] = std::move(tmp);
     }
+
+    /**
+     * Internal method to percolate up in the heap.
+     * hole is the index at which the percolate begins.
+     */
+    void PercolateUp(int hole){
+        array[0] = std::move(array[hole]);
+        for(;hole>1 && array[0]<array[hole/2];hole/=2){
+            array[ hole ] = std::move(array[hole/2]);
+        }
+        array[hole] = std::move(array[0]);
+    }
+
+private:
+    int currentSize;  // Number of elements in heap
+    vector<T> array;  // The heap array
 };
 
 #endif
