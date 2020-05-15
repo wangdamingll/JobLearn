@@ -1,7 +1,6 @@
 #ifndef BINARY_HEAP_H
 #define BINARY_HEAP_H
 
-#include "dsexceptions.h"
 #include <vector>
 using namespace std;
 
