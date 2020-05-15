@@ -74,6 +74,7 @@ hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i * hash2(x)) mod tablesize
 1. 降低关键字的值:采用上浮策略  
 2. 增加关键字的值:采用下浮策略  
 3. 删除除堆中的某个关键字:先执行1,降低无穷大的差值,再执行删除最值操作    
+* [二叉堆具体介绍](https://blog.csdn.net/wangdamingll/article/details/106146519)   
 * [二叉堆代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinaryHeap)  
 
 #### 2. d堆  
