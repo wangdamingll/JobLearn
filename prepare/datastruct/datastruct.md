@@ -76,6 +76,7 @@ hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i * hash2(x)) mod tablesize
 3. 删除除堆中的某个关键字:先执行1,降低无穷大的差值,再执行删除最值操作    
 * [二叉堆具体介绍](https://blog.csdn.net/wangdamingll/article/details/106146519)   
 * [二叉堆代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinaryHeap)  
+* [支持删除内部节点的二叉堆](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SpecailHeap)   
 
 #### 2. d堆  
 * 定义  
