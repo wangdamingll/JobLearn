@@ -26,7 +26,7 @@ template <typename T,typename CmpValueType,typename CmpFun,typename Key=uint32_t
 class BinaryHeap{
 public:
     explicit BinaryHeap(CmpFun cmpF, int capacity=5000 ):cmpF(cmpF),currentSize{0},capacity(capacity+1),array(capacity+1){}
-    explicit BinaryHeap(CmpFun cmpF, const vector<T> & items ):array(items.size()+1),currentSize{items.size()}{
+    explicit BinaryHeap(CmpFun cmpF, const vector<T> & items ):array(items.size()+10),currentSize{items.size()}{
         for( int i=0; i<items.size();++i){
             array[i+1] = items[i];
         }
