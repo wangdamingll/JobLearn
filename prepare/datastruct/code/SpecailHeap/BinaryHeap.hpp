@@ -14,19 +14,41 @@ using namespace std;
  T Top( )  --> Return smallest item
  bool Empty( )        --> Return true if empty; else false
  void Clear( )        --> Remove all items
+ void Remove()        --> Remove heap intenal data
 
  attention:
- 1. T must have value filed and can not be unsigned type, be used to cmp function.
+ T is can be int string double userclass and so on
+
+ if T is user class:
+ 1. T must have value filed, be used to cmp function.
  2. T must have key filed, be used hash table
  3. T must override operator < or >,be used to cmp function
- 4. this class not be used to basic types, example int string and so on
 */
 
-template <typename T,typename CmpValueType,typename CmpFun,typename Key=uint32_t>
-class BinaryHeap{
+//common T template
+template <typename T, typename CmpFun,typename Enable=void>
+class BinaryHeap {};
+
+//specail T is int
+template <typename T, typename CmpFun>
+class BinaryHeap<T,CmpFun,typename std::enable_if<std::is_same<T,int>::value>::type> {};
+
+//specail T is string
+template <typename T, typename CmpFun>
+class BinaryHeap<T,CmpFun,typename std::enable_if<std::is_same<T,std::string>::value>::type> {};
+
+//special T is user class
+template <typename T,typename CmpFun>
+class BinaryHeap<T,CmpFun,typename std::enable_if<!std::is_same<T,std::string>::value && std::is_class<T>::value>::type>{
+private:
+    using CmpType = decltype(T().value);//get T operator fun parameter type
+    using Key = decltype(T().key);  //get T hash table key
+
 public:
-    explicit BinaryHeap(CmpFun cmpF, int capacity=5000 ):cmpF(cmpF),currentSize{0},capacity(capacity+1),array(capacity+1){}
-    explicit BinaryHeap(CmpFun cmpF, const vector<T> & items ):array(items.size()+10),currentSize{items.size()}{
+    explicit BinaryHeap(CmpFun&& cmpF, int capacity=5000 ):cmpF(std::forward<CmpFun>(cmpF)),
+    currentSize{0},capacity(capacity+1),array(capacity+1){}
+    explicit BinaryHeap(CmpFun&& cmpF, const vector<T>& items):cmpF(std::forward<CmpFun>(cmpF)),
+    array(items.size()+10),currentSize{items.size()}{
         for( int i=0; i<items.size();++i){
             array[i+1] = items[i];
         }
@@ -224,7 +246,7 @@ private:
 
 private:
     bool type {std::is_same<CmpFun,decltype(std::less<T>{})>::value};//is or not min heap:true is，false no
-    CmpValueType value {type?std::numeric_limits<CmpValueType>::min():std::numeric_limits<CmpValueType>::max()}; //cmpF value, T is min or max
+    CmpType value {type?std::numeric_limits<CmpType>::min():std::numeric_limits<CmpType>::max()}; //cmpF value, T is min or max
     CmpFun cmpF;                  // cmpF function
 
     int currentSize {0};        // Number of elements in heap
