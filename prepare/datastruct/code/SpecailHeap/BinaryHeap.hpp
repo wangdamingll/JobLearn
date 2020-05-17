@@ -21,9 +21,10 @@ attention:
 T is can be int string double userclass and so on
 
 if T is user class:
-1. T must have value filed, be used to cmp function.
+1. T must have value filed and value type is integral, be used to cmp function.
 2. T must have key filed, be used hash table
 3. T must override operator < or >,be used to cmp function
+4. assume T is string or userclass when T is class
 */
 
 //common T template
@@ -40,7 +41,8 @@ class BinaryHeap<T,CmpFun,typename std::enable_if<std::is_same<T,std::string>::v
 
 //special T is user class
 template <typename T,typename CmpFun>
-class BinaryHeap<T,CmpFun,typename std::enable_if<!std::is_same<T,std::string>::value && std::is_class<T>::value>::type>{
+class BinaryHeap<T,CmpFun,typename std::enable_if<!std::is_same<T,std::string>::value
+                 && std::is_class<T>::value && std::is_integral<decltype(T().value)>::value>::type>{
 private:
     using CmpType = decltype(T().value);//get T operator fun parameter type
     using Key = decltype(T().key);  //get T hash table key
@@ -246,8 +248,8 @@ private:
     }
 
 private:
-    bool type {std::is_same<CmpFun,decltype(std::less<T>{})>::value};//is or not min heap:true is，false no
-    CmpType value {type?std::numeric_limits<CmpType>::min():std::numeric_limits<CmpType>::max()}; //cmpF value, T is min or max
+    CmpType value {std::is_same<CmpFun,decltype(std::less<T>{})>::value
+                    ?std::numeric_limits<CmpType>::min():std::numeric_limits<CmpType>::max()}; //cmpF value, T is min or max
     CmpFun cmpF;                  // cmpF function
 
     int currentSize {0};        // Number of elements in heap

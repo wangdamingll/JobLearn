@@ -6,7 +6,7 @@ using namespace std;
 // Test program
 struct Test{
     Test()= default;
-    Test(int value,int key):value(value),key(key){}
+    Test(int value,uint32_t key):value(value),key(key){}
     bool operator<(const Test& anther)const{
         return value<anther.value;
     }
@@ -15,7 +15,7 @@ struct Test{
         return value>anther.value;
     }
 
-    int value{0}; //cmp value,can not unsigned type
+    int value{0}; //cmp value
     uint32_t key{0};//hash table key
 };
 
@@ -37,6 +37,7 @@ int main(){
     //remove internal data
     h.Remove(55);
     h.Remove(33);
+    h.Remove(77);
 
     Test x ;
     while(!h.Empty()){
