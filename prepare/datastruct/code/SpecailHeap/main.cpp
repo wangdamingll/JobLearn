@@ -39,6 +39,7 @@ int main(){
     h.Remove(33);
     h.Remove(77);
 
+
     Test x ;
     while(!h.Empty()){
         h.Pop( x );
