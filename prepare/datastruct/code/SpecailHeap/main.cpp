@@ -20,8 +20,8 @@ struct Test{
 };
 
 int main(){
-    //BinaryHeap<Test,decltype(std::less<Test>{})>h(std::less<Test>{});//min heap
-    BinaryHeap<Test,decltype(std::greater<Test>{})>h(std::greater<Test>{});
+    binaryheap::MinHeap<Test> h(std::less<Test>{});//min heap
+    //binaryheap::MaxHeap<Test> h(std::greater<Test>{});//max heap
 
     h.Push(Test{1,11});
     h.Push(Test{5,55});

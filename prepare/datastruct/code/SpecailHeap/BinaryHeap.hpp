@@ -6,23 +6,24 @@
 #include <limits>
 using namespace std;
 
+namespace binaryheap{
 /*
- BinaryHeap class
- ******************PUBLIC OPERATIONS*********************
- void Push( x )       --> Push x
- Pop( minItem )       --> Remove (and optionally return) smallest item
- T Top( )  --> Return smallest item
- bool Empty( )        --> Return true if empty; else false
- void Clear( )        --> Remove all items
- void Remove()        --> Remove heap intenal data
+BinaryHeap class
+******************PUBLIC OPERATIONS*********************
+void Push( x )       --> Push x
+Pop( minItem )       --> Remove (and optionally return) smallest item
+T Top( )  --> Return smallest item
+bool Empty( )        --> Return true if empty; else false
+void Clear( )        --> Remove all items
+void Remove()        --> Remove heap intenal data
 
- attention:
- T is can be int string double userclass and so on
+attention:
+T is can be int string double userclass and so on
 
- if T is user class:
- 1. T must have value filed, be used to cmp function.
- 2. T must have key filed, be used hash table
- 3. T must override operator < or >,be used to cmp function
+if T is user class:
+1. T must have value filed, be used to cmp function.
+2. T must have key filed, be used hash table
+3. T must override operator < or >,be used to cmp function
 */
 
 //common T template
@@ -46,9 +47,9 @@ private:
 
 public:
     explicit BinaryHeap(CmpFun&& cmpF, int capacity=5000 ):cmpF(std::forward<CmpFun>(cmpF)),
-    currentSize{0},capacity(capacity+1),array(capacity+1){}
+                                                           currentSize{0},capacity(capacity+1),array(capacity+1){}
     explicit BinaryHeap(CmpFun&& cmpF, const vector<T>& items):cmpF(std::forward<CmpFun>(cmpF)),
-    array(items.size()+10),currentSize{items.size()}{
+                                                               array(items.size()+10),currentSize{items.size()}{
         for( int i=0; i<items.size();++i){
             array[i+1] = items[i];
         }
@@ -255,5 +256,11 @@ private:
     std::unordered_map<Key,int> keyMap;//key hash table
 };
 
+template<typename T>
+using  MinHeap = BinaryHeap<T,decltype(std::less<T>{})>;
+template<typename T>
+using  MaxHeap = BinaryHeap<T,decltype(std::greater<T>{})>;
+
+}
 
 #endif
