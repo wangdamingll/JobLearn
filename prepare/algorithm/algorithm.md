@@ -139,6 +139,21 @@ O(NlogN)
 * 代码示例    
 [基数排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/RadixSort)  
 
+### 10. 快速选择    
+* 解决问题  
+在一组数据中找出第k小的数    
+* 算法思想:  
+1. 二分法思想  
+2. 分而治之思想
+* 时间复杂度:  
+1. 最坏的时间复杂度:O(N^2)  
+2. 平均时间复杂度:O(N)  
+* 算法特点:  
+1. 属于快排变形算法,每次只对一半进行递归处理  
+2. 会对原数据进行破坏  
+* 代码示例    
+[快速选择](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/QuickSelect)      
+
 ### 10. 图的拓扑排序  
 * 图相关概念:  
 1. 有向无环图:如果一个有向图的任意顶点都无法通过一些有向边回到自身,那么称这个有向图为有向无环图.  
