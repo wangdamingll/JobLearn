@@ -154,7 +154,7 @@ O(NlogN)
 * 代码示例    
 [快速选择](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/QuickSelect)      
 
-### 10. 图的拓扑排序  
+### 11. 图的拓扑排序      
 * 图相关概念:  
 1. 有向无环图:如果一个有向图的任意顶点都无法通过一些有向边回到自身,那么称这个有向图为有向无环图.  
 * 拓扑排序概念:  
