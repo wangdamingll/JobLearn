@@ -203,7 +203,10 @@ O(N+M),N为顶点数,M为边数(因为图广度搜索共处理N个顶点,将所�
 ### 定义  
 白话说就是一种解决棘手问题的方法,它将问题分成小问题,并先着手解决这些小问题,最后得到最优解  
 ### 算法应用  
-通常需要在给定约束条件下优化某种指标时应用,如下:  
+一般问题:下一步需要用到上一步计算结果    
+* [斐波那契数列计算](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Fib)  
+
+特殊问题:通常需要在给定约束条件下优化某种指标时应用,如下:  
 * 背包问题  
 要高度注意:"背包"可不仅仅是指例子中物理的背包,是指一种约束条件.比如说要在规定时间去旅游,那么这个"背包"就是时间!    
 1. [小偷偷东西示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/ThiefBackPack)    
