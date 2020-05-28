@@ -205,7 +205,6 @@ O(N+M),N为顶点数,M为边数(因为图广度搜索共处理N个顶点,将所�
 ### 算法应用  
 一般问题:下一步需要用到上一步计算结果    
 * [斐波那契数列计算](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Fib)  
-
 特殊问题:通常需要在给定约束条件下优化某种指标时应用,如下:  
 * 背包问题  
 要高度注意:"背包"可不仅仅是指例子中物理的背包,是指一种约束条件.比如说要在规定时间去旅游,那么这个"背包"就是时间!    
@@ -214,6 +213,7 @@ O(N+M),N为顶点数,M为边数(因为图广度搜索共处理N个顶点,将所�
 * 最长公共子串(子序列)问题  
 1. [最长公共子串长度](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/LongestCommonSubStr)  
 2. [最长公共子序列](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/LongestCommonSubSeq)  
+* [最优二叉查找树](https://blog.csdn.net/xiajun07061225/article/details/8088784)  
 ### 算法特点  
 1. 动态规划可帮助你在给定约束条件下找到最优解.在背包问题中,你必须在背包容量给定的情况下,偷到价值最高的商品.  
 2. 在问题可分解为彼此独立且离散的子问题时,就可使用动态规划来解决(很重要)    
