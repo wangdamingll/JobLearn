@@ -223,6 +223,17 @@ O(N+M),N为顶点数,M为边数(因为图广度搜索共处理N个顶点,将所�
 3. 每个单元格都是一个子问题,因此你应考虑如何将问题分成子问题,这有助于你找出网格的坐标轴.  
 4. 没有放之四海皆准的计算动态规划解决方案的公式.  
 
+## 回溯算法  
+### 定义  
+回溯算法实际上一个类似枚举的搜索尝试过程,主要是在搜索尝试过程中寻找问题的解,当发现已不满足求解条件时,就"回溯"返回,尝试别的路径.  
+回溯法是一种选优搜索法,按选优条件向前搜索,以达到目标.但当探索到某一步时,发现原先选择并不优或达不到目标,就退回一步重新选择,这种走不通就退回再走的技术为回溯法,而满足回溯条件的某个状态的点称为"回溯点".
+许多复杂的,规模较大的问题都可以使用回溯法,有"通用解题方法"的美称.
+### 算法应用
+1. [全排列问题](https://github.com/wangdamingll/JobLearn/blob/master/prepare/algorithm/code/DFS/DFS1.hpp)  
+2. [迷宫问题](https://github.com/wangdamingll/JobLearn/blob/master/prepare/algorithm/code/DFS/DFS3.hpp)  
+3. [独立子图问题](https://github.com/wangdamingll/JobLearn/blob/master/prepare/algorithm/code/DFS/DFS4.hpp)    
+4. 博弈问题  
+
 
 ## 搜索算法
 
