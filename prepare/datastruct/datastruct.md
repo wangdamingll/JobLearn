@@ -115,6 +115,12 @@ d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿�
 适用于合并(merge)和插入较多的场景  
 * [二项队列代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinomialQueue)    
 
+#### 6. 斐波那契堆  
+* 定义  
+斐波那契堆(Fibonacci heap)是一种可合并堆,可用于实现合并优先队列.
+* 时间复杂度  
+插入 合并 减小关键字:摊还时间界O(1)    
+删除最小值 删除值:摊还时间界O(logN)    
 
 ## 树  
 ### 树的分类  
