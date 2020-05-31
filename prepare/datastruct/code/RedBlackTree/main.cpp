@@ -3,8 +3,7 @@
 using namespace std;
 
 // Test program
-int main( )
-{
+int main(){
     const int NEG_INF = -9999;
     RedBlackTree<int> t{ NEG_INF };
     int NUMS = 400000;
