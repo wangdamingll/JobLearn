@@ -76,13 +76,15 @@ hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i * hash2(x)) mod tablesize
 3. 删除除堆中的某个关键字:先执行1,降低无穷大的差值,再执行删除最值操作    
 * [二叉堆具体介绍](https://blog.csdn.net/wangdamingll/article/details/106146519)   
 * [二叉堆代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinaryHeap)  
-* [支持删除内部节点的二叉堆](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SpecailHeap)   
+* [支持删除内部节点的二叉堆](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SpecailHeap)  
+* [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)   
 
 #### 2. d堆  
 * 定义  
 d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿子  
 * 使用场景  
 用法与B树用法相似,d堆高度低,适用于主存存不下的情况    
+* [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)
 
 #### 3. 左式堆  
 * 定义  
@@ -105,6 +107,7 @@ d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿�
 堆序性:任意结点的值比其子树任意结点值均小(最小堆的特性)    
 * 使用场景  
 适用于合并(merge)较多的场景    
+* [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)
 
 #### 5. 二项队列  
 * 定义  
@@ -114,7 +117,15 @@ d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿�
 * 使用场景  
 适用于合并(merge)和插入较多的场景  
 * [二项队列代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinomialQueue)    
+* [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)
 
+#### 6. 斐波那契堆  
+* 定义  
+斐波那契堆(Fibonacci heap)是一种可合并堆,可用于实现合并优先队列.
+* 时间复杂度  
+插入 合并 减小关键字:摊还时间界O(1)    
+删除最小值 删除值:摊还时间界O(logN)    
+* [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)
 
 ## 树  
 ### 树的分类  

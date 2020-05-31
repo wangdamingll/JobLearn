@@ -1,5 +1,5 @@
-#ifndef __THIEFBACKPACK__H__
-#define __THIEFBACKPACK__H__
+#ifndef __LONGESTCOMSUB__H__
+#define __LONGESTCOMSUB__H__
 
 #include <iostream>
 #include <chrono>
@@ -101,4 +101,4 @@ int TestLongestComSunStr(){
     return 0;
 }
 
-#endif //__THIEFBACKPACK__H__
+#endif //__LONGESTCOMSUB__H__

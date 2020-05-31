@@ -137,8 +137,12 @@ public:
         if(hole==0){
             return;
         }
+        if(hole==1){
+            Pop();
+            return;
+        }
         DelKey(key);
-        array[hole].value = value; //这里假设比较值为整数值
+        array[hole].value = value; //这里比较值为整数值
         PercolateUp(hole);
         Pop();
     }
