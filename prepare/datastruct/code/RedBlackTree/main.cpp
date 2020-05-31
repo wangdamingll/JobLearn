@@ -2,7 +2,7 @@
 #include "RedBlackTree.hpp"
 using namespace std;
 
-    // Test program
+// Test program
 int main( )
 {
     const int NEG_INF = -9999;
