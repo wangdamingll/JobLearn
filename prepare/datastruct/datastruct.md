@@ -193,7 +193,7 @@ O(logN)
 * 特点  
 1)树堆和二叉堆不一样,二叉堆是完全二叉树,且满足堆序性质,但是树堆不一定是完全二叉树.树堆对结构性没有要求  
 2)树堆满足堆序要求  
-* [树堆示例代码]()  
+* [树堆示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/TreapTree)      
 
 ### 树的遍历  
 #### 1. 树的深度优先遍历
