@@ -173,6 +173,16 @@ O(logN)
 * [具体介绍](https://blog.csdn.net/wangdamingll/article/details/106080496)
 
 #### 5. 红黑树  
+* 定义  
+红黑树是一种自平衡的二叉查找树,是一种高效的查找树.  
+* 时间复杂度  
+操作最坏时间复杂度O(logN)    
+* 特点    
+红黑树是具有下列着色性质的二叉查找树:  
+1. 每一个节点或者着成红色，或者着成黑色.  
+2. 根是黑色的.    
+3. 如果一个节点是红色的，那么它的子节点必须是黑色的.    
+4. 从一个节点到一个nul指针的每一条路径必须包含相同数目的黑色节点.  
 * [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/RedBlackTree)    
 
 
