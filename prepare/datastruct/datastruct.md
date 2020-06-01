@@ -173,7 +173,7 @@ O(logN)
 * [具体介绍](https://blog.csdn.net/wangdamingll/article/details/106080496)
 
 #### 5. 红黑树  
-* 暂略  
+* [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/RedBlackTree)    
 
 
 ### 树的遍历  
