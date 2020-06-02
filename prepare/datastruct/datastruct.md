@@ -195,6 +195,17 @@ O(logN)
 2)树堆满足堆序要求  
 * [树堆示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/TreapTree)      
 
+#### 7. 名次树(借助树堆实现)  
+* 定义  
+在树堆的基础上实现,增加两个功能  
+Kth(k):查找第k小的元素  
+Rank(x):x的名次,即x是第几小的元素  
+* 时间复杂度  
+O(logN)  
+* [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/RankTreapTree)  
+* [名次树介绍](https://en.wikipedia.org/wiki/Order_statistic_tree)  
+* [libstdc++](https://gcc.gnu.org/onlinedocs/libstdc++/manual/policy_based_data_structures_test.html#performance.branch.order_statistics)  
+
 ### 树的遍历  
 #### 1. 树的深度优先遍历
 * 算法思想  
