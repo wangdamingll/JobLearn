@@ -193,6 +193,7 @@ O(logN)
 * 特点  
 1)树堆和二叉堆不一样,二叉堆是完全二叉树,且满足堆序性质,但是树堆不一定是完全二叉树.树堆对结构性没有要求  
 2)树堆满足堆序要求  
+* [树堆详细介绍](https://blog.csdn.net/wangdamingll/article/details/106528961)    
 * [树堆示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/TreapTree)      
 
 #### 7. 名次树(借助树堆实现)  
@@ -204,7 +205,7 @@ Rank(x):x的名次,即x是第几小的元素
 O(logN)  
 * [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/RankTreapTree)  
 * [名次树介绍](https://en.wikipedia.org/wiki/Order_statistic_tree)  
-* [libstdc++](https://gcc.gnu.org/onlinedocs/libstdc++/manual/policy_based_data_structures_test.html#performance.branch.order_statistics)  
+* [libstdc++](https://gcc.gnu.org/onlinedocs/libstdc++/manual/policy_based_data_structures_test.html#performance.branch.order_statistics)     
 
 ### 树的遍历  
 #### 1. 树的深度优先遍历
