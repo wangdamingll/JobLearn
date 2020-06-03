@@ -39,7 +39,6 @@ int main(){
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::seconds>(end-start);
     std::cout<<"time:"<<time.count()<<"s"<<std::endl;
-
 #else
     OrderStatisticTree t;
     vector<int> vec { 1, 3, 5, 7, 9, 11, 2 };

@@ -38,7 +38,7 @@ class RankTreap
     {
         nullNode = new TreapNode;
         nullNode->left = nullNode->right = nullNode;
-        root = clone( rhs.root );
+        root = Clone( rhs.root );
     }
 
     ~RankTreap( )
@@ -271,14 +271,14 @@ private:
         {
             Insert( x, t->left );
             if( t->left->priority < t->priority )
-                rotateWithLeftChild( t );
+                RotateWithLeftChild( t );
             Caculate(t);
         }
         else if( t->element < x )
         {
             Insert( x, t->right );
             if( t->right->priority < t->priority )
-                rotateWithRightChild( t );
+                RotateWithRightChild( t );
             Caculate(t);
         }
         // else duplicate; do nothing
@@ -299,14 +299,14 @@ private:
         {
             Insert( std::move( x ), t->left );
             if( t->left->priority < t->priority )
-                rotateWithLeftChild( t );
+                RotateWithLeftChild( t );
             Caculate(t);
         }
         else if( t->element < x )
         {
             Insert( std::move( x ), t->right );
             if( t->right->priority < t->priority )
-                rotateWithRightChild( t );
+                RotateWithRightChild( t );
             Caculate(t);
         }
         // else duplicate; do nothing
@@ -330,9 +330,9 @@ private:
             {
                 // Match found
                 if( t->left->priority < t->right->priority )
-                    rotateWithLeftChild( t );
+                    RotateWithLeftChild( t );
                 else
-                    rotateWithRightChild( t );
+                    RotateWithRightChild( t );
 
                 if( t != nullNode )      // Continue on down
                     Remove( x, t );
@@ -368,7 +368,7 @@ private:
     }
 
     // Rotations
-    void rotateWithLeftChild( TreapNode * & k2 )
+    void RotateWithLeftChild( TreapNode * & k2 )
     {
         TreapNode *k1 = k2->left;
         k2->left = k1->right;
@@ -380,7 +380,7 @@ private:
         k2 = k1;
     }
 
-    void rotateWithRightChild( TreapNode * & k1 )
+    void RotateWithRightChild( TreapNode * & k1 )
     {
         TreapNode *k2 = k1->right;
         k1->right = k2->left;
@@ -392,12 +392,12 @@ private:
         k1 = k2;
     }
 
-    TreapNode * clone( TreapNode * t ) const
+    TreapNode * Clone( TreapNode * t ) const
     {
         if( t == t->left )  // Cannot test against nullNode!!!
             return nullNode;
         else
-            return new TreapNode{ t->element, clone( t->left ), clone( t->right ), t->priority,t->s };
+            return new TreapNode{ t->element, Clone( t->left ), Clone( t->right ), t->priority,t->s };
     }
 };
 
