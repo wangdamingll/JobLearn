@@ -1,5 +1,5 @@
 #include <iostream>
-//#include "RankTreap1.hpp"
+#include "RankTreap1.hpp"
 #include "RankTreap2.hpp"
 #include <algorithm>
 #include <chrono>
