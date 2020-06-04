@@ -207,6 +207,15 @@ O(logN)
 * [名次树介绍](https://en.wikipedia.org/wiki/Order_statistic_tree)  
 * [libstdc++](https://gcc.gnu.org/onlinedocs/libstdc++/manual/policy_based_data_structures_test.html#performance.branch.order_statistics)     
 
+#### 8. 后缀树及后缀数组  
+* 定义
+1)后缀是指从某个位置i开始到整个串末尾结束的一个特殊子串,比如说字符串abcd,bc就是他的其中一个子串,bcd就是他的其中一个后缀.
+2)后缀数组就是某个字符串T的所有后缀组成的一个数组  
+3)后缀树就是包含字符串T所有后缀的压缩trie树(简单的来说)  
+* 后缀树和后缀数组的作用  
+暂略  
+* [后缀树库](https://github.com/simongog/sdsl-lite)  
+
 ### 树的遍历  
 #### 1. 树的深度优先遍历
 * 算法思想  
