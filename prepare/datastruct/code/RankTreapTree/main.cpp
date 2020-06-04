@@ -8,6 +8,29 @@ using namespace std;
 
 // Test program
 #define NUM (3000000)
+
+template <typename T>
+void DebugPrint(const RankTreap<T>& t){
+    for(int i=1;i<=NUM+1;i++){
+        std::cout << "k "<<i<<":" << t.Kth(i) << " ";
+    }
+    std::cout<<std::endl;
+    for(int i=1;i<=NUM+1;i++){
+        std::cout << "r "<<i<<":" << t.Rank(i) << " ";
+    }
+    std::cout<<std::endl;
+}
+
+void DebugPrintV(vector<uint64_t>& vec){
+    for(auto&it:vec){
+        if(it == 2){
+            continue;
+        }
+        std::cout<<it<<" ";
+    }
+    std::cout<<std::endl;
+}
+
 int main(){
 #if 1
     vector<uint64_t> vec;
@@ -15,25 +38,47 @@ int main(){
         vec.emplace_back(i);
     }
 
+    //DebugPrintV(vec);
+
     std::random_shuffle(vec.begin(),vec.end());
 
     auto start = std::chrono::steady_clock::now();
 
     RankTreap<uint64_t> t;
     for(auto&it:vec){
+        if(it==2){
+            continue;
+        }
         t.Insert(it);
     }
 
-    std::cout << "kth of 7: " << t.Kth(7) << std::endl;
-    std::cout << "kth of 8: " << t.Kth(8) << std::endl;
-    std::cout << "kth of 1: " << t.Kth(1) << std::endl;
+    //DebugPrint(t);
 
-    std::cout << "kth of rank 5: " << t.Rank(5) << std::endl;
+    std::cout << "----------Insert----------" << std::endl;
+    t.Insert(2);
 
+    //DebugPrint(t);
+
+    std::cout << "----------Remove----------" << std::endl;
+    t.Remove(1);
+    t.Remove(2);
+    t.Remove(3);
+    t.Remove(NUM-3);
+    t.Remove(NUM);
+
+    //DebugPrint(t);
+
+    uint64_t count=0;
     for(auto&it:vec){
-        t.Remove(it);
+        if(t.Kth(t.Rank(it))==it){
+            count++;
+        }
+    }
+    if(count!=vec.size()-5){
+        std::cout<<"error"<<std::endl;
     }
 
+    t.MakeEmpty();
     t.PrintTree();
 
     auto end = std::chrono::steady_clock::now();

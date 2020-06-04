@@ -81,7 +81,7 @@ class RankTreap
     /**
      * kth element.
      */
-    const T& Kth(uint64_t k){
+    const T& Kth(uint64_t k)const{
         if(IsEmpty()){
             return nullNode->element;
         }
@@ -91,7 +91,7 @@ class RankTreap
     /**
      * kth of x element.
      */
-    uint64_t Rank(const T& x){
+    uint64_t Rank(const T& x)const{
         if(IsEmpty()){
             return nullNode->element;
         }
@@ -204,6 +204,9 @@ private:
      * t is the root to caculate.
      */
     void Caculate(TreapNode *& t){
+        if(t==nullNode){
+            return;
+        }
         t->s = 1;
         if(t->left!=nullNode){
             t->s+=t->left->s;
@@ -219,11 +222,12 @@ private:
      * t is the node that roots the tree.
      * return kth element
      */
-     const T& Kth(TreapNode *& t,int k){
+     const T& Kth(const TreapNode* t,uint64_t k)const{
         if(t==nullNode || k>t->s||k<=0){
             return nullNode->element;
         }
 
+        //尾递归优化
         if(k==t->left->s+1){
             return t->element;
         }
@@ -240,19 +244,38 @@ private:
     * t is the node that roots the tree.
     * return x element kth
     */
-    int Rank(TreapNode *& t,const T& x){
+    uint64_t Rank(const TreapNode* t,const T& x)const{
         if(t==nullNode){
             return 0;
         }
-        int res =0;
-        if(x<=t->element){
-            res+=Rank(t->left,x);
-            res += (x == t->element);
-        }else{
-            res += t->left->s+1;
-            res += Rank(t->right,x);
+
+        const TreapNode* tmp = t;
+        uint64_t res =0;
+        bool find = false;
+        while(tmp!=nullNode){
+            if(x<=tmp->element){
+                if(x==tmp->element){
+                    res++;
+                    find= true;
+                }
+                tmp = tmp->left;
+            }else{
+                res+=tmp->left->s+1;
+                tmp=tmp->right;
+            }
         }
-        return res;
+        return find?res:0;
+
+//        //递归形式::效率差
+//        int res =0;
+//        if(x<=t->element){
+//            res+=Rank(t->left,x);
+//            res += (x == t->element);
+//        }else{
+//            res += t->left->s+1;
+//            res += Rank(t->right,x);
+//        }
+//        return res;
     }
 
     // Recursive routines
@@ -318,26 +341,22 @@ private:
      * t is the node that roots the tree.
      * Set the new root of the subtree.
      */
-    void Remove( const T & x, TreapNode * & t )
-    {
-        if( t != nullNode )
-        {
-            if( x < t->element )
+    void Remove( const T & x, TreapNode * & t ){
+        if( t != nullNode ){
+            if( x < t->element ){
                 Remove( x, t->left );
-            else if( t->element < x )
+            }else if( t->element < x ){
                 Remove( x, t->right );
-            else
-            {
+            }else{
                 // Match found
                 if( t->left->priority < t->right->priority )
                     RotateWithLeftChild( t );
                 else
                     RotateWithRightChild( t );
 
-                if( t != nullNode )      // Continue on down
-                    Remove( x, t );
-                else
-                {
+                if( t != nullNode ) {     // Continue on down
+                    Remove(x, t);
+                }else{
                     delete t->left;
                     t->left = nullNode;  // At a leaf
                 }
@@ -361,34 +380,29 @@ private:
     {
         if( t != nullNode )
         {
-            cout << t->element<<":"<<t->s<< endl;
+            cout <<t->element<<":"<<t->s<< endl;
             PrintTree( t->left );
             PrintTree( t->right );
         }
     }
 
-    // Rotations
+    // Right Rotations
     void RotateWithLeftChild( TreapNode * & k2 )
     {
         TreapNode *k1 = k2->left;
         k2->left = k1->right;
         k1->right = k2;
-
         Caculate(k2);
-        Caculate(k1);
-
         k2 = k1;
     }
 
+    // Left Rotations
     void RotateWithRightChild( TreapNode * & k1 )
     {
         TreapNode *k2 = k1->right;
         k1->right = k2->left;
         k2->left = k1;
-
         Caculate(k1);
-        Caculate(k2);
-
         k1 = k2;
     }
 
