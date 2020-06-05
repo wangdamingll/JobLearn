@@ -220,6 +220,7 @@ O(logN)
 2)在两个字符串T1和T2中找出最长公共子串:O(T)    
 3)找出模式P出现的次数:O(P)    
 4)找出指定公共长度L>1的最长子串:O(T)    
+* [详细介绍](https://blog.csdn.net/wangdamingll/article/details/106573679)  
 * [后缀数组示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SuffixArray)      
 * [后缀树库](https://github.com/simongog/sdsl-lite)    
 
