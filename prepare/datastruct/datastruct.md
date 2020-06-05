@@ -215,9 +215,13 @@ O(logN)
 * 后缀数组的作用   
 1)查找模式P是否存在在文本中:O(PlogT)    
 2)找出模式P出现的次数:O(P+logT)      
-* 后缀树的作用  
-暂略  
-* [后缀树库](https://github.com/simongog/sdsl-lite)  
+* 后缀树的作用    
+1)找出T中最长重复子串:O(T)    
+2)在两个字符串T1和T2中找出最长公共子串:O(T)    
+3)找出模式P出现的次数:O(P)    
+4)找出指定公共长度L>1的最长子串:O(T)    
+* [后缀数组示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SuffixArray)      
+* [后缀树库](https://github.com/simongog/sdsl-lite)    
 
 ### 树的遍历  
 #### 1. 树的深度优先遍历
