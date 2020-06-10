@@ -234,7 +234,7 @@ KD-Tree,其实是K-Dimension Tree的缩写,是对数据点在k维空间中划分
 1)构建:O(log(^2)n)    
 2)插入:O(logN)  
 3)删除:O(logN)  
-4)查询:O(N^(1-1/k)+m):k为维数,m为每次要搜寻的最近点个数  
+4)范围查询(最坏):O(k*N^(1-1/k)+m):k为维数,m为每次要搜寻的最近点个数  
 * [KD-Tree Wiki](https://oi-wiki.org/ds/kdt/)  
 * [KD-Tree CSDN](https://blog.csdn.net/qq_34374664/article/details/78564137)  
 * [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/KDTree)    
