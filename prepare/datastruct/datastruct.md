@@ -225,6 +225,22 @@ O(logN)
 * [后缀数组示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/SuffixArray)      
 * [后缀树库](https://github.com/simongog/sdsl-lite)    
 
+#### 7. KD-Tree
+* 定义  
+KD-Tree,其实是K-Dimension Tree的缩写,是对数据点在k维空间中划分的一种数据结构.其实,KD-Tree 是一种平衡二叉树.
+* KD-Tree作用  
+1)多键值搜索:例如范围搜寻、最邻近搜索  
+* KD-Tree时间复杂度  
+1)构建:O(log(^2)n)    
+2)插入:O(logN)  
+3)删除:O(logN)  
+4)查询:O(N^(1-1/k)+m):k为维数,m为每次要搜寻的最近点个数  
+* [KD-Tree Wiki](https://oi-wiki.org/ds/kdt/)  
+* [KD-Tree CSDN](https://blog.csdn.net/qq_34374664/article/details/78564137)  
+* [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/KDTree)    
+* [KD-Tree C++库](https://web.archive.org/web/20170617153811/http://libkdtree.alioth.debian.org)    
+* [KD-Tree C库](https://github.com/jtsiomb/kdtree)    
+
 ### 树的遍历  
 #### 1. 树的深度优先遍历
 * 算法思想  
