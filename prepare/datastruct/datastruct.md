@@ -233,7 +233,7 @@ KD-Tree,其实是K-Dimension Tree的缩写,是对数据点在k维空间中划分
 * KD-Tree时间复杂度  
 1)构建:O(log(^2)n)    
 2)插入:平均O(logN)  
-3)删除:平均O(logN) 
+3)删除:平均O(logN)   
 4)精确查询:平均O(logN)   
 5)范围查询(理想平衡树最坏):O(k*N^(1-1/k)+m):k为维数,m为每次要搜寻的最近点个数  
 * [KD-Tree Wiki](https://oi-wiki.org/ds/kdt/)  
