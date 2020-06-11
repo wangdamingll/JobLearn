@@ -61,7 +61,11 @@ hi(x) = (hash(x) + f(i)) mod tablesize = (hash(x) + i * hash2(x)) mod tablesize
 * 定义  
 二叉堆是完全二叉树或者是近似完全二叉树.
 * 时间复杂度  
-平均O(logN)  
+1)find-min(查找最小值): O(1)    
+2)merge(合并): O(logN)    
+3)insert(插入): O(logN)    
+4)decrease-key(减小元素): O(logN)    
+5)delete-min(删除最小值): O(N)    
 * 二叉堆特性  
 1. 结构特性:是一颗完全二叉树  
 2. 堆序特性:父节点大于或等于其各子节点(最大堆);父节点小于或等于其各子节点(最小堆)    
@@ -91,7 +95,11 @@ d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿�
 * 定义  
 又称作最左堆、左倾堆,是堆的一种,保留了堆的结构性和堆序性  
 * 时间复杂度  
-插入 删除 合并: O(logN)  
+1)find-min(查找最小值): O(1)    
+2)merge(合并): O(logN)    
+3)insert(插入): O(logN)    
+4)decrease-key(减小元素): O(N)  
+5)delete-min(删除最小值): O(logN)    
 * 特点  
 1. 结构性:任一节点的零路径长比它的诸儿子节点的零路径长的最小值多1. 不再是一棵完全二叉树(Complete tree),而且是一棵极不平衡的树  
 2. 堆序性:任意结点的值比其子树任意结点值均小(最小堆的特性)    
@@ -114,7 +122,11 @@ d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿�
 * 定义  
 二项队列不同于左式堆和二叉堆等优先队列的实现之处在于,一个二项队列不是一棵堆序的树,而是堆序树的集合,即森林.堆序树中的每棵树都是由约束形式的,叫做二项树.  
 * 时间复杂度  
-合并 插入 删除:最坏的时间复杂度O(logN), 但是插入的平均时间复杂度O(1)    
+1)find-min(查找最小值): O(logN)    
+2)merge(合并): O(logN)    
+3)insert(插入): O(1)    
+4)decrease-key(减小元素): O(logN)  
+5)delete-min(删除最小值): O(logN)    
 * 使用场景  
 适用于合并(merge)和插入较多的场景  
 * [二项队列代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BinomialQueue)    
@@ -124,9 +136,24 @@ d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿�
 * 定义  
 斐波那契堆(Fibonacci heap)是一种可合并堆,可用于实现合并优先队列.
 * 时间复杂度  
-插入 合并 减小关键字:摊还时间界O(1)    
-删除最小值 删除值:摊还时间界O(logN)    
-* [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)
+1)find-min(查找最小值): O(1)    
+2)merge(合并): O(1)    
+3)insert(插入): O(1)    
+4)decrease-key(减小元素): O(1)  
+5)delete-min(删除最小值): O(logN)    
+* [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)  
+
+#### 7. 配对堆    
+* 定义  
+配对堆是一种实现简单、均摊复杂度优越的堆数据结构,是一种多叉树,并且可以被认为是一种简化的斐波那契堆.  
+配对堆是"简单即更好"的一个好例子,似乎是要求decreasekey或merge操作的一些重大应用所首选的方法    
+* 时间复杂度  
+1)find-min(查找最小值): O(1)  
+2)merge(合并): O(1)    
+3)insert(插入): O(1)    
+4)decrease-key(减小元素)(可选): O(logN)    
+5)delete-min(删除最小值): O(logN)    
+* [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)  
 
 ## 树  
 ### 树的分类  
