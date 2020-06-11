@@ -237,7 +237,7 @@ KD-Tree,其实是K-Dimension Tree的缩写,是对数据点在k维空间中划分
 4)精确查询:平均O(logN)   
 5)范围查询(理想平衡树最坏):O(k*N^(1-1/k)+m):k为维数,m为每次要搜寻的最近点个数  
 * [KD-Tree Wiki](https://oi-wiki.org/ds/kdt/)  
-* [KD-Tree CSDN](https://blog.csdn.net/qq_34374664/article/details/78564137)  
+* [KD-Tree CSDN](https://blog.csdn.net/wangdamingll/article/details/106683086)   
 * [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/KDTree)    
 * [KD-Tree C++库](https://web.archive.org/web/20170617153811/http://libkdtree.alioth.debian.org)    
 * [KD-Tree C库](https://github.com/jtsiomb/kdtree)    
