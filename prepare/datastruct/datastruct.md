@@ -152,7 +152,8 @@ d堆是二叉堆的简单推广,像一个二叉堆,只是所有节点有d个儿�
 2)merge(合并): O(1)    
 3)insert(插入): O(1)    
 4)decrease-key(减小元素)(可选): O(logN)    
-5)delete-min(删除最小值): O(logN)    
+5)delete-min(删除最小值): O(logN)  
+* [示例代码](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/PairingHeap)    
 * [boost.heap](https://www.boost.org/doc/libs/1_49_0/doc/html/heap.html)  
 
 ## 树  
