@@ -7,7 +7,7 @@
 #include <random>
 
 /*
-“单生产者，单消费者”(single-producer,single-consumerSPSC)队列
+“单生产者，单消费者”(single-producer,single-consumer SPSC)队列
 */
 
 template<typename T>
