@@ -768,7 +768,7 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，可以配置  
 * select是遍历所有的fd找到可读写事件，epoll是直接返回可读写的事件(最大区别)  
 追问:Select文件描述符超过1024会如何
-* select的fd超过1024将会非常危险------FD_SET导致core dump  
+* select的fd超过1024将会非常危险------linux下是以fd的值作为数组的下标,一旦超过1024,将会导致未定义行为,甚至导致core dump,参考man select  
 * 修改对应的宏，重新编译内核源码,但是效率会降低
 追问:Epoll底层是如何实现的?为什么要用红黑树结构？数据结构大概是什么样子的
 * [epoll底层实现](https://blog.csdn.net/tianjing0805/article/details/76021440)  
