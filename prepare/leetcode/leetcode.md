@@ -15,5 +15,14 @@
 ### 代码示例  
 [二分查找](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/BinarySearch)  
 
+## 3. whowinner(竞争博弈问题)  
+### 解决方法  
+* 博弈:极大极小策略
+* 递归(普通)
+* 递归(记忆)
+* dp
+### 代码示例  
+[whowinne](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/whowinner/main.cpp)  
+
 
 ---
