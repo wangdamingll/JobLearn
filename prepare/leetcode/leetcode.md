@@ -1,5 +1,14 @@
 # leetcode
 ---
+# 普通问题
+## 1. 二分查找问题  
+### 解决方法  
+* 普通二分查找
+* 递归二分查找
+### 代码示例  
+[二分查找](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/BinarySearch)  
+
+# 动态规划问题
 ## 1. 最大子序列和问题  
 ### 解决方法  
 * 暴力枚举
@@ -8,14 +17,7 @@
 ### 代码示例  
 [最大子序列和](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/MaxSubSeqSum)  
 
-## 2. 二分查找问题  
-### 解决方法  
-* 普通二分查找
-* 递归二分查找
-### 代码示例  
-[二分查找](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/BinarySearch)  
-
-## 3. whowinner(竞争博弈问题)  
+## 2. whowinner(竞争博弈问题)  
 ### 解决方法  
 * 博弈:极大极小策略
 * 递归(普通)
