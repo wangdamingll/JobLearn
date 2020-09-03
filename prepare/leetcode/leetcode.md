@@ -23,8 +23,9 @@
 * 递归(普通)
 * 递归(记忆)
 * dp
+* 满足一定条件,先手必胜
 ### 代码示例  
-[whowinne](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/whowinner/main.cpp)  
+[whowinne](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/whowinner)  
 
 
 ---
