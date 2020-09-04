@@ -25,6 +25,9 @@
 * dp
 * 满足一定条件,先手必胜
 ### 代码示例  
+* 预测赢家
+* 石子游戏
+* 我能赢吗?
 [whowinne](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/whowinner)  
 
 
