@@ -30,5 +30,13 @@
 * 我能赢吗?
 [whowinne](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/whowinner)  
 
+## 3. 猜数字问题  
+### 解决方法  
+* 递归(普通)
+* 递归(记忆)
+* dp
+### 代码示例  
+[猜数字](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/guessnumber)  
+
 
 ---
