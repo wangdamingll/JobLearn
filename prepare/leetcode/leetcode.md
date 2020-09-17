@@ -28,6 +28,8 @@
 * 预测赢家
 * 石子游戏
 * 我能赢吗?
+* 除数博弈  
+[divisorGame](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/divisorGame)  
 [whowinne](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/whowinner)  
 
 ## 3. 猜数字问题  
