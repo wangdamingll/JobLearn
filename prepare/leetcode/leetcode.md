@@ -41,4 +41,14 @@
 [猜数字](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/guessnumber)  
 
 
+## 4. 区域和检索
+### 解决方法  
+* 暴力枚举  
+* 递归(普通)
+* 递归(记忆)
+* dp
+* 提前缓存
+### 代码示例  
+[区域和检索](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/areafind)  
+
 ---
