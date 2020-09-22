@@ -108,29 +108,4 @@ int TestRe(){
     return 0;
 }
 
-int TestOnline(){
-    auto start = std::chrono::steady_clock::now();
-
-    int arr[]={-2,11,-4,13,-5,-2};
-    int size = sizeof(arr)/sizeof(arr[0]);
-
-    int max=0;
-    int thisSum=0;
-    for(int i=0;i<size;i++){
-        thisSum+=arr[i];
-        if(thisSum>max){
-            max = thisSum;
-        }else if(thisSum<0){
-            thisSum=0;
-        }
-    }
-    std::cout<<"TestOnline::最大子序列和为:"<<max<<std::endl;
-
-    auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
-    std::cout<<"time:"<<time.count()<<"ms"<<std::endl;
-
-    return 0;
-}
-
 #endif //__TEST__H__

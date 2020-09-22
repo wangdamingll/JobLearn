@@ -18,7 +18,7 @@ using namespace std;
  * 时间复杂度:
  * 1. 暴力枚举:O(N^2)
  * 2. 分治思想(递归)::O(NlogN)
- * 3. 联机算法:O(N)
+ * 3. 联机算法:查看main2.cpp
  *
  * 算法特点:
  *
@@ -30,5 +30,4 @@ using namespace std;
 int main() {
     TestEnum();//暴力枚举
     TestRe();//分治思想
-    TestOnline();//联机算法
 }
