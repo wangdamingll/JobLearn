@@ -47,6 +47,7 @@ public:
     }
 };
 
+//DP
 //dp[i] = dp[i-1] + nums[i] (dp[i-1] >0)
 //dp[i] = num[i] (dp[i-1]<=0)
 //时间复杂度:O(n)
@@ -65,6 +66,7 @@ public:
 };
 
 
+//DP
 //dp[i] = dp[i-1] + nums[i] (dp[i-1] >0)
 //dp[i] = num[i] (dp[i-1]<=0)
 //时间复杂度:O(n)
@@ -82,6 +84,40 @@ public:
             former = cur;
         }
         return res;
+    }
+};
+
+//分治思想:利用线段树
+//[l,r] <= [(l,m),(m+1,r)]
+class Solution4 {
+    struct Status{
+        int lSum; //(l,r)区间以l为左端点的最大子段和
+        int rSum; //(l,r)区间以r为右端点的最大子段和
+        int mSum; //(l,r)区间的最大子段和
+        int iSum; //(l,r)区间的和
+    };
+public:
+    int maxSubArray(vector<int>& nums) {
+        return MaxSubArray(nums,0,nums.size()-1).mSum;
+    }
+
+    Status MaxSubArray(vector<int>& nums,int l,int r){
+        if(l>=r){
+            return {nums[l],nums[l],nums[l],nums[l]};
+        }
+        int mid = l + ((r-l)>>1);
+
+        Status ls = MaxSubArray(nums,l,mid);  //计算左子区间的状态
+        Status rs = MaxSubArray(nums,mid+1,r);//计算右子区间的状态
+        return PushUp(ls,rs); //合并计算父区间的状态
+    }
+
+    Status PushUp(Status l,Status r){
+        int iSum = l.iSum + r.iSum;
+        int lSum = std::max(l.lSum, l.iSum + r.lSum);
+        int rSum = std::max(r.rSum, r.iSum + l.rSum);
+        int mSum = std::max(std::max(l.mSum,r.mSum),l.rSum + r.lSum);//最大值:左子区间最大值或者右子区间最大值或者跨越中点区间的最大值
+        return {lSum,rSum,mSum,iSum};
     }
 };
 
