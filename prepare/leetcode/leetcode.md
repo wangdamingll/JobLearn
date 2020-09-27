@@ -8,6 +8,8 @@
 ### 代码示例  
 [二分查找](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/BinarySearch)  
 
+
+
 # 动态规划问题
 ## 1. 最大子序列和问题  
 ### 解决方法  
@@ -50,5 +52,14 @@
 * 提前缓存
 ### 代码示例  
 [区域和检索](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/areafind)  
+
+## 5. 区域操作(最大值、最小值、最大子序列和等)
+### 解决方法  
+* 暴力枚举  
+* 递归(普通)
+* dp
+* 线段树
+### 代码示例  
+[区域操作](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/areaoper)  
 
 ---
