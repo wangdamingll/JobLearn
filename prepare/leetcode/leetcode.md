@@ -11,7 +11,7 @@
 
 
 # 动态规划问题
-## 1. 最大子序列和问题  
+## 最大子序列和问题  
 ### 解决方法  
 * 暴力枚举
 * 分治思想(递归)
@@ -19,7 +19,7 @@
 ### 代码示例  
 [最大子序列和](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/MaxSubSeqSum)  
 
-## 2. whowinner(竞争博弈问题)  
+## whowinner(竞争博弈问题)  
 ### 解决方法  
 * 博弈:极大极小策略
 * 递归(普通)
@@ -34,16 +34,35 @@
 [divisorGame](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/divisorGame)  
 [whowinne](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/whowinner)  
 
-## 3. 猜数字问题  
+## 区域操作(最大值、最小值、最大子序列和等)
+### 解决方法  
+* 暴力枚举  
+* 递归(普通)
+* dp
+* 线段树
+### 代码示例  
+* 买卖股票的最佳时机  
+
+[区域操作](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/areaoper)  
+
+## 区域带条件的最大和
+### 解决方法  
+* dp
+### 代码示例  
+* 按摩师  
+
+[区域带条件的最大和](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/areacondmaxsum)  
+
+
+## 374. 猜数字大小
 ### 解决方法  
 * 递归(普通)
 * 递归(记忆)
 * dp
 ### 代码示例  
-[猜数字](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/guessnumber)  
+[猜数字大小](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/guessnumber)  
 
-
-## 4. 区域和检索
+## 303. 区域和检索 - 数组不可变(求范围内和)
 ### 解决方法  
 * 暴力枚举  
 * 递归(普通)
@@ -51,15 +70,8 @@
 * dp
 * 提前缓存
 ### 代码示例  
-[区域和检索](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/areafind)  
+[区域和检索 - 数组不可变](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/areafind)  
 
-## 5. 区域操作(最大值、最小值、最大子序列和等)
-### 解决方法  
-* 暴力枚举  
-* 递归(普通)
-* dp
-* 线段树
-### 代码示例  
-[区域操作](https://github.com/wangdamingll/JobLearn/blob/master/prepare/leetcode/code/areaoper)  
+
 
 ---
