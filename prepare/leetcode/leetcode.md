@@ -19,6 +19,15 @@
 ### 代码示例  
 [最大子序列和](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/MaxSubSeqSum)  
 
+## 爬楼梯问题  
+### 解决方法  
+* 递归
+* 记忆化递归
+* dp
+### 代码示例  
+[爬楼梯问题](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/climbstairs)  
+
+
 ## whowinner(竞争博弈问题)  
 ### 解决方法  
 * 博弈:极大极小策略
