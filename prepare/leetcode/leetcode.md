@@ -11,13 +11,17 @@
 
 
 # 动态规划问题
-## 最大子序列和问题  
+## 子序列问题  
 ### 解决方法  
 * 暴力枚举
 * 分治思想(递归)
 * 联机算法
-### 代码示例  
+### 代码示例   
+* 最大子序列和  
+* 判断是否为子序列  
 [最大子序列和](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/MaxSubSeqSum)  
+[是否为子序列](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/subseq)    
+
 
 ## 爬楼梯问题  
 ### 解决方法  
