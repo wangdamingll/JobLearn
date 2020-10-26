@@ -4,6 +4,7 @@
 using namespace std;
 
 /*
+392. 判断子序列
 给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
 你可以认为 s 和 t 中仅包含英文小写字母。字符串 t 可能会很长（长度 ~= 500,000），而 s 是个短字符串（长度 <=100）。
 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。（例如，"ace"是"abcde"的一个子序列，而"aec"不是）。
@@ -48,6 +49,46 @@ public:
 };
 
 //dp
+//特点:预处理t,然后判断s是否为t的子序列,对有大量s有奇效
+//时间复杂度:O(M*26 + N):M为t的长度 N为s的长度
+//空间复杂度:O(M*26)
+//提前对t进行缓存处理,记录t中每个字符在t中第一次出现的位置
+//dp[i][j]表示从i位置开始字符j第一次出现的位置
+//dp[i][j] = i              t[i] = j
+//dp[i][j] = dp[i+1][j]     t[i] != j
+class Solution2 {
+public:
+    bool isSubsequence(string s, string t) {
+        int m = t.size();
+        int n = s.size();
+
+        //缓存t的dp信息
+        std::vector<std::vector<int>> dp(m+1, std::vector<int>(26,0));
+        for(int j=0;j<26;j++){
+            dp[m][j] = m;//表示字符不存在
+        }
+        for(int i = m-1;i>=0;--i){
+            for(int j=0;j<26;j++){
+                if(t[i] ==j + 'a'){
+                    dp[i][j] = i;
+                }else{
+                    dp[i][j] = dp[i+1][j];
+                }
+            }
+        }
+
+        //判断s是否是t的子串
+        int add = 0;
+        for(int sIndex = 0;sIndex<n;++sIndex){
+           int pos = dp[add][s[sIndex]-'a'];
+           if(pos == m){
+               return false;
+           }
+           add = pos+1;
+        }
+        return true;
+    }
+};
 
 
 //二分查找
@@ -104,10 +145,9 @@ public:
     }
 };
 
-
 int main() {
-    Solution1 s;
-    std::string sstr = "bb";
+    Solution2 s;
+    std::string sstr = "acb";
     std::string tstr = "ahbgdc";
     bool ret = s.isSubsequence(sstr,tstr);
     std::cout<<"ret="<<ret<<std::endl;
