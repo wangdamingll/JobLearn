@@ -54,7 +54,7 @@ public:
 };
 
 //动态规划:使用一维数组构建动态转移方程
-//dp[i]表示第[1,i]天最大预约时长
+//dp[i]表示第[i]天最大预约时长
 //orders[i]表示第i天的订单
 //dp[i] = orders[1]  i=1
 //dp[i] = std::max(orders[1],orders[2])  i=2
