@@ -29,6 +29,8 @@
 * 记忆化递归
 * dp
 ### 代码示例  
+* 最多方法爬到楼顶  
+* 爬楼梯的最小消耗  
 [爬楼梯问题](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/climbstairs)  
 
 
