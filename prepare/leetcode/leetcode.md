@@ -31,6 +31,7 @@
 ### 代码示例  
 * 最多方法爬到楼顶  
 * 爬楼梯的最小消耗  
+* 三步问题    
   
 [爬楼梯问题](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/climbstairs)  
 
