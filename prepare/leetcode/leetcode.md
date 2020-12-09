@@ -8,7 +8,12 @@
 ### 代码示例  
 [二分查找](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/BinarySearch)  
 
-
+## 树操作  
+## 1.二叉搜索树节点最小距离  
+### 解决方法  
+* 二叉搜索树中序遍历法   
+### 代码示例  
+[二叉搜索树节点最小距离](https://github.com/wangdamingll/JobLearn/tree/master/prepare/leetcode/code/tree/binarysearchtreenodemindistance.cpp)         
 
 # 动态规划问题
 ## 子序列问题  
