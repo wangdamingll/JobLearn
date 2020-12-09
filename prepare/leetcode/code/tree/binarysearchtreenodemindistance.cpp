@@ -33,16 +33,6 @@ using namespace std;
  * 
  */
 
- /**
-  * Definition for a binary tree node.
-  * struct TreeNode {
-  *     int val;
-  *     TreeNode *left;
-  *     TreeNode *right;
-  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-  * };
-  */
-
 
 struct TreeNode {
     int val;
@@ -69,7 +59,7 @@ public:
         return ans;
     }
 
-    /**
+    /*
 	 * \brief  calculate min
 	 * \param root  tree root
 	 * \param ans  min answer
@@ -86,7 +76,7 @@ public:
         MinDiffInBST(root->right, ans);
     }
 	
-    /**
+    /*
 	 * \brief   tree middle traverse
 	 * \param root  tree root 
 	 */
