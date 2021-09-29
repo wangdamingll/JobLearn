@@ -19,10 +19,6 @@ public:
         return m_instance.get();
     }
 
-    static T* GetInstance(){
-        return m_instance.get();
-    }
-
     Singleton() = delete;
     Singleton(const Singleton&) = delete;
     Singleton& operator=(const Singleton&) = delete;
