@@ -3,12 +3,13 @@
 # 一. 创建型  
 ## 1. 单例模式
 * [单例模式介绍](https://blog.csdn.net/wangdamingll/article/details/120555777)      
-* [懒汉式](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton1.cpp)  
-* [饿汉式](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton3.cpp)  
-* [静态局部变量实现单例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton2.cpp)  
+* [懒汉式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton1.cpp)  
+* [饿汉式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton3.cpp)  
+* [静态局部变量单例实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton2.cpp)  
 
 ## 2. 简单工厂   
 * [简单工厂介绍(不是23种设计模式之一)](https://blog.csdn.net/wangdamingll/article/details/120564417)      
+* [简单工厂实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/SimpleFactory.cpp)    
 
 ## 3. 工厂方法     
 * [工厂方法介绍]()    
