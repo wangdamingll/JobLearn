@@ -12,10 +12,10 @@
 * [简单工厂实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/SimpleFactory.cpp)    
 
 ## 3. 工厂方法     
-* [工厂方法介绍]()    
+* [工厂方法介绍](https://blog.csdn.net/wangdamingll/article/details/120568256)      
 
 ## 4. 抽象工厂       
-* [抽象工厂介绍]()    
+* [抽象工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120568303)      
 
 # 二. 行为型    
 ## 2.观察者模式

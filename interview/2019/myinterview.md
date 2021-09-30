@@ -11,61 +11,14 @@
 
 ==后期补充==  
 * [单例模式介绍](https://blog.csdn.net/wangdamingll/article/details/120555777)      
-* [懒汉式](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton1.cpp)  
-* [饿汉式](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton3.cpp)  
-* [静态局部变量实现单例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton2.cpp)    
-* [抽象工厂介绍]()  
+* [懒汉式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton1.cpp)  
+* [饿汉式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton3.cpp)  
+* [静态局部变量单例实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton2.cpp)    
+* [简单工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120564417)    
+* [工厂方法介绍](https://blog.csdn.net/wangdamingll/article/details/120568256)      
+* [抽象工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120568303)    
 
 
-
-```C++
-//简单工厂模式基本代码
-#include <iostream>
-using namespace std;
-
-class AbstractProduct {
-public:
-    virtual ~AbstractProduct() {}
-    virtual void Operation() = 0;
-};
-
-class ProductA : public AbstractProduct {
-public:
-    void Operation() { cout << "ProductA" << endl; }
-};
-
-class ProductB : public AbstractProduct {
-public:
-    void Operation() { cout << "ProductB" << endl; }
-};
-
-class Factory {
-public:
-    AbstractProduct* createProduct(char product) {
-        AbstractProduct* ap = NULL;
-        switch(product) {
-            case 'A': ap = new ProductA(); break;
-            case 'B': ap = new ProductB(); break;
-        }
-        return ap;
-    }
-};
-
-int main() {
-    Factory* f = new Factory();
-    AbstractProduct* apa = f->createProduct('A');
-    apa->Operation();  // ProductA
-
-    AbstractProduct* apb = f->createProduct('B');
-    apb->Operation();  // ProductB
-
-    delete apa;
-    delete apb;
-    delete f;
-
-    return 0;
-}
-```
 ```C++
 //工厂模式基本代码
 #include <iostream>
