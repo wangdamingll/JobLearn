@@ -13,10 +13,10 @@ public:
         if(m_instance == nullptr){
             std::unique_lock<std::mutex> lock(mutex);
             if(m_instance == nullptr){
-                m_instance.reset(new T(std::forward<Args>(args)...));
+                m_instance = new T(std::forward<Args>(args)...);
             }
         }
-        return m_instance.get();
+        return m_instance;
     }
 
     Singleton() = delete;
@@ -25,10 +25,10 @@ public:
     Singleton(Singleton&&) = delete;
     Singleton& operator=(Singleton&&) = delete;
 private:
-    static std::unique_ptr<T> m_instance;
+    static T* m_instance;
     std::mutex;
 };
-template <typename T> std::unique_ptr<T> Singleton<T>::m_instance = nullptr;
+template <typename T> T* Singleton<T>::m_instance = nullptr;
 
 
 //test
@@ -58,8 +58,6 @@ int main(){
     Singleton<B>::Instance(std::move(str));
 
     // 创建C类型的单例，含两个参数
-    Singleton<C>::Instance(1, 3.14);
-    // 获取单例并调用单例对象的方法
-    Singleton<C>::GetInstance()->Fun();
+    Singleton<C>::Instance(1, 3.14)->Fun();
     return 0;
 }

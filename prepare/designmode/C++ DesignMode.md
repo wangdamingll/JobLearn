@@ -3,8 +3,9 @@
 # 一. 创建型  
 ## 1. 单例模式
 * [单例模式介绍](https://blog.csdn.net/wangdamingll/article/details/120555777)      
-* [C++11 智能指针实现单例](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton1.cpp)
-* [C++11 静态局部变量实现单例](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton2.cpp)  
+* [懒汉式](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton1.cpp)  
+* [饿汉式](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton3.cpp)  
+* [静态局部变量实现单例](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton2.cpp)  
 
 ## 2. 简单工厂   
 * [简单工厂介绍(不是23种设计模式之一)]()    
