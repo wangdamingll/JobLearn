@@ -10,10 +10,7 @@
 工厂模式的本质: 延迟到子类来选择实现  
 
 ==后期补充==  
-* [单例模式介绍](https://blog.csdn.net/wangdamingll/article/details/120555777)      
-* [懒汉式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton1.cpp)  
-* [饿汉式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton3.cpp)  
-* [静态局部变量单例实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton2.cpp)    
+* [单例模式介绍](https://blog.csdn.net/wangdamingll/article/details/120555777)        
 * [简单工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120564417)    
 * [工厂方法介绍](https://blog.csdn.net/wangdamingll/article/details/120568256)      
 * [抽象工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120568303)    
