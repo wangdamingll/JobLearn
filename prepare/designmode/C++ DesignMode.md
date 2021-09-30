@@ -13,6 +13,8 @@
 
 ## 3. 工厂方法     
 * [工厂方法介绍](https://blog.csdn.net/wangdamingll/article/details/120568256)      
+* [工厂方法实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/FactorMethod1.cpp)   
+* [工厂方法实现2](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/FactorMethod2.cpp)     
 
 ## 4. 抽象工厂       
 * [抽象工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120568303)      
