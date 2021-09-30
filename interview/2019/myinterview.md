@@ -3,94 +3,19 @@
 ## 一.爱奇艺
 ### 爱奇艺面试第一轮
 #### 1.你了解哪些设计模式
-单例模式工厂模式  
-追问：单例模式、简单工厂模式、工厂模式有什么特点？  
-```C++
-//单例模式懒汉式
-#include <iostream>
-#include <mutex>
-using namespace std;
-std::mutex mt;
-class Singleton{
-private:
-    Singleton(){}
-public:
-    static Singleton* instance(){
-        if(_instance == 0){
-            mt.lock();
-            if(_instance == 0)
-                _instance = new Singleton();
-            mt.unlock();
-        }
-        return _instance;
-    }
-private:
-    static Singleton* _instance;
-};
-Singleton* Singleton::_instance = 0;
-```
-```C++
-//单例模式饿汉式
-#include <iostream>
-#include <mutex>
-using namespace std;
-std::mutex mt;
-class Singleton{
-private:
-    Singleton(){}
-public:
-    static Singleton* instance(){
-        if(_instance == 0){
-            return _instance;
-        }
-        return _instance;
-    }
-private:
-    static Singleton* _instance;
-};
-Singleton* Singleton::_instance = new Singleton();
-```
-```C++
-//单例模式C++11
-#include <iostream>
-#include <thread>
-#include <mutex>
-using namespace std;
-std::once_flag flag;
-class Singleton
-{
-public:
-    static Singleton& getInstance(){
-        std::call_once(flag, []() {instance_.reset(new Singleton()); });
-        return *instance_;
-    }
+答:单例模式工厂模式  
+追问:单例模式、简单工厂模式、工厂模式有什么特点？  
+答:单例模式的本质:控制类的实例数量,当然这里是一个.  
+简单工厂的本质: 选择合适的实现对象  
+工厂模式的本质: 延迟到子类来选择实现  
 
-private:
-    static std::unique_ptr<Singleton> instance_;
+==后期补充==  
+* [单例模式介绍](https://blog.csdn.net/wangdamingll/article/details/120555777)      
+* [懒汉式](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton1.cpp)  
+* [饿汉式](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton3.cpp)  
+* [静态局部变量实现单例](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Singleton2.cpp)    
+* [抽象工厂介绍]()  
 
-private:
-    Singleton() = default;
-    Singleton(const Singleton& other) = delete;
-    Singleton& operator=(const Singleton&) = delete;
-};
-
-std::unique_ptr<Singleton> Singleton::instance_;
-
-void do_onceflag(){
-    Singleton& s = Singleton::getInstance();
-    cout << &s << endl;
-}
-
-int main(){
-    std::thread t1(do_onceflag);
-    std::thread t2(do_onceflag);
-    t1.join();
-    t2.join();
-    return 0;
-}
-```
-[C++11 智能指针实现单例](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton1.cpp)    
-[C++11 静态局部变量实现单例](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/Singleton2.cpp)
 
 
 ```C++
