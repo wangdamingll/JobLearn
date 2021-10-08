@@ -17,7 +17,8 @@
 * [工厂方法实现2](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/FactorMethod2.cpp)     
 
 ## 4. 抽象工厂       
-* [抽象工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120568303)      
+* [抽象工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120568303)  
+* [抽象工厂实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/AbstractFactory1.cpp)           
 
 # 二. 行为型    
 ## 2.观察者模式
