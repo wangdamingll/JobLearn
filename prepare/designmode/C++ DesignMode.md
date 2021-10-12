@@ -18,7 +18,8 @@
 
 ## 4. 抽象工厂       
 * [抽象工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120568303)  
-* [抽象工厂实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/AbstractFactory1.cpp)           
+* [抽象工厂实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/AbstractFactory1.cpp)      
+* [参数化抽象工厂实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/AbstractFactory2.cpp)          
 
 # 二. 行为型    
 ## 2.观察者模式
