@@ -22,7 +22,11 @@
 * [参数化抽象工厂实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/AbstractFactory2.cpp)          
 
 # 二. 行为型    
-## 2.观察者模式
+## 2.观察者模式    
+* [观察者模式介绍](https://blog.csdn.net/wangdamingll/article/details/120770146)  
+* [观察者模式实现1(拉模型)](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observer1.cpp)    
+* [观察者模式实现2(推模型)](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observer2.cpp)    
+* 
 * [普通的观察者模式(继承关系)](https://blog.csdn.net/wangdamingll/article/details/104658531)
 * [C++11实现的观察者模式(std::function实现的类似事件机制)](https://blog.csdn.net/wangdamingll/article/details/104658531)  
 
