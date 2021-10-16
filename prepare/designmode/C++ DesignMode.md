@@ -27,7 +27,7 @@
 * [观察者模式实现1(拉模型)](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observer1.cpp)    
 * [观察者模式实现2(推模型)](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observer2.cpp)    
 * [动态触发联动:区别对待观察者](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observe3.cpp)   
-* [采用weak_ptr方式实现观察者列表](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observe3.cpp)    
+* [采用weak_ptr方式实现观察者列表](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observe4.cpp)    
 
 # 三. 结构型  
 
