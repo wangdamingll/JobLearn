@@ -221,9 +221,6 @@ public:
     void VirtualBase2() override {
         std::cout<<"this is the base from subclass virtual function 2"<<endl;
     }
-
-    void Test1(){}
-    void Test2(){}
 };
 int main()
 {
