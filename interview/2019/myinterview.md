@@ -100,49 +100,188 @@ map底层是由红黑树实现的，set底层也是由红黑树实现的
 1. 构造函数执行顺序是从上而下
 2. 析构函数执行顺序是从下而上
 追问:析构函数为什么是虚函数  
-当delete基类指针指向派生类对象的时候，应该先调用派生类析构函数，在调用基类析构函数，不是虚函数的话，只会调用基类析构函数，这样就产生了内存泄漏
+当delete基类指针指向派生类对象的时候，应该先调用派生类析构函数，在调用基类析构函数，不是虚函数的话，只会调用基类析构函数，这样就产生了内存泄漏      
+
+==后期补充==  
+构造函数和析构函数执行顺序举例详细说明:    
+```C++
+#include <iostream>
+using namespace std;
+/*
+构造函数执行顺序:
+1. 在derived class constructor中,所有"virtual base classes"会被调用,从左到右,从最深到最浅
+2. 在derived class constructor中,所有"上层base class"的constructors会被调用,以base class的声明顺序
+3. 上述完成之后,对象的vptr(s)被初始化,指向相关的virtual table(s)
+4. 如果有member initialization list的话,将在constructor体内扩展开来(以声明的顺序初始化).这必须在vptr被设定之后オ进行,以免有一个virtual member function被调用.
+5. 程序员自身写的代码
+*/
+
+class ABase
+{
+public:
+    ABase(){std::cout<<"ABase()"<<std::endl;}
+    virtual void TestA(){}
+};
+
+class BBase
+{
+public:
+    BBase(){std::cout<<"BBase()"<<std::endl;}
+    virtual void TestB(){}
+};
+
+class CBase
+{
+public:
+    CBase(){std::cout<<"CBase()"<<std::endl;}
+    virtual void TestC(){}
+};
+
+class DBase
+{
+public:
+    DBase(){std::cout<<"DBase()"<<std::endl;}
+    virtual void TestD(){}
+};
+
+class E : public virtual ABase , public BBase
+{
+public:
+    E() : c(){
+        // 1 ABase  (含有自身vptr初始化)
+        // 2 BBase  (含有自身vptr初始化)
+        // 3 E 自身vptr初始化
+        // 4 CBase  (含有自身vptr初始化)
+        // 5 DBase  (含有自身vptr初始化)
+        // 6 E
+        std::cout<<"E()"<<std::endl;
+        e = 0;
+    }
+    virtual void TestC(){}
+
+public:
+    int e;
+    CBase c;
+    DBase d;
+};
+
+int main()
+{
+    E c;
+}
+```
+
 #### 4.C++是如何实现多态的
 1. 多态的产生条件  
 * 有继承关系
 * 有虚函数重写
-* 父类指针(引用)指向之类对象
+* 父类指针(引用)指向子类对象
 2. 多态实现原理  
 ```C++
-//基类
-class base{
+//CMakeLists.txt
+cmake_minimum_required(VERSION 3.10)
+project(test)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_TYPE "Debug")
+
+add_executable(test main.cpp)
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    target_compile_definitions(test PUBLIC "IS_64_BIT_ARCH")
+    message(STATUS "Target is 64 bits")
+else()
+    target_compile_definitions(test PUBLIC "IS_32_BIT_ARCH")
+    message(STATUS "Target is 32 bits")
+endif()
+
+//main.cpp
+#include <iostream>
+using namespace std;
+
+class Base{
 public:
-    base(long m1 = 1, long m2 = 2):m1(m1),m2(m2){};
-    virtual void virtualbase1() {
-        std::cout<<"this is the base1 vitual funciton"<<endl;
+    Base(int m1 = 1):m1(m1){};
+    virtual void VirtualBase1() {
+        std::cout<<"this is the base vitual funciton 1"<<endl;
     }
-    virtual void virtualbase2() {
-        std::cout<<"this is the base2 vitual funciton"<<endl;
+    virtual void VirtualBase2() {
+        std::cout<<"this is the base vitual funciton 2"<<endl;
     }
-    virtual void virtualbase4() {
-        std::cout<<"this is the base3 vitual funciton"<<endl;
+    virtual void VirtualBase3() {
+        std::cout<<"this is the base vitual funciton 3"<<endl;
     }
-private:
-    long m1;
-    long m2;
+
+public:
+    int m1;
 };
 //派生类
-class base1 : public base{
-    void virtualbase2() {
-        std::cout<<"this is the base from subclass virtual function"<<endl;
+class Base1 : public Base{
+public:
+    void VirtualBase2() override {
+        std::cout<<"this is the base from subclass virtual function 2"<<endl;
     }
+
+    void Test1(){}
+    void Test2(){}
 };
-```
-bAddress: 0x7ffeeb90f9f0  
-     vtptr:0x1042f7528    
-     vfunc1:0x1042f3a50  
-     vfunc2:0x1042f3a90  
-     vfunc3:0x1042f3ad0  
-b1Address: 0x7ffeeb90f998  
-     b1vtptr: 0x1042f7560  
-     b1pfunc1: 0x1042f3a50  
-     b1pfunc2: 0x1042f3b60  
-     b1pfunc3: 0x1042f3ad0  
+int main()
+{
+    void (Base::* VirtualBase1)() =&Base::VirtualBase1;
+    void (Base::* VirtualBase2)() =&Base::VirtualBase2;
+    void (Base::* VirtualBase3)() =&Base::VirtualBase3;
+    void (Base1::* Base1VirtualBase1)() =&Base1::VirtualBase1;
+    void (Base1::* Base1VirtualBase2)() =&Base1::VirtualBase2;
+    void (Base1::* Base1VirtualBase3)() =&Base1::VirtualBase3;
+
+    Base base;
+    (base.*VirtualBase2)();
+    Base1 base1;
+    (base1.*Base1VirtualBase2)();
+
+    std::cout<<"-------------------"<<std::endl;
+
+    using Fun = void(*)();
+#ifdef IS_32_BIT_ARCH
+    void* baseVptr = (void*)*(int*)&base;
+    Fun baseF1 = (Fun)*((int*)baseVptr + 0);
+    (*baseF1)();
+    Fun baseF2 = (Fun)*((int*)baseVptr + 1);
+    (*baseF2)();
+    Fun baseF3 = (Fun)*((int*)baseVptr + 2);
+    (*baseF3)();
+
+    void* base1Vptr = (void*)*(int*)&base1;
+    Fun base1F1 = (Fun)*((int*)base1Vptr + 0);
+    (*base1F1)();
+    Fun base1F2 = (Fun)*((int*)base1Vptr + 1);
+    (*base1F2)();
+    Fun base1F3 = (Fun)*((int*)base1Vptr + 2);
+    (*base1F3)();
+#elif IS_64_BIT_ARCH
+    long* baseVptr = (long*)*(long*)&base;
+    Fun baseF1 = (Fun)*(baseVptr + 0);
+    (*baseF1)();
+    Fun baseF2 = (Fun)*((long*)baseVptr + 1);
+    (*baseF2)();
+    Fun baseF3 = (Fun)*((long*)baseVptr + 2);
+    (*baseF3)();
+
+    long* base1Vptr = (long*)*(long*)&base1;
+    Fun base1F1 = (Fun)*((long*)base1Vptr + 0);
+    (*base1F1)();
+    Fun base1F2 = (Fun)*((long*)base1Vptr + 1);
+    (*base1F2)();
+    Fun base1F3 = (Fun)*((long*)base1Vptr + 2);
+    (*base1F3)();
+#else
+#endif
+    return 0;
+}
+
 通过结果可以看出，当派生类重新定义了基类的函数后其虚函数表中的指针发生了覆盖，而没有重新定义的地方则维持了基类虚函数的地址
+```
+
 
 #### 5.类的大小
 ***类大小的计算遵循结构体的对齐原则***  
