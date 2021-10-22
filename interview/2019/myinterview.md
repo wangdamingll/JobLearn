@@ -300,10 +300,41 @@ class HoldsAnInt {
 };
 ```
 空类的1字节是会被计算进去的。而又由于字节对齐的原则，所以结果为4+4=8
-* 虚继承的影响  gcc 64位
+* 虚继承的影响  Linux g++ 64位
 ```C++
+//CMakeLists.txt
+cmake_minimum_required(VERSION 3.10)
+project(test)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_TYPE "Debug")
+
+add_executable(testa test.cpp)
+
+list(APPEND flags "-fdump-class-hierarchy")
+
+target_compile_options(testa
+  PRIVATE
+    ${flags}
+  )
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)  
+    target_compile_definitions(testa PUBLIC "IS_64_BIT_ARCH")  
+    message(STATUS "Target is 64 bits")
+else()  
+    target_compile_definitions(testa PUBLIC "IS_32_BIT_ARCH")  
+    message(STATUS "Target is 32 bits")
+endif()
+
+message(STATUS "flags:${flags}")
+
+//test.cpp
+#include <iostream>
+using namespace std;
+
 class A {
-    int a;
+    public:
+    int a = 0;;
 };
 class B:virtual public A{
     virtual void myfunB(){}
@@ -314,9 +345,99 @@ class C:virtual public A{
 class D:public B,public C{
     virtual void myfunD(){}
 };
-```
-解释：A的大小为int大小加上虚表指针大小。B，C中由于是虚继承因此大小为int大小加指向虚基类的指针的大小。B,C虽然加入了自己的虚函数，但是虚表指针是和基类共享的，因此不会有自己的虚表指针，他们两个共用虚基类A的虚表指针。D由于B,C都是虚继承，因此D只包含一个A的副本，于是D大小就等于int变量的大小+B中的指向虚基类的指针+C中的指向虚基类的指针+一个虚表指针的大小,由于字节对齐，结果为8+8+8+8=32  
 
+int main()
+{
+    std::cout<<"A::size:"<<sizeof(A)<<std::endl; // 4
+    std::cout<<"B::size:"<<sizeof(B)<<std::endl; // 8 + 8
+    std::cout<<"C::size:"<<sizeof(C)<<std::endl; // 8 + 8
+    std::cout<<"D::size:"<<sizeof(D)<<std::endl; // 8 + 8 + 8
+    return 0;
+}
+
+解释：A为int大小,  B和C含有一个vptr指针和int,含有对齐一共16,D含有int和B的vptr、C的vtpr指针,对齐一共24
+注意:虚拟继承的虚基类的地址的offset被放到了相当于vptr[-1]的位置  
+
+//打开CMakeFiles/testa.dir/test.cpp.002t.class
+Class A
+    size=4 align=4
+    base size=4 base align=4
+A (0x0x7fb646579d20) 0
+
+Vtable for B
+B::_ZTV1B: 4 entries
+0     8
+8     (int (*)(...))0
+16    (int (*)(...))(& _ZTI1B)
+24    (int (*)(...))B::myfunB
+
+VTT for B
+B::_ZTT1B: 1 entries 
+0     ((& B::_ZTV1B) + 24)
+
+Class B
+    size=16 align=8
+    base size=8 base align=8
+B (0x0x7fb646586d00) 0 nearly-empty
+    vptridx=0 vptr=((& B::_ZTV1B) + 24)
+A (0x0x7fb646579d80) 8 virtual
+    vbaseoffset=-24
+
+Vtable for C
+C::_ZTV1C: 4 entries
+0     8
+8     (int (*)(...))0
+16    (int (*)(...))(& _ZTI1C)
+24    (int (*)(...))C::myfunC
+
+VTT for C
+C::_ZTT1C: 1 entries 
+0     ((& C::_ZTV1C) + 24)
+
+Class C
+    size=16 align=8
+    base size=8 base align=8
+C (0x0x7fb646586dd0) 0 nearly-empty
+    vptridx=0 vptr=((& C::_ZTV1C) + 24)
+A (0x0x7fb646579e40) 8 virtual
+    vbaseoffset=-24
+
+Vtable for D
+D::_ZTV1D: 9 entries
+0     16
+8     (int (*)(...))0
+16    (int (*)(...))(& _ZTI1D)
+24    (int (*)(...))B::myfunB
+    vptridx=0 vptr=((& C::_ZTV1C) + 24)
+A (0x0x7fb646579e40) 8 virtual
+    vbaseoffset=-24
+
+Vtable for D
+D::_ZTV1D: 9 entries
+0     16
+8     (int (*)(...))0
+16    (int (*)(...))(& _ZTI1D)
+24    (int (*)(...))B::myfunB
+32    (int (*)(...))D::myfunD
+40    8
+48    (int (*)(...))-8
+56    (int (*)(...))(& _ZTI1D)
+64    (int (*)(...))C::myfunC
+
+Class D
+    size=24 align=8
+    base size=16 base align=8
+D (0x0x7fb64659c930) 0
+    vptridx=0 vptr=((& D::_ZTV1D) + 24)
+B (0x0x7fb646586ea0) 0 nearly-empty
+    primary-for D (0x0x7fb64659c930)
+    subvttidx=8
+    A (0x0x7fb646579f00) 16 virtual
+        vbaseoffset=-24
+C (0x0x7fb646586f08) 8 nearly-empty
+    subvttidx=16 vptridx=24 vptr=((& D::_ZTV1D) + 64)
+    A (0x0x7fb646579f00) alternative-path
+```
 ## 三.游族网络
 #### 1.介绍一下zookeeper  
 * ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务
