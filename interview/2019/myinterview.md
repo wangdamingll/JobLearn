@@ -521,13 +521,13 @@ Weapon:public GoodBaseClass  HpClass:public GoodBaseClase
 //背包管理器(包含背包的每一个页签)    
 class BoxManage
 {
-    std::array<BoxBase*/*页签类*/, MAX/*页签id*/> boxs;
+    std::array<BoxBase* /*页签类*/, MAX/*页签id*/> boxs;
 };
 
 //每一个背包页签的类
 class BoxBase
 {
-    std::map<pos/*背包格子位置*/, Item*/*道具基类*/> items;
+    std::map<pos/*背包格子位置*/, Item* /*道具基类*/> items;
 };
 ```
 
