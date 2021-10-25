@@ -481,8 +481,8 @@ C (0x0x7fb646586f08) 8 nearly-empty
 * 有继承关系
 * 有虚函数重写
 * 父类指针(引用)指向之类对象
-2. 多态实现原理  
-虚函数表是一个函数指针数组，属于类，当派生类发生虚函数重写时，对应的虚函数在虚函数表中的指针发生了覆盖，而没有重新定义的地方则维持了基类虚函数的地址
+2. 多态实现原理    
+利用了C++ RTTI(运行时绑定机制),虚函数表是一个函数指针数组，属于类，当派生类发生虚函数重写时，对应的虚函数在虚函数表中的指针发生了覆盖，而没有重新定义的地方则维持了基类虚函数的地址
 这样通过vptr指针和偏移地址就能调用到正确的虚函数
 
 ## 四.塔人网络
@@ -496,10 +496,11 @@ map是key-value形式的数据结构，具有自动排序的功能，底层是�
 4. 如果一个节点是红色的，那个它的子节点就是黑色的
 5. 一个节点到它子孙节点具有相同数目的黑色节点  
 * 红黑树的时间复杂度(N为红黑树的元素个数)
-1. 插入、搜索时间复杂度:O(logN)  
+1. 插入、搜索、删除时间复杂度:O(logN)  
+2. 创建时间复杂度:O(NlogN)  
 #### 2.谈谈vector
 * vector是一种容器，底层是由动态数组实现的
-* vector支持随机访问，查找效率O(1),尾部出入删除O(1),头部插入删除O(N)  
+* vector支持随机访问、动态扩容的特点，查找效率O(1),尾部出入删除O(1),头部插入删除O(N)  
 追问:vector扩容机制
 STL采用2倍扩容机制
 * 采用成倍扩容方式可以保证push_back常数时间的复杂度
@@ -515,6 +516,22 @@ uv_default_lopp() uv_tcp_init() uv_tcp_bind() uv_listen() uv_run() uv_accept() u
 vector<GoodBaseClass*>
 Weapon:public GoodBaseClass  HpClass:public GoodBaseClase
 ```
+==*后期补充*==  
+```C++
+//背包管理器(包含背包的每一个页签)    
+class BoxManage
+{
+    std::array<BoxBase*/*页签类*/, MAX/*页签id*/> boxs;
+};
+
+//每一个背包页签的类
+class BoxBase
+{
+    std::map<pos/*背包格子位置*/, Item*/*道具基类*/> items;
+};
+```
+
+
 
 ## 五.紫龙游戏
 ### 紫龙游戏一面
@@ -523,10 +540,10 @@ Weapon:public GoodBaseClass  HpClass:public GoodBaseClase
 追问:哪些机制？  
 比如说互斥锁、信号量、条件变量等  
 #### 2.介绍map
-* map存储key-value数据
-* 有序(对存入的元素重载了operator<操作符),
-* 插入、搜索时间复杂度:O(logN)
-* map底层是由红黑树实现的
+* 描述:map存储key-value数据   
+* 特点:有序(对存入的元素重载了operator<操作符)      
+* 底层实现:map底层是由红黑树实现的   
+* 时间复杂度:插入、搜索时间复杂度:O(logN)       
 * 红黑树的特点
 1. 它一种特殊的二叉查找树
 2. 每个节点是红色的或者是黑色的
@@ -534,18 +551,18 @@ Weapon:public GoodBaseClass  HpClass:public GoodBaseClase
 4. 如果一个节点是红色的，那个它的子节点就是黑色的
 5. 一个节点到它子孙节点具有相同数目的黑色节点  
 #### 3.unordered_map
-* 关联容器,无序,含有带唯一键的键-值pair
-* 搜索、插入和元素移除拥有平均O(1)复杂度,有可能退化成O(N),
-* 底层是用hash_table实现的
+* 描述:是具有key-value形式的关联容器   
+* 特点:无序   
+* 底层实现:底层是用hash_table实现的   
+* 时间复杂度:搜索、插入和删除拥有平均O(1)复杂度,有可能退化成O(N),
 * 如果key是自定义对象
 1. 提供哈希函数
 2. 重载等号操作符
-#### 4.map和unordered_map的区别
-1. map底层是红黑树实现的，unordered_map底层是哈希表(散列表)实现的
-2. map的有序的，unirdered_map是无序的
-3. map插入、查询稳定O(logN),unordered_map查询效率O(1),但是有可能退化为O(N)
-4. map消耗的内存低，unordered_map消耗的内存高
-5. 要求有序且对内存占用敏感，用map;要求查询效率，对内存占用不敏感，用unordered_map
+#### 4.map和unordered_map的区别  
+1. 特点:map的有序的，unirdered_map是无序的,map重载了<实现有序, unordered_map重载了==
+2. 底层实现:map底层是红黑树实现的，unordered_map底层是哈希表(散列表)实现的  
+3. 时间复杂度:map插入,查询和删除稳定O(logN),unordered_map查询效率O(1),但是有可能退化为O(N)
+4. 使用场景:map消耗的内存低，unordered_map消耗的内存高,所以要求有序且对内存占用敏感，用map;要求查询效率，对内存占用不敏感且无序，用unordered_map
 #### 5.hash_table冲突解决方法
 * 开放地址法
 1. 线性探查法:index index+1 index+2 ... 表首在进行
