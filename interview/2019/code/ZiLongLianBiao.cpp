@@ -1,89 +1,129 @@
 #include <iostream>
-#include <cstdio>
 using namespace std;
 
 //题目:1->2->...->m...->n->...,将m->...->n部分翻转
-//思路:翻转链表采用透插法(带头链表)
-//然后将 1->m m->n n->.. 连接起来
-//O(n)
 
-struct LIST_NODE {
-	LIST_NODE() {
-		value = -1;
-		next = nullptr;
-	}
-	LIST_NODE(int value) {
-		this->value = value;
-		next = nullptr;
-	}
-	int value;
-	LIST_NODE* next;
-};
-using ListNode = LIST_NODE;
+//是否可以修改链表?
+//是否是双向链表?
 
-void PrintList(ListNode* head) {
-	if (head == nullptr || head->next == nullptr) {
-		return;
-	}
-	ListNode* cur = head->next;
-	while (cur != nullptr) {
-		cout << cur->value << " ";
-		cur = cur->next;
-	}
-	cout << endl;
+//------------------------
+//如果可以修改链表
+
+//如果是单向链表
+//算法思路:一次遍历,用带头链表头插入的方式保存m->...->n的元素,然后拼接原m节点的前驱上,再拼接n的后驱链表即可
+
+//如果是双向链表
+//算法思路:采用双指针法,一次遍历定位到m 和 n , head指向m tail指向n, 利用双向链表特性,tail从n->...->m, head从m->....->n进行拼接即可
+//代码实现
+
+//------------------------
+
+//------------------------
+//如果不可以修改链表
+//可以采用时间换空间的思想,单独存储m->....->n的元素
+
+//如果是单向链表m->...->n
+//算法思路1:一次遍历即可,如果发现m,直接加入到栈容器,直到n结束,然后从stack依次取出即可.涉及到容器,看上去比较费时,虽然时间复杂度是O(N + 2(N-M))
+//算法思路2:一次遍历,m->...->n,用另外一个带头链表采用头插入保存,保存结束后直接连接到新的链表上即可
+
+//如果是双向链表,可以采用双指针法(因为可能m n 有重复),当然也可以单指针,直接指向n
+//算法思路:也是一次遍历,head指向m tail指向n, 利用双向链表特性拼接n->....->m
+//------------------------
+
+typedef struct Node
+{
+    Node(int value){this->value = value;}
+    int value = 0;
+    Node* pre = nullptr;
+    Node* next = nullptr;
+}Node;
+
+void PrintListNext(Node* head)
+{
+    Node* pCur = head;
+    while(pCur != nullptr)
+    {
+        std::cout<<" "<<pCur->value<<" ";
+        pCur = pCur->next;
+    }
+    std::cout<<std::endl;
+}
+
+void PrintListPre(Node* head)
+{
+    Node* pCur = head;
+    while(pCur != nullptr)
+    {
+        std::cout<<" "<<pCur->value<<" ";
+        pCur = pCur->pre;
+    }
+    std::cout<<std::endl;
 }
 
 int main()
 {
-	ListNode* head = new ListNode();
-	ListNode* node1 = new ListNode(1);
-	ListNode* node2 = new ListNode(2); //m
-	ListNode* node3 = new ListNode(3);
-	ListNode* node4 = new ListNode(4); //n
-	ListNode* node5 = new ListNode(5);
-	head->next = node1;
-	node1->next = node2;
-	node2->next = node3;
-	node3->next = node4;
-	node4->next = node5;
-	PrintList(head);
+    Node* node1 = new Node(1);
+    Node* node2 = new Node(2);
+    Node* node3 = new Node(3);
+    Node* node4 = new Node(4);
+    Node* node5 = new Node(5);
 
-	//这里简单不考虑 链表数量 m n的影响 和内存泄漏影响
-	int index = 1;
-	int m = 2;
-	int n = 4;
-	ListNode* pre = nullptr;
-	ListNode* back = nullptr;
-	ListNode* operHead = new ListNode();
-	ListNode* operBack = nullptr;
-	ListNode* cur = head->next;
-	while (cur != nullptr) {
-		if (index == m - 1) {  //保存原链表最前一个节点(需要变换的节点的前一个节点)
-			pre = cur;
-			cur = cur->next;
-			index++;
-			continue;
-		}
-		if (index == n + 1) {  //保存原链表最后一个节点(需要变换的节点的后一个节点)
-			break;
-		}
+    node1->next = node2;
+    node2->pre = node1;
+    node2->next = node3;
+    node3->pre = node2;
+    node3->next = node4;
+    node4->pre = node3;
+    node4->next = node5;
+    node5->pre = node4;
 
-		ListNode* tmp = new ListNode();
-		*tmp = *cur;
-		tmp->next = operHead->next;
-		operHead->next = tmp;
-		if (index == m) {  //保存需要变换的节点的最后一个节点)
-			operBack = tmp;
-		}
-		cur = cur->next;
-		index++;
-	}
-	PrintList(operHead);
+    //先打印一下双向链表
+    PrintListNext(node1);
+    PrintListPre(node5);
 
-	//拼接及会造成原来链表的对应部分内存泄漏，当然可以不采用new的方式
-	pre->next = operHead->next;
-	operBack->next = cur;
-	PrintList(head);
+    int headValue = 2;
+    int tailValue = 4;
+    Node* head = nullptr;
+    Node* tail = nullptr;
+    Node* cur = node1;
+    int headPreValue = 0;
+    while(cur != nullptr)
+    {
+        if(cur->value == headValue)
+        {
+            head = cur->pre;
+            headPreValue = head->value;
+        }else if(cur->value == tailValue)
+        {
+            tail = cur->next;
 
-	return 0;
+            //翻转合并
+            while(cur->value != headPreValue)
+            {
+                Node* tmp = cur->pre;
+
+                head->next = cur;
+                cur->pre = head;
+
+                head = head->next;
+                cur = tmp;
+            }
+
+            //合并尾部
+            while(tail != nullptr)
+            {
+                head->next = tail;
+                tail->pre = head;
+
+                tail = tail->next;
+                head = head->next;
+            }
+            break;
+        }
+        cur = cur->next;
+    }
+
+    PrintListNext(node1);
+    PrintListPre(node5);
+    return 0;
 }
