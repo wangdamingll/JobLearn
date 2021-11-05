@@ -665,7 +665,29 @@ void BreathFirstSearch(BinaryTreeNode* root) {
 
 ## 六.鼹鼠网络
 #### 1.epoll相关
-* 无
+* 无  
+
+==*后期补充*==  
+[参考网址](https://www.cnblogs.com/lojunren/p/3856290.html)  
+[参考网址](http://blog.chinaunix.net/uid/28541347/sid-193117-list-2.html)  
+1. epoll的工作流程是如何的？
+* epoll_create创建epoll句柄  
+* epoll_ctrl控制监听事件,增加、改变或者删除fd  
+* epoll_wait处理相应的读写事件    
+2. epoll有哪两种工作模式?各自有啥特点?  
+* LT:水平模式:只要满足条件,事件就会一直被触发  
+* ET:边沿模式:事件满足条件,只会触发一次  
+3. epoll的底层原理是什么?  
+* epoll底层用红黑树存储epollItem节点,并用rdlist双向链表存储满足事件条件的epitem  
+* 先调用epoll_ctrl将需要监听的事件注册,与网卡驱动建立回调关系        
+* 当事件满足条件时,调用这个回调函数(ep_poll_callback)将会把fd对应的epollItem放入到rdlist双向链表中  
+* epoll_wait调用发现rdlist不为空,调用相应的函数(ep_events_transfer)将rdlist拷贝到txlist中，并将rdlist清空    
+* ep_send_events扫描txlist中的每个epollitem,并调用fd对应的poll,获取事件的最新状态,并将事件封装到struct epoll_event中,返回给上层      
+4. epoll 如何发送大量数据?  
+* 第一种:当需要写数据的时候,监听可写事件,在可写事件回调中,写完所有数据后,移除可写事件(或者改成监听可读事件),这种效率偏低,即使要写的数据很少,也需要产生对应的系统调用       
+* 第二种:当有需要写数据的时候,直接调用write写数据,直到返回-1且errno==EAGAIN的时候,监听可写事件,在可写事件的回调中继续写完所有数据后,移除可写事件.这种方式可以有效减少写的数据量较少的时候触发相应的系统调用,效率比较高    
+
+
 #### 2.将一个有序数组打乱算法
 * [Fisher–Yates shuffle (洗牌算法)](https://en.wikipedia.org/wiki/Fisher–Yates_shuffle)
 * [C++ 随机数](https://blog.csdn.net/luotuo44/article/details/33690179)
