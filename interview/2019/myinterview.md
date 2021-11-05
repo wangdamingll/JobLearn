@@ -684,27 +684,36 @@ void BreathFirstSearch(BinaryTreeNode* root) {
 * epoll_wait调用发现rdlist不为空,调用相应的函数(ep_events_transfer)将rdlist拷贝到txlist中，并将rdlist清空    
 * ep_send_events扫描txlist中的每个epollitem,并调用fd对应的poll,获取事件的最新状态,并将事件封装到struct epoll_event中,返回给上层      
 4. epoll 如何发送大量数据?  
+* 前提条件:可以适当调大系统写缓冲区的大小    
 * 第一种:当需要写数据的时候,监听可写事件,在可写事件回调中,写完所有数据后,移除可写事件(或者改成监听可读事件),这种效率偏低,即使要写的数据很少,也需要产生对应的系统调用       
 * 第二种:当有需要写数据的时候,直接调用write写数据,直到返回-1且errno==EAGAIN的时候,监听可写事件,在可写事件的回调中继续写完所有数据后,移除可写事件.这种方式可以有效减少写的数据量较少的时候触发相应的系统调用,效率比较高    
 
 
 #### 2.将一个有序数组打乱算法
 * [Fisher–Yates shuffle (洗牌算法)](https://en.wikipedia.org/wiki/Fisher–Yates_shuffle)
-* [C++ 随机数](https://blog.csdn.net/luotuo44/article/details/33690179)
+* [C++ 随机数](https://zh.cppreference.com/w/cpp/numeric/random)
 ```c++
-int main(){
-    auto f = [](int* array,int size,std::default_random_engine& random){
-        while (size) {
-            std::uniform_int_distribution<int> dis(0,--size);
-            int i = dis(random);
-            int t = array[size];
-            array[size] = array[i];
-            array[i] = t;
-        }
-    };
-    int arr[] = {1,2,3};
-    std::default_random_engine random(time(nullptr));
-    f(arr, sizeof(arr)/ sizeof(int),random);
+#include <iostream>
+#include <array>
+#include <ctime>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+    const int num =10;
+    std::array<int, num> array{10,9,8,7,6,5,4,3,2,1};
+
+    srand(time(nullptr));
+    for(int index =num-1 ; index > 0; index--)
+    {
+        std::swap(array[index], array[rand()%index]);
+    }
+
+    std::for_each(std::begin(array),std::end(array),[](const int& item){
+       std::cout<<item<<" ";
+    });
+    std::cout<<std::endl;
     return 0;
 }
 ```
