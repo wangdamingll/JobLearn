@@ -727,32 +727,40 @@ HTTP/1.* 一次请求-响应，建立一个连接，用完关闭；每一个请�
 HTTP/1.1 默认支持长连接和请求的流水线（Pipelining）处理,建立一次连接，可以多个request共用。  
 注:Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞。
 HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行。
-* http和websocket区别和联系  
+* http和websocket区别和联系   
+  
 相同点:  
 1. 都是基于tcp的应用层协议
-2. 都使用Request/Response模型进行连接的建立  
-不同点:
-1. WS连接建立之后,支持双向通信,而http需要客户端主动发起request请求，服务器response回复
-* tcp和websocket的区别和联系
+2. 都使用Request/Response模型进行连接的建立    
+3. 都可以作为webserver服务的协议使用   
+    
+不同点:  
+1. ws需要首先握手建立连接之后才能通信,而http不需要握手,能够直接通信     
+2. WS连接建立之后,支持双向通信,而http是req-res的模式,不支持双向通信  
+
+* tcp和websocket的区别和联系    
 联系:  
-1. websocket是基于tcp的应用层协议
-2. 一旦websocket握手连接之后,采用tcp方式进行通信  
+1. websocket是基于tcp的应用层协议,而tcp是传输层协议  
+2. 一旦websocket握手连接之后,采用tcp方式进行通信,所有ws具有双向通信的特点    
 区别:tcp是传输层协议,websocket是应用层协议  
 追问:有Http了,为什么还要用Websocket  
-* 最主要的是由客户端主动轮询变为服务端推送，降低了轮询消耗,避免了request/response这种请求回应模式，且ws支持双向通信,更加灵活
+* 由客户端主动轮询变为服务端推送，避免了轮询消耗         
+* 避免了request/response这种请求回应模式,降低了延迟,降低了网络流量(请求会有http header, 获取静态资源等操作)   
+* ws支持双向通信,更加通用灵活    
 ### 二轮面试
 #### 1.Libevent用过吗?有哪些坑?是采用什么模式?具体定义了哪些宏?  
 1. 坑:
 * Libevent默认底层是采用LT模式的，但是bufferevent_read()默认每次最大读取4096个字节,所以必须要判断底层数据有没有读完
-* 如果给的ip不合法,调用befferconnect(),会先触发BEV_EVENT_ERROR,再触发BEV_EVENT_CONNECTED,所以要将这种情况区分开
+* 如果给的ip不合法,调用befferconnect(),会先触发BEV_EVENT_ERROR回调,再触发BEV_EVENT_CONNECTED回调,所以要将这种情况区分开,所以需要额外的socket管理逻辑  
 2. 默认采取了LT模式  
 追问:LT/ET有什么区别?哪种效率更高?
 * LT:水平触发，如果事件满足条件，会一直触发
 * ET:边沿触发，如果事件满足条件，只会触发一次
 * 相比较来说，ET的效率会高一些  
 追问:为什么ET的效率会高一些
-* ET满足条件的事件只会触发一次.所以操作系统在LT模式下维护的就绪队列大小相对于ET模式肯定大，且LT轮询所有的fd总比ET轮询的fd大。自然在性能上LT不如ET
-3. 相关宏  
+* ET满足条件的事件只会触发一次. 而LT只要满足条件,会一直触发,所以LT的系统调用更多  
+* 因为LT要一直触发, 所以LT模式下维护的就绪队列(rdlist)大小相对于ET模式肯定大,故LT轮询所有的fd总比ET轮询的fd大
+1. 相关宏  
 * BEV_EVENT_CONNECTED BEV_EVENT_ERROR BEV_EVENT_EOF BEV_EVENT_READING BEV_EVENT_WRITING (Epoll中有 EPOLLERROR EPOLLIN EPOLLOUT)  
 #### 2.Libevent timer有用过吗
 * 使用过  
