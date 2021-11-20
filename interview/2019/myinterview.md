@@ -775,7 +775,7 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * 参考网址:[Libevent bufferevent工作流程](https://blog.csdn.net/luotuo44/article/details/39344743)    
 * 适当调整系统so_send_buff/so_recive_buff的大小,调整依据:保证滑动窗口的大小>=带宽*延迟        
 * 直接调用bufferevent_write(),然后在用户自己的write_cb()函数中继续bufferevent_write(),直到要发送的数据被填加完(其实是被添加到了evbuffer中了)        
-原理:bufferevent_write()内部实现是将数据添加到evbuffer中,并且开始监听fd的可写事件,一旦fd可写,bufferevent_cb()将会被调用,它的实现是一直往socket的输出缓冲区里面写,由于是大量数据,socket的输出缓冲区被填满,
+原理:bufferevent_write()内部实现是将数据添加到evbuffer中,并且开始监听fd的可写事件,一旦fd可写,bufferevent_cb()将会被调用,它的实现是一直往socket的输出缓冲区里面写,由于是大量数据,socket的输出缓冲区被填满,但是此时并没有移除fd的可写事件,一旦evbuffer的输出缓冲区的水位低于低水位,用户的write_cb()将会被调用,继续执行bufferevent_write()函数往evbuffer中添加数据,继续往fd输出缓冲区里面写数据,直到evbuffer的输出缓冲区里面为空,移除fd的可写事件,用户数据发送完成    
 #### 4.Libevent VS Libuv
 * [Libevent和Libuv的对比](https://blog.csdn.net/lijinqi1987/article/details/71214974)
 #### 5.你用过哪些设计模式?  
