@@ -777,7 +777,20 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * 直接调用bufferevent_write(),然后在用户自己的write_cb()函数中继续bufferevent_write(),直到要发送的数据被填加完(其实是被添加到了evbuffer中了)        
 原理:bufferevent_write()内部实现是将数据添加到evbuffer中,并且开始监听fd的可写事件,一旦fd可写,bufferevent_cb()将会被调用,它的实现是一直往socket的输出缓冲区里面写,由于是大量数据,socket的输出缓冲区被填满,但是此时并没有移除fd的可写事件,一旦evbuffer的输出缓冲区的水位低于低水位,用户的write_cb()将会被调用,继续执行bufferevent_write()函数往evbuffer中添加数据,继续往fd输出缓冲区里面写数据,直到evbuffer的输出缓冲区里面为空,移除fd的可写事件,用户数据发送完成    
 #### 4.Libevent VS Libuv
-* [Libevent和Libuv的对比](https://blog.csdn.net/lijinqi1987/article/details/71214974)
+* [Libevent和Libuv的对比](https://blog.csdn.net/lijinqi1987/article/details/71214974)   
+* libevent:
+1. c语言写的跨平台网络io库
+2. 采用异步事件机制的反应堆模型    
+3. linux下采用epoll,windows下采用iocp(支持不够友好)   
+4. 同步io模型  
+5. [参考网址](https://libevent.org/)    
+* lbuv  
+1. c语言写的跨平台网络io库
+2. 采用异步事件机制,内部采用一定顺序访问各类事件  
+3. linux采用epoll,windows下采用iocp     
+4. 采用异步io模型    
+5. [参考网址](https://juejin.cn/post/6844903826353455111)    
+6. [参考网址](http://libuv.org/)    
 #### 5.你用过哪些设计模式?  
 * 查看爱奇艺面试  
 追问:单例如何写呢?  
