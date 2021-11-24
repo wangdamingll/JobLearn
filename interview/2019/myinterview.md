@@ -885,17 +885,24 @@ int main()
 ## 八.美团点评
 ### 第一轮
 #### 1.设计模式
-* 单例
-* 工厂
-* 具体参考爱奇艺面试
+* 单例:特点:只有一个实例        
+* 简单工厂(不是设计模式 但是太常用了):特点:选择合适的实例          
+* 工厂模式:将选择实例的实现推迟到子类        
+* 抽象工厂:生产一系列具有约束条件的产品簇      
+* 观察者模式:触发联动        
+* 具体参考爱奇艺面试    
 #### 2.你常用的加密算法是什么
-* AES:参考网址:[AES算法介绍](https://blog.csdn.net/lisonglisonglisong/article/details/41909813)
-* RSA:RSA算法的核心,在于大整数的质因数分解是一件非常困难的事情
+* AES:对称加密方式,分组加密. 参考网址:[AES算法介绍](https://blog.csdn.net/lisonglisonglisong/article/details/41909813)
+* RSA:非对称加密方式. RSA算法的核心,在于大整数的质因数分解是一件非常困难的事情   
 * RSA算法参考网址:[RSA算法原理一](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html) [RSA 算法原理二](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html)  
 追问:RSA你们是如何使用的
-* 先用对方的RSA公钥加密AES秘钥
-* 再用AES秘钥加密明文数据
+* 1. 加密数据  
+1). 先用对方的RSA公钥加密AES秘钥   
+2). 再用AES秘钥加密明文数据    
+* 2. 验证签名  
+1). 对方用自己的私钥签名, 我这边用对方的公钥验证签名  
 #### 3.TCP为什么是三次握手,为什么不是两次或者是四次呢
+* 是为了建立可靠的数据通道最少的交互方式,本质上是两端交换seqnumber  
 * [TCP为什么设置三次握手,而不是二次或者四次](https://www.zhihu.com/question/24853633)  
 追问:如果中途有一次ACK没有收到，会发生什么
 * 请参考上面网址  
