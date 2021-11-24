@@ -836,7 +836,23 @@ int main()
 * 结构体的首地址要能被有效对齐值整除    
 * 结构体的大小要能被有效对齐值整除  
 举例稍等   
+```c++
+#include <iostream>
+using namespace std;
 
+#pragma pack(2)
+struct{
+    char c1;    //对齐值1
+    int i;      //对齐值2
+    char c2;    //对齐值1
+}Test;
+
+int main()
+{
+    std::cout<<sizeof(Test)<<std::endl;// 8个字节
+    return 0;
+}
+```
 
 #### 7.智能指针有用过吗?有哪几种类型 区别是什么  
 * 参考网址:[C++ 智能指针](https://www.jianshu.com/p/e4919f1c3a28)
