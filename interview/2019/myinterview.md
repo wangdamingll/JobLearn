@@ -921,20 +921,24 @@ int main()
 2. 检测到tcp不可用后(闪断),保存该session存货时间5分钟(设置),客户端重连，如果5分钟没有重连上来，则销毁session  
 #### 5.Epoll? Epoll和Select有什么区别?
 * [select poll epoll总结](https://www.cnblogs.com/anker/p/3265058.html)
-* select是跨平台的，默认的支持的文件描述符是1024个  
+* select是跨平台的,多路复用I/O模型,默认的支持的文件描述符是1024个  
 * epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，可以配置  
 * select是遍历所有的fd找到可读写事件，epoll是直接返回可读写的事件(最大区别)  
 追问:Select文件描述符超过1024会如何
 * select的fd超过1024将会非常危险------linux下是以fd的值作为数组的下标,一旦超过1024,将会导致未定义行为,甚至导致core dump,参考man select  
 * 修改对应的宏，重新编译内核源码,但是效率会降低
 追问:Epoll底层是如何实现的?为什么要用红黑树结构？数据结构大概是什么样子的
-* [epoll底层实现](https://blog.csdn.net/tianjing0805/article/details/76021440)  
-* 红黑树效率为logn(n为树的高度)
+[epoll底层原理](https://www.cnblogs.com/lojunren/p/3856290.html)         
+* 红黑树效率为logn(n为树的高度)   
+
+==*后期补充*==
+1. 什么是I/O多路复用？  
+IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现进程指定的一个或者多个IO可读写时，它就通知该进程进行处理.    
 #### 6.Libevent有什么特点?你是用过程中有哪些坑呢?
-* 特点:Libevent 是一个高性能，跨平台的C语言网络库，是基于Reactor模式的网络库，even_base循环->注册event事件->处理事件回调   
+* 特点:Libevent 是一个高性能，跨平台的C语言网络库，是基于Reactor模式的网络库,本质使用同步I/O模型，even_base循环->注册event事件->处理事件回调   
 * 坑:  
-1. 底层默认是水平触发的,但是bufferevent_read()类似于边沿触发,每次最多读取4096个字节  
-2. 当传入的IP有问题时,bufferevent_connect()遇到的问题,先ERROR,后触发CONNECTED  
+1. 底层默认是水平触发的,但是bufferevent_read()类似于边沿触发,每次最多读取4096个字节,所以需要一直读取,直到eventbuff数据长度为0    
+2. 当传入的IP有问题时,bufferevent_connect()遇到的问题,先ERROR,后触发CONNECTED,所以需要额外的socket管理    
 #### 7.你用过智能指针吗?有哪些?各自有什么特点?
 * 参考网址:[C++ 智能指针](https://www.jianshu.com/p/e4919f1c3a28)
 * 为什么使用智能指针? 1.忘记delete 2.当出现异常返回的时候，即使写了delete，也有可能执行不到  
