@@ -448,7 +448,7 @@ C (0x0x7fb646586f08) 8 nearly-empty
 3. 当有新的服务器加入到集群中去，如果此时集群中已经存在一个Leader服务器在负责进行消息广播，那么新加入的服务器会自动进入数据恢复模式，找到Leader服务器，并与其进行数据同步，然后一起参与到消息广播流程中去
 * zookeeper分布式锁算法流程
 1. 客户端连接zookeeper，并在/lock下创建临时的且有序的子节点，第一个客户端对应的子节点为/lock/lock-0000000000，第二个为/lock/lock-0000000001，以此类推。
-2. 户端获取/lock下的子节点列表，判断自己创建的子节点是否为当前子节点列表中序号最小的子节点，如果是则认为获得锁，否则监听/lock的子节点变更消息，获得子节点变更通知后重复此步骤直至获得锁；
+2. 客户端获取/lock下的子节点列表，判断自己创建的子节点是否为当前子节点列表中序号最小的子节点，如果是则认为获得锁，否则监听/lock的子节点变更消息，获得子节点变更通知后重复此步骤直至获得锁；
 3. 执行业务代码；
 4. 完成业务流程后，删除对应的子节点释放锁。
 * 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？
@@ -973,26 +973,27 @@ IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现�
 * MongoDB注重单个文档的查询，范围查询也要支持  
 1. 单个数据查询效率:AVL(O(logn)<B+Tree(O(logn))<BTree(O(1)<x<O(logn))<Hash table(O(1))
 2. 范围查询:B+Tree>Btree>Hash table
-#### 8.Zookeeper是什么?
+#### 8.Zookeeper是什么?    
+* [zookeeper官网](https://zookeeper.apache.org/)    
 * 请查看三游族网络面试  
 追问:zookeeper分布式锁的原理
 * 请查看三游族网络面试   
 * zookeeper集群数量定义
 * 请查看三游族网络面试   
 #### 9.ActiveMq消息会丢失吗
-* 会的，消息可以持久化处理  
-1. 生产者发送消息给MQ服务器，MQ服务器接收到消息后，MQ宕机消息会不会丢失?
+* 如果消息没有持久化,消息可能会丢失的，消息可以持久化处理      
+1. 生产者发送消息给MQ服务器，MQ服务器接收到消息后，MQ宕机消息会不会丢失?   
 2. TOPIC的消息模式下，MQ接收到消息，这时候订阅者宕机了或者重启了，那消息会丢失，有什么解决方案？
 * 第一个问题，ActiveMq支持消息的持久化，所以MQ服务器宕机了，重启后消息也不会丢失。
 * 第二个问题，关于发布-订阅的消息模式，即TOPIC，生产者跟消费者之间的时间严格依赖性，JMS提供了解决方案，订阅模式分持久订阅者与非持久订阅者，这样声明成持久订阅者即使宕机了，消息在broker也就是MQ服务器的磁盘里面不会丢失，订阅者重启后仍然可以消费消息
 #### 10.数据结构实现(二选一)
-* std::share_ptr<T> 简单编程实现:[c++ share_ptr简单实现](http://blog.leanote.com/post/shijiaxin.cn@gmail.com/C-shared_ptr)
+* [std::share_ptr<T> 简单原理编程实现](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/share_ptr.cpp)   
 * hash table简单编程实现set or map
 1. 参考网址:[hashMap 拉链法](https://blog.csdn.net/stpeace/article/details/81274233) 
 2. 参考网址:[hashMap 开放地址法(线性探查法)](https://blog.csdn.net/qq_36221862/article/details/73488162)(比拉链法效率高)
 3. 参考网址:[hashMap 开放地址法(二次探查法)](https://blog.csdn.net/xyzbaihaiping/article/details/51607770)
-3. [基于Hash Table简单实现的HashMap(拉链法解决冲突)](https://github.com/wangdamingll/JobLearn/blob/master/prepare/datastruct/code/HashTable/HashMap1.hpp)
-4. [基于Hash Table简单实现的HashMap(开放地址法解决冲突)](https://github.com/wangdamingll/JobLearn/blob/master/prepare/datastruct/code/HashTable/HashMap2.hpp)
+4. [基于Hash Table简单实现的HashMap(拉链法解决冲突)](https://github.com/wangdamingll/JobLearn/blob/master/prepare/datastruct/code/HashTable/HashMap1.hpp)
+5. [基于Hash Table简单实现的HashMap(开放地址法解决冲突)](https://github.com/wangdamingll/JobLearn/blob/master/prepare/datastruct/code/HashTable/HashMap2.hpp)
 
 ## 九.蚂蚁金服电话面试  
 #### 1.同步IO/异步IO?
