@@ -948,18 +948,28 @@ IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现�
 2. 当传入的IP有问题时,bufferevent_connect()遇到的问题,先ERROR,后触发CONNECTED,所以需要额外的socket管理    
 #### 7.你用过智能指针吗?有哪些?各自有什么特点?
 * 参考网址:[C++ 智能指针](https://www.jianshu.com/p/e4919f1c3a28)
-* 为什么使用智能指针? 1.忘记delete 2.当出现异常返回的时候，即使写了delete，也有可能执行不到  
-* C++11为什么舍弃auto_ptr? 或者说auto_ptr有什么缺陷，与unique_ptr有什么区别?
-* auto_ptr unique_ptr share_ptr weak_ptr 各有什么特点
-* 相互赋值?  
-1. share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
-2. share_ptr = weak_ptr.lock()  weak_ptr = share_ptr 
+* 1. 为什么使用智能指针?   
+1). 忘记delete   
+2). 当出现异常返回的时候，即使写了delete，也有可能执行不到      
+* 2. C++11为什么舍弃auto_ptr? 或者说auto_ptr有什么缺陷，与unique_ptr有什么区别?  
+1). auto_ptr的缺陷: (1) auto_ptr相互赋值采用的是copy语义,可能带来指针double delete. (2) auto_ptr不能处理对象数组,默认析构行为是delete,不支持delete[]  
+2). 与unique_ptr的区别: (1). auto_ptr相互赋值是copy语义,unique_ptr是move语义. (2). auto_ptr不支持delete[]操作,而unique_ptr支持    
+* 3. auto_ptr unique_ptr share_ptr weak_ptr 各有什么特点  
+1). auto_ptr: 满足基本需求,但是是copy语义,不能支持delete[]  
+2). unique_ptr: move语义,独占资源, 支持自定义析构逻辑  
+3). share_ptr: 引用计数实现,共享资源,支持自定义析构逻辑,但是可能会有循环引用的缺陷    
+4). weak_ptr: 与share_ptr配合使用,能够避免share_ptr的循环引用缺点,弱引用计数,不能操作资源          
+* 4. 指针相互赋值?  
+1). share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
+2). share_ptr = weak_ptr.lock()  weak_ptr = share_ptr 
 #### 9.mongo索引
 * 参考网址:[B/B+Tree图示参考](https://www.cnblogs.com/nullzx/p/8729425.html)
 * [MongoDB 索引](http://www.mongoing.com/archives/2797)
-* mongoDB索引采用BTree
-补充:为什么采用BTree(为什么不用AVL,B+Tree or Hash table)  
-* 参考网址:[MongoDB索引采用BTree](https://draveness.me/whys-the-design-mongodb-b-tree)
+* 问:mongodb索引是采用哪个数据结构实现的?    
+最准确的说法是MongoDB在V3.2之后索引采用B+Tree,因为使用了WiredTiger引擎,之前使用的是BTree  
+[mongodb wiredtiger](https://docs.mongodb.com/manual/core/wiredtiger/)      
+[wiredtiger doc](https://source.wiredtiger.com/3.0.0/tune_page_size_and_comp.html)      
+补充:为什么采用B+Tree(为什么不用AVL,BTree or Hash table)  
 * MongoDB注重单个文档的查询，范围查询也要支持  
 1. 单个数据查询效率:AVL(O(logn)<B+Tree(O(logn))<BTree(O(1)<x<O(logn))<Hash table(O(1))
 2. 范围查询:B+Tree>Btree>Hash table
