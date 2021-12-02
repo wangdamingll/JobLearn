@@ -1028,8 +1028,12 @@ IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现�
 * 参考网址:[time_wait处理](https://www.cnblogs.com/dadonggg/p/8778318.html)
 1. 单台机器修改内核文件:/etc/sysctl.conf
 2. 在1的基础上进行集群操作
-#### 7.tcp如何保证数据安全有序?tcp拥塞控制?常用的拥塞控制算法有哪些?
-* [tcp拥塞控制及算法](https://zhuanlan.zhihu.com/p/37379780)  
+#### 7.tcp如何保证数据安全有序?tcp拥塞控制?常用的拥塞控制算法有哪些?    
+* [tcp拥塞控制及算法](https://zhuanlan.zhihu.com/p/37379780)    
+1. 慢启动:cwnd=1,2,4,8,....(加法增大)             
+2. 拥塞避免:cwnd>=ssthresh -> cwnd=ssthresh+1, ssthresh+2,..... -> 一旦拥塞,ssthresh=拥塞是发送窗口/2(乘法减小), cwnd = 1 -> 慢启动        
+3. 快重传:发送方只要一连收到三个重复确认就应当立即重传对方尚未收到的报文段，而不必继续等待设置的重传计时器时间到期       
+4. 快恢复:发生拥塞时,ssthresh=拥塞是发送窗口/2(乘法减小), cwnd = ssthresh -> 拥塞避免(现在tcp采用的版本)            
 * [tcp如何保证数据安全有序](https://blog.csdn.net/jhh_move_on/article/details/45770087)  
 如何保证安全?    
 1. 建立可靠信道(三次握手 四次挥手)    
@@ -1042,18 +1046,17 @@ IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现�
 1. tcp重复包丢弃 数据包排序等  
 #### 8.tcp和udp的区别
 * 参考网址:[TCP和UDP区别](https://zhuanlan.zhihu.com/p/24860273)
-1. 基于连接与无连接；
-2. 对系统资源的要求（TCP较多，UDP少）；
-3. 流模式与数据报模式
-4. TCP保证数据正确性和有序，UDP可能丢包和无序；
-5. TCP传输慢，UDP传输快
+1. 基于连接(流模式)与无连接(数据报模式)    
+2. TCP保证数据正确性和有序，UDP可能丢包和无序    
+3. 对系统资源的要求(TCP较多，UDP少)    
+4. TCP传输慢,UDP传输快    
 #### 9.Epoll和Select的区别?
 * [select poll epoll总结](https://www.cnblogs.com/anker/p/3265058.html)
-* select是跨平台的，默认的支持的文件描述符是1024个  
-* epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，可以配置  
-* select是遍历所有的fd找到可读写事件，epoll是直接返回可读写的事件(最大区别)  
+* select是跨平台的,多路复用I/O模型,默认的支持的文件描述符是1024个      
+* epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，可以配置     
+* select是遍历所有的fd找到可读写事件，epoll是直接返回可读写的事件(最大区别)       
 #### 10.ActiveMQ的重复消费你是怎么处理的?你用的应答模式是什么?
-* 参考网址:[ActiveMQ优化](https://www.jianshu.com/p/ac71c09f407b)  [关于MQ,你必须知道的](https://zhuanlan.zhihu.com/p/73987596)
+* 参考网址:[关于MQ,你必须知道的](https://zhuanlan.zhihu.com/p/73987596)    
 * 如何解决重复消费?
 * ACK应答机制
 ```
