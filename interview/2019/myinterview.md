@@ -869,7 +869,7 @@ int main()
 4). weak_ptr: 与share_ptr配合使用,能够避免share_ptr的循环引用缺点,弱引用计数,不能操作资源          
 * 4. 指针相互赋值?  
 1). share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
-2). share_ptr = weak_ptr.lock()  weak_ptr = share_ptr 
+2). share_ptr = weak_ptr.lock()  weak_ptr = share_ptr   
 #### 8.你遇到过内存泄漏吗?
 * 遇到过  
 追问:如何避免和检测?
@@ -1095,12 +1095,20 @@ pull:由消费者主动拉取消息,消息实时度取决于轮询频率,mq实�
 * 请参考二.杭州字节跳动C++多态   
 #### 12.智能指针?  
 * 参考网址:[C++ 智能指针](https://www.jianshu.com/p/e4919f1c3a28)
-* 为什么使用智能指针? 1.忘记delete 2.当出现异常返回的时候，即使写了delete，也有可能执行不到  
-* C++11为什么舍弃auto_ptr? 或者说auto_ptr有什么缺陷，与unique_ptr有什么区别?
-* auto_ptr unique_ptr share_ptr weak_ptr 各有什么特点
-* 相互赋值?  
-1. share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
-2. share_ptr = weak_ptr.lock()  weak_ptr = share_ptr 
+* 1. 为什么使用智能指针?   
+1). 忘记delete   
+2). 当出现异常返回的时候，即使写了delete，也有可能执行不到      
+* 2. C++11为什么舍弃auto_ptr? 或者说auto_ptr有什么缺陷，与unique_ptr有什么区别?  
+1). auto_ptr的缺陷: (1) auto_ptr相互赋值采用的是copy语义,可能带来指针double delete. (2) auto_ptr不能处理对象数组,默认析构行为是delete,不支持delete[]  
+2). 与unique_ptr的区别: (1). auto_ptr相互赋值是copy语义,unique_ptr是move语义. (2). auto_ptr不支持delete[]操作,而unique_ptr支持    
+* 3. auto_ptr unique_ptr share_ptr weak_ptr 各有什么特点  
+1). auto_ptr: 满足基本需求,但是是copy语义,不能支持delete[]  
+2). unique_ptr: move语义,独占资源, 支持自定义析构逻辑  
+3). share_ptr: 引用计数实现,共享资源,支持自定义析构逻辑,但是可能会有循环引用的缺陷    
+4). weak_ptr: 与share_ptr配合使用,能够避免share_ptr的循环引用缺点,弱引用计数,不能操作资源          
+* 4. 指针相互赋值?  
+1). share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
+2). share_ptr = weak_ptr.lock()  weak_ptr = share_ptr   
 #### 13.并发编程?
 * 需要学习C++并发编程  
 #### 14.常用的Boost库，你用过哪些？
