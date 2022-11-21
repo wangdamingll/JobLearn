@@ -29,6 +29,11 @@
 * [动态触发联动:区别对待观察者](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observer3.cpp)   
 * [采用weak_ptr方式实现观察者列表](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observer4.cpp)    
 
+## 2.访问者模式    
+* [访问者模式介绍](https://blog.csdn.net/wangdamingll/article/details/104676365)  
+* [访问者模式实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Visitor1.cpp)    
+* [访问者模式实现2](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Visitor2.cpp)    
+
 # 三. 结构型  
 
 ---
