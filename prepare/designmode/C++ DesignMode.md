@@ -22,7 +22,7 @@
 * [参数化抽象工厂实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/AbstractFactory2.cpp)          
 
 # 二. 行为型    
-## 2.观察者模式    
+## 1.观察者模式    
 * [观察者模式介绍](https://blog.csdn.net/wangdamingll/article/details/120770146)  
 * [观察者模式实现1(拉模型)](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observer1.cpp)    
 * [观察者模式实现2(推模型)](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Observer2.cpp)    
@@ -35,5 +35,8 @@
 * [访问者模式实现2](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Visitor2.cpp)    
 
 # 三. 结构型  
+## 1.外观模式      
 
+## 2.装饰模式  
+     
 ---
