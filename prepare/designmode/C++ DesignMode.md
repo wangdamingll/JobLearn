@@ -36,6 +36,8 @@
 
 # 三. 结构型  
 ## 1.外观模式      
+* [外观模式介绍](https://blog.csdn.net/wangdamingll/article/details/127971929)  
+* [外观模式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Facade.cpp)    
 
 ## 2.装饰模式  
      
