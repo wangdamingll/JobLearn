@@ -40,5 +40,7 @@
 * [外观模式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Facade.cpp)    
 
 ## 2.装饰模式  
+* [装饰模式介绍](https://blog.csdn.net/wangdamingll/article/details/128086368)  
+* [装饰模式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Decorator.cpp)    
      
 ---
