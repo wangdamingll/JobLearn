@@ -31,8 +31,12 @@
 
 ## 2.访问者模式    
 * [访问者模式介绍](https://blog.csdn.net/wangdamingll/article/details/104676365)  
-* [访问者模式实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Visitor1.cpp)    
-* [访问者模式实现2](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Visitor2.cpp)    
+* [策略模式实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Visitor1.cpp)    
+* [策略模式实现2](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Visitor2.cpp)    
+
+## 3.策略模式    
+* [策略模式介绍](https://blog.csdn.net/wangdamingll/article/details/128209493)  
+* [策略模式实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Strategy.cpp)    
 
 # 三. 结构型  
 ## 1.外观模式      
