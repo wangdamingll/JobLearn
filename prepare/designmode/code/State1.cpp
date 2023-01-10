@@ -34,7 +34,7 @@ class RepeatedVote : public VoteState
 public:
     void Vote(const std::string& user, const std::string& voteItem, std::map<std::string, std::string>& voteInfo) override
     {
-        std::cout<<user<<":"<<voteItem<<":重复投票投票!"<<std::endl;
+        std::cout<<user<<":"<<voteItem<<":重复投票!"<<std::endl;
     }
 };
 
