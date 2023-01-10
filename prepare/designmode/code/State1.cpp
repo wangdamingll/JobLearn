@@ -28,7 +28,7 @@ public:
     }
 };
 
-//正常投票
+//重复投票
 class RepeatedVote : public VoteState
 {
 public:
