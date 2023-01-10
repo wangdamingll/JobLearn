@@ -39,6 +39,11 @@
 * [策略模式实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Strategy1.cpp)    
 * [策略模式实现2](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Strategy2.cpp)    
 
+## 4.状态模式    
+* [状态模式介绍](https://blog.csdn.net/wangdamingll/article/details/128335276)  
+* [状态模式实现1](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/State1.cpp)    
+* [状态模式实现2](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/State2.cpp)    
+
 # 三. 结构型  
 ## 1.外观模式      
 * [外观模式介绍](https://blog.csdn.net/wangdamingll/article/details/127971929)  
@@ -47,5 +52,6 @@
 ## 2.装饰模式  
 * [装饰模式介绍](https://blog.csdn.net/wangdamingll/article/details/128086368)  
 * [装饰模式实现](https://github.com/wangdamingll/JobLearn/tree/master/prepare/designmode/code/Decorator.cpp)    
+
      
 ---
