@@ -16,7 +16,7 @@
 * [抽象工厂介绍](https://blog.csdn.net/wangdamingll/article/details/120568303)    
 
 #### 2.多态的虚函数表放在哪里？属于类还是对象
-常量区(.rodata)，属于类
+常量区(.rodata)，属于类  
 ![C内存布局](./picture/c内存布局.png "C内存布局")
 
 
