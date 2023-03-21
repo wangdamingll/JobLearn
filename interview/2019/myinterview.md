@@ -491,7 +491,7 @@ C (0x0x7fb646586f08) 8 nearly-empty
 
 ## 四.塔人网络
 #### 1.谈谈map
-map是key-value形式的数据结构，具有自动排序的功能，底层是由红黑树实现的
+map是key-value形式的数据结构，具有自动排序的功能，底层是由红黑树实现的  
 追问:红黑树的特点及它的时间复杂度是多少？
 * 红黑树的特点
 1. 它一种特殊的二叉查找树
@@ -505,16 +505,16 @@ map是key-value形式的数据结构，具有自动排序的功能，底层是�
 #### 2.谈谈vector
 * vector是一种容器，底层是由动态数组实现的
 * vector支持随机访问、动态扩容的特点，查找效率O(1),尾部出入删除O(1),头部插入删除O(N)  
-追问:vector扩容机制
+追问:vector扩容机制  
 STL采用2倍扩容机制
 * 采用成倍扩容方式可以保证push_back常数时间的复杂度
-* 扩容因子不能太大，否则会造成堆内存浪费，普遍扩容因子采用2或者1.5
-1)以2倍的方式扩容，导致下一次申请的内存必然大于之前分配内存的总和，导致之前分配的内存不能再被使用,对缓存不是很友好
-2)1.5倍的增长方式可以更好的实现对内存的重复利用
+* 扩容因子不能太大，否则会造成堆内存浪费，普遍扩容因子采用2或者1.5  
+1)以2倍的方式扩容，导致下一次申请的内存必然大于之前分配内存的总和，导致之前分配的内存不能再被使用,对缓存不是很友好  
+2)1.5倍的增长方式可以更好的实现对内存的重复利用  
 3)C++标准中并没有规定使用哪个扩容因子
 * 参考地址:[C++ STL vector扩容机制](https://www.zhihu.com/question/36538542/answer/67929747)
 #### 3.libuv主要有哪些接口
-uv_default_lopp() uv_tcp_init() uv_tcp_bind() uv_listen() uv_run() uv_accept() uv_read_start() 等等
+uv_default_loop() uv_tcp_init() uv_tcp_bind() uv_listen() uv_run() uv_accept() uv_read_start() 等等
 #### 4.如果让你设计一个游戏背包，你会如何设计数据结构
 ```C++
 vector<GoodBaseClass*>
@@ -542,7 +542,7 @@ class BoxBase
 #### 1.线程同步和互斥
 互斥是对共享资源进行加锁，具有排他性。同步是在互斥的基础上，通过其他机制实现访问者对共享资源的访问  
 追问:哪些机制？  
-比如说互斥锁、信号量、条件变量等  
+比如说互斥锁、信号量、条件变量(需要配合互斥锁),原子操作等  
 #### 2.介绍map
 * 描述:map存储key-value数据   
 * 特点:有序(对存入的元素重载了operator<操作符)      
@@ -633,7 +633,7 @@ vbptr指的是虚基类表指针(virtual base table pointer),该指针指向了�
 * 2.std::future 期物(可作为屏障) [C++ std::future](https://zh.cppreference.com/w/cpp/thread/future)
 * 3.std::condition_variable 条件变量(需要配合互斥量使用) [C++ std::condition_variable](https://zh.cppreference.com/w/cpp/thread/condition_variable)
 * 4.std::mutex 互斥量 [C++ std::mutex](https://zh.cppreference.com/w/cpp/thread/mutex)
-* 5.std::atomic模板 原子操作  [C++ atomic](https://zh.cppreference.com/w/cpp/atomic/atomic)
+* 5.std::atomic模板 原子操作  [C++ atomic](https://zh.cppreference.com/w/cpp/atomic/atomic)  
 追问:原子操作有哪些原语?
 * std::atomic<T>::is_lock_free
 * fetch_add
