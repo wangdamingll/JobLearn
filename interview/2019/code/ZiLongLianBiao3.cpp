@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -43,41 +44,41 @@ int main()
 
     Print(&node1);
 
-    //头插法实现
-    Node head(0);
-    Node* pTmpHead = nullptr;//保存特定目标区域的前一个节点
+    //采用3指针法
+    Node* pOrHead = nullptr;//保存特定目标区域的前一个节点
+    Node* pTmpPre = nullptr;//用于特定区域的双指针翻转
     Node* pCur = &node1;
     while(pCur != nullptr)
     {
         if(pCur->value < 2)
         {
-            pTmpHead = pCur;
+            pOrHead = pCur;
+            pTmpPre = pCur;
             pCur = pCur->next;
             continue;
         }
 
-        if(pCur->value > 4)
+        if(pTmpPre->value >= 2)
         {
-            //重新链接起来
             //1->2->3->4->5  ==> 1 -> 4 -> 3 -> 2 -> 5
-            Node* pTmp = head.next;
-            while (pTmp != nullptr)
+            //用双指针法:特定区域执行翻转
+            while(pCur != nullptr && pTmpPre->value >= 2 && pCur->value <= 4)
             {
-                pTmpHead->next = pTmp;
-                pTmp = pTmp->next;
-                pTmpHead = pTmpHead->next;
-            }
-            pTmpHead->next = pCur;
-            break;
-        } else
-        {
-            Node* tmp = pCur;   //保存当前节点
-            pCur = pCur->next;  //更新下一个节点
+                Node* tmp = pCur->next; //保存当前节点下一个的节点
+                pCur->next = pTmpPre; //翻转
 
-            //头插法
-            tmp->next = head.next;
-            head.next = tmp;
+                pTmpPre = pCur;
+                pCur = tmp;
+            }
+
+            Node* pTmp = pOrHead->next;
+            pOrHead->next = pTmpPre;
+            pTmp->next = pCur;
+            break;
         }
+
+        pTmpPre = pCur;
+        pCur = pCur->next;
     }
 
     Print(&node1);

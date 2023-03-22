@@ -603,8 +603,10 @@ vbptr指的是虚基类表指针(virtual base table pointer),该指针指向了�
 * [A*寻路算法示例代码](https://blog.csdn.net/wangdamingll/article/details/105793918)  
 #### 12.链表部分翻转
 题目:1->2->...->m...->n->...,将m->...->n部分翻转  
-* [代码1:单向链表:头插法](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/ZiLongLianBiao1.cpp)   
-* [代码2:双向链表:双指针法](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/ZiLongLianBiao2.cpp)   
+* [单向链表:头插法](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/ZiLongLianBiao1.cpp)    
+* [单向链表:容器法](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/ZiLongLianBiao2.cpp)       
+* [单向链表:三指针法](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/ZiLongLianBiao3.cpp)     
+* [双向链表:双指针法](https://github.com/wangdamingll/JobLearn/blob/master/interview/2019/code/ZiLongLianBiao4.cpp)   
 
 ### 紫龙游戏二面(CTO面试)
 #### 1.静态局部变量的作用有哪些
