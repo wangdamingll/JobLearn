@@ -6,9 +6,9 @@ using namespace std;
 //题目:1->2->...->m...->n->...,将m->...->n部分翻转
 
 //思路
-//1. 采用头插法: 1) 先保存特定区域的头一个节点 2) 翻转的部分采用头插法  
-//2. 采用容器法: 1) 先保存特定区域的头一个节点 2) 翻转的部分借助statck容器先进后出的特点 
-//3. 采用4指针法: 1) 2个指针保存特定区域的前一个和后一个节点 2)翻转部分采用双指针法  
+//1. 采用头插法: 1) 先保存特定区域的头一个节点 2) 翻转的部分采用头插法
+//2. 采用容器法: 1) 先保存特定区域的头一个节点 2) 翻转的部分借助statck容器先进后出的特点
+//3. 采用4指针法: 1) 2个指针保存特定区域的前一个和后一个节点 2)翻转部分采用双指针法
 
 typedef struct Node
 {
@@ -30,7 +30,6 @@ void Print(Node* node)
 
 int main()
 {
-    //采用头插法
     Node node1(1 );
     Node node2(2);
     Node node3(3);
@@ -66,19 +65,18 @@ int main()
                 pTmpHead->next = pTmp;
                 pTmp = pTmp->next;
                 pTmpHead = pTmpHead->next;
-                //暂时不需要释放原来链表的节点
             }
             pTmpHead->next = pCur;
             break;
         } else
         {
+            Node* tmp = pCur;   //保存当前节点
+            pCur = pCur->next;  //更新下一个节点
+
             //头插法
-            Node* tmp = new Node(pCur->value);
             tmp->next = head.next;
             head.next = tmp;
         }
-
-        pCur = pCur->next;
     }
 
     Print(&node1);
