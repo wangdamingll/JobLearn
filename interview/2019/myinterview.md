@@ -730,26 +730,40 @@ int main()
 ### 电话面试
 #### 1.Http Websocket Tcp三者之前的区别
 * [http1.0 1.1 2.0](https://juejin.im/entry/5981c5df518825359a2b9476)
-* http1.0 http1.1 http2.0的区别
-HTTP/1.* 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接。
-HTTP/1.1 默认支持长连接和请求的流水线（Pipelining）处理,建立一次连接，可以多个request共用。  
-注:Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞。
-HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行。
+* http1.0 http1.1 http2.0的区别  
+HTTP/1.* 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接。  
+HTTP/1.1 默认支持长连接(keep-alive)和请求的流水线（Pipelining）处理,建立一次连接，可以多个request共用。  
+注:Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞  
+HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行。  
+
 * http和websocket区别和联系   
-  
+
 相同点:  
-1. 都是基于tcp的应用层协议
-2. 都使用Request/Response模型进行连接的建立    
-3. 都可以作为webserver服务的协议使用   
+1. 都是基于tcp的应用层协议    
+2. 都可以作为web浏览器和服务通讯的协议使用     
     
 不同点:  
-1. ws需要首先握手建立连接之后才能通信,而http不需要握手,能够直接通信     
-2. WS连接建立之后,支持双向通信,而http是req-res的模式,不支持双向通信  
+1. WS连接建立之后,支持双向通信,而http是req-res的模式,不支持双向通信  
+2. ws需要首先经过http握手建立连接之后才能通信,而http是tcp三次握手之后,能够通信   
+3. websocket要比http更为高效(websocket能保持连接状态,全双工)       
+
+备注:websocket握手过程?  
+1. 客户端向服务器发起WebSocket握手请求，请求中包含一些头部信息，如Upgrade、Connection、Sec-WebSocket-Key   
+2. 服务器收到客户端的WebSocket握手请求，需要进行一些验证和响应。服务器首先需要验证客户端的请求是否符合WebSocket协议的规范，验证通过，服务器会返回一个HTTP响应，其中，101 Switching Protocols表示协议切换成功，Upgrade和Connection字段与客户端请求中的相同，Sec-WebSocket-Accept字段是一个加密字符串，用于告诉客户端WebSocket握手成功   
+3. 客户端收到服务器的响应后，会进行一些验证，如果验证通过，客户端和服务器之间的WebSocket连接就建立成功了，此后客户端和服务器之间就可以进行实时通信    
+说明:  
+1). Sec-WebSocket-Key:是一个Base64编码的16字节随机字符串   
+2). Sec-Websocket-Accept:   
+首先将一个固定的字符串258EAFA5-E914-47DA-95CA-C5AB0DC85B11拼接到Sec-WebSocket-Key对应值的后面  
+对拼接后的字符串进行一次SHA-1计算  
+将计算结果进行Base-64编码  
 
 * tcp和websocket的区别和联系    
+
 联系:  
-1. websocket是基于tcp的应用层协议,而tcp是传输层协议  
-2. 一旦websocket握手连接之后,采用tcp方式进行通信,所有ws具有双向通信的特点    
+1. websocket是基于tcp的应用层协议    
+2. websocket握手成功建立连接之后,具有全双工特点,tcp也具有全双工特点  
+         
 区别:tcp是传输层协议,websocket是应用层协议  
 追问:有Http了,为什么还要用Websocket  
 * 由客户端主动轮询变为服务端推送，避免了轮询消耗         
@@ -758,9 +772,15 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 ### 二轮面试
 #### 1.Libevent用过吗?有哪些坑?是采用什么模式?具体定义了哪些宏?  
 1. 坑:
-* Libevent默认底层是采用LT模式的，但是bufferevent_read()默认每次最大读取4096个字节,所以必须要判断底层数据有没有读完
+* Libevent处理用户read_cb的机制是边沿触发的机制(只有evbuffer的长度大于低水位才会触发用户的读回调)并且bufferevent_read()默认每次最大读取4096个字节,所以必须要判断底层数据有没有读完,没有读取完要一直读取    
+* libevent发送大量数据也是要非常注意的  
 * 如果给的ip不合法,调用befferconnect(),会先触发BEV_EVENT_ERROR回调,再触发BEV_EVENT_CONNECTED回调,所以要将这种情况区分开,所以需要额外的socket管理逻辑  
-2. 默认采取了LT模式  
+2. 对于scoket fd的操作默认采用了LT模式       
+[Libevent bufferevent工作流程](https://blog.csdn.net/luotuo44/article/details/39344743)    
+通过上面文章的流程,可以推断出evbuffer操作的fd应该采用的是LT  
+依据如下:
+一开始fd作为读事件注册,fd有数据时,libevent为了提高效率,必然是有多少数据读多少,如果此时超过了设置的读高水位,libevent会挂起读事件,防止出现死循环,那么是如何挂起读事件的呢?是直接移除了fd的读事件，据此推断出,这个fd对应的操作应该采用的是LT,因为ET不会一直触发      
+
 追问:LT/ET有什么区别?哪种效率更高?
 * LT:水平触发，如果事件满足条件，会一直触发
 * ET:边沿触发，如果事件满足条件，只会触发一次
@@ -769,7 +789,7 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 * ET满足条件的事件只会触发一次. 而LT只要满足条件,会一直触发,所以LT的系统调用更多  
 * 因为LT要一直触发, 所以LT模式下维护的就绪队列(rdlist)大小相对于ET模式肯定大,故LT轮询所有的fd总比ET轮询的fd大
 1. 相关宏  
-* BEV_EVENT_CONNECTED BEV_EVENT_ERROR BEV_EVENT_EOF BEV_EVENT_READING BEV_EVENT_WRITING (Epoll中有 EPOLLERROR EPOLLIN EPOLLOUT)  
+* BEV_EVENT_CONNECTED BEV_EVENT_ERROR BEV_EVENT_EOF BEV_EVENT_TIMEOUT BEV_EVENT_READING BEV_EVENT_WRITING (Epoll中有 EPOLLERROR EPOLLIN EPOLLOUT)  
 #### 2.Libevent timer有用过吗
 * 使用过  
 追问:如何使用的?  
@@ -782,20 +802,23 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 #### 3.Libevnet发送大量数据时,怎么办？
 * 参考网址:[Libevent bufferevent工作流程](https://blog.csdn.net/luotuo44/article/details/39344743)    
 * 适当调整系统so_send_buff/so_recive_buff的大小,调整依据:保证滑动窗口的大小>=带宽*延迟        
-* 直接调用bufferevent_write(),然后在用户自己的write_cb()函数中继续bufferevent_write(),直到要发送的数据被填加完(其实是被添加到了evbuffer中了)        
-原理:bufferevent_write()内部实现是将数据添加到evbuffer中,并且开始监听fd的可写事件,一旦fd可写,bufferevent_cb()将会被调用,它的实现是一直往socket的输出缓冲区里面写,由于是大量数据,socket的输出缓冲区被填满,但是此时并没有移除fd的可写事件,一旦evbuffer的输出缓冲区的水位低于低水位,用户的write_cb()将会被调用,继续执行bufferevent_write()函数往evbuffer中添加数据,继续往fd输出缓冲区里面写数据,直到evbuffer的输出缓冲区里面为空,移除fd的可写事件,用户数据发送完成    
+* 尽量使用大缓存buffer,一次调用bufferevent_write()能够写入更多数据,一直循环直到要发送的数据被写完(其实是被添加到了evbuffer中了)   
+原理:bufferevent_write()内部实现是将数据添加到evbuffer中,并且在evbuffer的回调中开始监听fd的可写事件,一旦fd可写,bufferevent_cb()将会被调用,它的实现是一直往socket的输出缓冲区里面写,由于是大量数据,socket的输出缓冲区被填满,但是此时并没有移除fd的可写事件,等待下次继续执行,直到evbuffer的被写完,然后移除fd的可写事件        
+* 由于是大量数据,循环bufferevent_write()可能会失败,有可能是内部evbuffer填满了,sleep一下,稍后再试  
+* 另外也可以考虑,先执行一次bufferevent_write(),然后在写回调函数中继续发送数据  
+原理:当evbuffer中的数据低于低水位的时候就会调用用户设置的写事件回调函数继续往evbuffer中添加数据,这种方式有比较少的系统调用次数  
 #### 4.Libevent VS Libuv
 * [Libevent和Libuv的对比](https://blog.csdn.net/lijinqi1987/article/details/71214974)   
 * libevent:
-1. c语言写的跨平台网络io库
+1. c语言写的跨平台事件库
 2. 采用异步事件机制的反应堆模型    
 3. linux下采用epoll,windows下采用iocp(支持不够友好)   
 4. 同步io模型  
 5. [参考网址](https://libevent.org/)    
 * lbuv  
-1. c语言写的跨平台网络io库
+1. c语言写的跨平台事件库
 2. 采用异步事件机制,内部采用一定顺序访问各类事件  
-3. linux采用epoll,windows下采用iocp     
+3. linux采用libev(epoll),windows下采用iocp     
 4. 采用异步io模型    
 5. [参考网址](https://juejin.cn/post/6844903826353455111)    
 6. [参考网址](http://libuv.org/)    
@@ -804,6 +827,12 @@ HTTP/2 支持多路复用。多个请求可同时在一个连接上并行执行�
 追问:单例如何写呢?  
 * 查看爱奇艺面试 
 #### 6.内存池有用过吗?实现原理是什么
+1). 采用同类型array,元素是指针,使用malloc、free来实现  
+如果发现内存池中没有,先mallc,如果有,直接返回地址  
+不用的时候,将地址放回去  
+2). 采用同类型的array,里面元素是指针,placement new来实现  
+如果发现内存池中没有,先分配一块内存,然后调用placement new,返回地址,如果有内存,直接调用placement new,然后返回地址    
+不用的时候,手动调用析构函数,然后将地址放回去    
 * 参考网址:[C++ placement new 简单内存池使用](https://www.jianshu.com/p/b52a5df69c88)
 * 参考网址:[SGI-STL内存池实现原理](https://blog.csdn.net/u012611878/article/details/79187348)    
 * [示例代码](https://github.com/wangdamingll/Cplusplus-Common-Tools/tree/master/MemoryPool)    
@@ -878,6 +907,7 @@ int main()
 * 4. 指针相互赋值?  
 1). share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
 2). share_ptr = weak_ptr.lock()  weak_ptr = share_ptr   
+3). unique_ptr(auto_ptr)  
 #### 8.你遇到过内存泄漏吗?
 * 遇到过  
 追问:如何避免和检测?
@@ -888,7 +918,9 @@ int main()
 
 #### 9.你读过其他开源项目吗?
 * uWebsockets,项目可能需要，采用C++17标准写的(C++17 head_only)，网络部分采用libuv，属于跨平台库
-* 用vs2017写demo遇到的问题:{ }赋值问题
+* 用vs2017写demo遇到的问题:{ }赋值问题  
+* 浅读过部分libevent的实现:bufferevent的读和写     
+* 浅读过部分epoll的底层实现:epoll事件触发的流程    
 
 ## 八.美团点评
 ### 第一轮
@@ -900,7 +932,8 @@ int main()
 * 观察者模式:触发联动        
 * 具体参考爱奇艺面试    
 #### 2.你常用的加密算法是什么
-* AES:对称加密方式,分组加密. 参考网址:[AES算法介绍](https://blog.csdn.net/lisonglisonglisong/article/details/41909813)
+* AES:对称加密方式,分组加密,数据分组长度必须为128bits,使用的秘钥长度可以为128、192、256bits.     
+  参考网址:[AES算法介绍](https://blog.csdn.net/lisonglisonglisong/article/details/41909813)
 * RSA:非对称加密方式. RSA算法的核心,在于大整数的质因数分解是一件非常困难的事情   
 * RSA算法参考网址:[RSA算法原理一](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html) [RSA 算法原理二](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html)  
 追问:RSA你们是如何使用的
@@ -908,14 +941,26 @@ int main()
 1). 先用对方的RSA公钥加密AES秘钥   
 2). 再用AES秘钥加密明文数据    
 * 2. 验证签名  
-1). 对方用自己的私钥签名, 我这边用对方的公钥验证签名  
+1). 对方用自己的私钥签名, 我这边用对方的公钥验证签名    
+
+补充:  
+对称加密算法:加密和解密使用同样规则(简称"密钥")  
+非对称加密算法:加密和解密可以使用不同的规则  
 #### 3.TCP为什么是三次握手,为什么不是两次或者是四次呢
 * 是为了在不可靠的信道上建立可靠的数据通道最少的交互方式,本质上是两端交换seqnumber  
 * [TCP为什么设置三次握手,而不是二次或者四次](https://www.zhihu.com/question/24853633)  
 追问:如果中途有一次ACK没有收到，会发生什么  
-这里需要参考tcp状态转换图,这里分为两种情况     
-1) 这里客户端(主动connect的一方)如果发送SYN没有收到ACK,那么首先肯定会重发SYN,如果服务器信息不正确的话,直接收到RST片段,由SYN_SENT变为CLOSED状态;如果服务器信息正常,那么会等待到超时,然后由SYN_SENT变为CLOSED状态        
-2) 如果这里为服务器(被动的一方)在发送SYN后没有收到ACK,那肯定也是重发SYN,一直发送到客户端超时,客户端会返回RST片段,服务器由SYN_RCVD变为CLOSED        
+这里需要参考tcp状态转换图,这里分3种情况:       
+1). 第一个包，即A发给B的SYN中途被丢，没有到达B   
+A会周期性超时重传，直到收到B的确认  
+2). 第二个包，即B发给A的SYN+ACK中途被丢，没有到达A   
+B会周期性超时重传，直到收到A的确认      
+3). 第三个包，即A发给B的ACK中途被丢，没有到达B  
+A发完ACK,单方面认为TCP为Established状态，而B显然认为TCP为SYN_RCVD状态：  
+a.假定此时双方都没有数据发送，B会周期性超时重传，直到收到A的确认，收到之后B的TCP连接
+也为Established状态，双向可以发包。   
+b.假定此时A有数据发送，B收到A的Data + ACK,自然会切换为established状态，并接受A的Data.   
+c.假定B有数据发送，数据发送不了，会一直周期性超时重传SYN + ACK,直到收到A的确认才可以发送数据。   
 
 追问:那Tcp为什么要四次挥手呢？3次不行吗?  
 * 不行,因为tcp是全双工通讯,主动关闭的一方数据可能已经发送完了，但是被动关闭的一方数据可能还没有发送完，四次挥手能够保证被动方把数据发送完在通过FIN ACK 关闭连接 
@@ -923,26 +968,31 @@ int main()
 
 ==*后期补充*==  
 1. 为什么主动断开的一方要等待2MSL?  
-等2MSL是为了等待在2MSL这段时间中可能出现的服务端FIN超时重传，如果服务端真的需要超时重传，那么一定会在这段时间里进行，反之，若过了这段时间还没有重传，则可以确认ACK被服务端收到了.
+1). TIME_WAIT状态产生  
+由主动关闭socket的一方产生,主动关闭的一方自己的ACK接收到后(同时关闭)或者对端的ACK发送之后进入TIME_WAIT状态  
+2). 假设客户端主动断开,等2MSL是为了等待在2MSL这段时间中可能出现的服务端FIN超时重传(服务器端最后一个ACK可能没有收到)或者自己端FIN超时重传(可能自己端的ACK没有收到:同时关闭的情况下)，如果服务端真的需要超时重传，那么一定会在这段时间里进行，反之，若过了这段时间还没有重传，则可以确认ACK被服务端收到了.
 服务端一收到ACK,就会转换到CLOSED状态,客户端也可以放心的释放资源,此时网络中不会在存活本次的tcp数据包,对客户端下次重用这个端口不会在产生任何影响    
-2. 2MSL由来     
-去向ACK消息最大存活时间（MSL) + 来向FIN消息的最大存活时间(MSL),这恰恰就是2MSL( Maximum Segment Life)    
+1. 2MSL由来     
+去向ACK消息最大存活时间（MSL) + 来向FIN消息的最大存活时间(MSL),这恰恰就是2MSL( Maximum Segment Life),大约4分钟      
+1. tcp状态转换图  
+![tcp状态转换图](./picture/tcp状态转换图.png)   
 #### 4.TCP连接中有出现异常的超时吗  
-* 有的，Keepalive Timer,通过设置TCP socket的SO_KEEPALIVE option，主要适用于这种场景：连接的双方一般情况下没有数据要发送，仅仅就想尝试确认对方是否依然在线
-追问:tcp闪断该如何处理  
-* 首先如何保证tcp连接是存活的，利用心跳包机制  
+* 有的，Keepalive Timer,通过设置TCP socket的SO_KEEPALIVE option，主要适用于这种场景：连接的双方一般情况下没有数据要发送，仅仅就想尝试确认对方是否依然在线,但是默认的探测周期比较长,以Linux为例子,默认的是探测周期7200秒(也就是2小时),每个周期内探测9次      
+追问:tcp闪断该如何处理    
+* 首先声明一下tcp的闪断是很难检测到的,比如拔网线再插入等等,只能进可能采用适当的方案减少体验上的损失         
+* 首先如何保证tcp连接是存活的，利用心跳包机制,规定多长时间内没有收到多少个心跳包算是出现异常    
 * tcp闪断后处理  
 1. 每创建一个连接，都会绑定一个类似session的会话，通过心跳包机制更新session会话状态  
 2. 检测到tcp不可用后(闪断),保存该session存货时间5分钟(设置),客户端重连，如果5分钟没有重连上来，则销毁session  
 #### 5.Epoll? Epoll和Select有什么区别?
 * [select poll epoll总结](https://www.cnblogs.com/anker/p/3265058.html)
 * select是跨平台的,多路复用I/O模型,默认的支持的文件描述符是1024个  
-* epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，可以配置  
+* epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，默认是65536,可以配置    
 * select是遍历所有的fd找到可读写事件，epoll是直接返回可读写的事件(最大区别)  
 追问:Select文件描述符超过1024会如何
 * select的fd超过1024将会非常危险------linux下是以fd的值作为数组的下标,一旦超过1024,将会导致未定义行为,甚至导致core dump,参考man select  
-* 修改对应的宏，重新编译内核源码,但是效率会降低
-追问:Epoll底层是如何实现的?为什么要用红黑树结构？数据结构大概是什么样子的
+* 修改对应的宏，重新编译内核源码,但是效率会降低   
+追问:Epoll底层是如何实现的?为什么要用红黑树结构？数据结构大概是什么样子的  
 [epoll底层原理](https://www.cnblogs.com/lojunren/p/3856290.html)         
 * 红黑树效率为logn(n为树的高度)   
 
@@ -950,10 +1000,12 @@ int main()
 1. 什么是I/O多路复用？  
 IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现进程指定的一个或者多个IO可读写时，它就通知该进程进行处理.    
 #### 6.Libevent有什么特点?你是用过程中有哪些坑呢?
-* 特点:Libevent 是一个高性能，跨平台的C语言网络库，是基于Reactor模式的网络库,本质使用同步I/O模型，even_base循环->注册event事件->处理事件回调   
-* 坑:  
-1. 底层默认是水平触发的,但是bufferevent_read()类似于边沿触发,每次最多读取4096个字节,所以需要一直读取,直到eventbuff数据长度为0    
-2. 当传入的IP有问题时,bufferevent_connect()遇到的问题,先ERROR,后触发CONNECTED,所以需要额外的socket管理    
+1). 特点  
+Libevent 是一个高性能，跨平台的C语言网络库，是基于Reactor模式的网络库,本质使用同步I/O模型，even_base循环->注册event事件->处理事件回调   
+2). 坑:  
+* Libevent处理用户read_cb的机制是边沿触发的机制(只有evbuffer的长度大于低水位才会触发用户的读回调)并且bufferevent_read()默认每次最大读取4096个字节,所以必须要判断底层数据有没有读完,没有读取完要一直读取    
+* libevent发送大量数据也是要非常注意的  
+* 如果给的ip不合法,调用befferconnect(),会先触发BEV_EVENT_ERROR回调,再触发BEV_EVENT_CONNECTED回调,所以要将这种情况区分开,所以需要额外的socket管理逻辑  
 #### 7.你用过智能指针吗?有哪些?各自有什么特点?
 * 参考网址:[C++ 智能指针](https://www.jianshu.com/p/e4919f1c3a28)
 * 1. 为什么使用智能指针?   
@@ -969,7 +1021,8 @@ IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现�
 4). weak_ptr: 与share_ptr配合使用,能够避免share_ptr的循环引用缺点,弱引用计数,不能操作资源          
 * 4. 指针相互赋值?  
 1). share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
-2). share_ptr = weak_ptr.lock()  weak_ptr = share_ptr 
+2). share_ptr = weak_ptr.lock()  weak_ptr = share_ptr   
+3). unique_ptr(auto_ptr)  
 #### 9.mongo索引
 * 参考网址:[B/B+Tree图示参考](https://www.cnblogs.com/nullzx/p/8729425.html)
 * [MongoDB 索引](http://www.mongoing.com/archives/2797)
@@ -980,7 +1033,10 @@ IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现�
 补充:为什么采用B+Tree(为什么不用AVL,BTree or Hash table)  
 * MongoDB注重单个文档的查询，范围查询也要支持  
 1. 单个数据查询效率:AVL(O(logn)<B+Tree(O(logn))<BTree(O(1)<x<O(logn))<Hash table(O(1))
-2. 范围查询:B+Tree>Btree>Hash table
+2. 范围查询:B+Tree>Btree>Hash table   
+补充:其实就是B+树为什么适合作为外部存储设备的索引?  
+1). B+树能降低树的高度和减少磁盘IO的次数   
+2). B+树叶子节点是有双向链表的,更好的支持范围查询   
 #### 8.Zookeeper是什么?    
 * [zookeeper官网](https://zookeeper.apache.org/)    
 * 请查看三游族网络面试  
@@ -1022,18 +1078,18 @@ IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现�
 追问:那Tcp为什么要四次挥手呢？3次不行吗?  
 * 不行,因为tcp是全双工通讯,主动关闭的一方数据可能已经发送完了，但是被动关闭的一方数据可能还没有发送完，四次挥手能够保证被动方把数据发送完在通过FIN ACK 关闭连接.   
 补充:其实这里说的四次挥手,是说的一种通用机制,指的是双方的FIN ACK的接收情况,如果被动方刚好没有数据要发送,那么也可以直接FIN,ACK一起发送,那么就是3次交互了   
-#### 5.tcp的time_wait和close_wait的区别
+#### 5.TCP的TIME_WAIT和CLOSE_WAIT的区别
 * 参考网址:[TCP状态](https://blog.csdn.net/kobejayandy/article/details/17655739)
-* time_wait:主动关闭的一方发送最后一个ack之后进入该状态 
-* close_wait:被动关闭的一方回应主动关闭一方ack之后进入该状态
-#### 6.2MSL的作用?服务器端出现了很多close_wait的原因?time_wait如何处理？
+* TIME_WAIT:主动关闭的一方发送最后一个ACK(对端的)或者接收到自己的ACK(可能是同时关闭)之后进入该状态 
+* CLOSE_WAIT:被动关闭的一方回应主动关闭一方ACK之后进入该状态
+#### 6.2MSL的作用?服务器端出现了很多CLOST_WAIT的原因?TIME_WAIT如何处理？
 * 参考网址:[TCP状态](https://blog.csdn.net/kobejayandy/article/details/17655739)  
 * 2MSL作用:
-1. 防止上一次连接中的包，迷路后重新出现，影响新连接（经过2MSL，上一次连接中所有的重复包都会消失）
-2. 可靠的关闭TCP连接。在主动关闭方发送的最后一个ack(fin),有可能丢失,这时被动方会重新发fin,如果这时主动方处于CLOSED状态,就会响应rst而不是ack.所以主动方要处于TIME_WAIT状态,而不能是CLOSED 
-* 服务端出现很多close_wait:服务端回应主动关闭的一方ack之后，没有正确的进行close操作，会处于close_wait状态
-* time_wait过多如何处理
-* 参考网址:[time_wait处理](https://www.cnblogs.com/dadonggg/p/8778318.html)
+1. 可靠的关闭TCP全双工连接。在主动关闭方发送的最后一个ACK(对端的),有可能丢失,这时被动方会重新发FIN,如果这时主动方处于CLOSED状态,就会响应RST而不是ACK,被动方就会认为发生错误,所以TCP必需要支持可靠的关闭两个方向的连接.所以主动方要处于TIME_WAIT状态,而不能是CLOSED   
+2. 防止上一次连接中的包，迷路后重新出现，影响新连接（经过2MSL，上一次连接中所有的重复包都会消失）
+* 服务端出现很多CLOSE_WAIT:被动方回应主动关闭的一方ACK之后，没有正确的进行close操作，会处于CLOST_WAIT状态   
+* TIME_WAIT过多如何处理
+* 参考网址:[TIME_WAIT处理](https://www.cnblogs.com/dadonggg/p/8778318.html)
 1. 单台机器修改内核文件:/etc/sysctl.conf
 2. 在1的基础上进行集群操作
 #### 7.tcp如何保证数据安全有序?tcp拥塞控制?常用的拥塞控制算法有哪些?    
@@ -1060,9 +1116,9 @@ IO多路复用,又被称为事件驱动,IO多路复用是指内核一旦发现�
 4. TCP传输慢,UDP传输快    
 #### 9.Epoll和Select的区别?
 * [select poll epoll总结](https://www.cnblogs.com/anker/p/3265058.html)
-* select是跨平台的,多路复用I/O模型,默认的支持的文件描述符是1024个      
-* epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，可以配置     
-* select是遍历所有的fd找到可读写事件，epoll是直接返回可读写的事件(最大区别)       
+* select是跨平台的,多路复用I/O模型,默认的支持的文件描述符是1024个  
+* epoll是linux多路复用I/O模型，支持的问件描述符数量比较大，默认是65536,可以配置    
+* select是遍历所有的fd找到可读写事件，epoll是直接返回可读写的事件(最大区别)      
 #### 10.ActiveMQ的重复消费你是怎么处理的?你用的应答模式是什么?
 * 参考网址:[关于MQ,你必须知道的](https://zhuanlan.zhihu.com/p/73987596)    
 * 如何解决重复消费?
@@ -1088,11 +1144,12 @@ mq自身采用集群,在配合zookeeper
 2)可以消费者接收到消息之后立马存入数据库或者redis,每次收到消息查一下,判断有没有重复消费   
 3. 如何解决消息丢失(可靠性传输)?  
 * 1. 消息丢失的原因?   
-1)mq可能丢失:开启消息持久化功能    
-2)消费者端可能丢失:保证不发生重复消费,可以避免这种情况   
+1). 发送者端可能消息丢失:可以启用发送消息确认等机制     
+2). mq可能丢失:开启消息持久化功能    
+3). 消费者端可能丢失:启用消费者手动提交确认,保证不发生重复消费,可以避免这种情况   
 1. 如何保证消息的传输和消费有序?   
 某一业务按照某种算法放入到某个队列中,单个消息队列,单个消费者  
-5. push和pull模式优缺点?   
+1. push和pull模式优缺点?   
 push:将消息主动推送给消费者,消息实时度高,但是mq实现逻辑复杂,不适合大量消费者       
 pull:由消费者主动拉取消息,消息实时度取决于轮询频率,mq实现较为简单,适合大量消费者           
 
@@ -1117,6 +1174,7 @@ pull:由消费者主动拉取消息,消息实时度取决于轮询频率,mq实�
 * 4. 指针相互赋值?  
 1). share_ptr(auto_ptr) share_ptr(unique_ptr) share_ptr(share_ptr)  
 2). share_ptr = weak_ptr.lock()  weak_ptr = share_ptr   
+3). unique_ptr(auto_ptr)  
 #### 13.并发编程?
 * 需要学习C++并发编程  
 #### 14.常用的Boost库，你用过哪些？
