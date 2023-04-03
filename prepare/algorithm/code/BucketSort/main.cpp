@@ -1,5 +1,6 @@
 #include "BucketSort1.hpp"
 #include "BucketSort2.hpp"
+#include "BucketSort3.hpp"
 using namespace std;
 
 
@@ -23,5 +24,6 @@ using namespace std;
 
 int main() {
     TestCount1();           //计数排序
-    TestBucketSort2();      //桶排序
+    TestBucketSort2();      //桶排序(相当于原来的数缩小了)
+    TestBucketSort3();      //桶排序(原来的数不用缩小)
 }

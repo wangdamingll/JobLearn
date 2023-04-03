@@ -2,9 +2,8 @@
 #define __QUICK_SELECT__H__
 
 #include <iostream>
-#include <chrono>
 #include <algorithm>
-#include <utility>
+#include <vector>
 using namespace std;
 
 /*快速选择----在一组数据中选择第k小的元素
@@ -14,74 +13,70 @@ using namespace std;
  *
  * */
 
-constexpr int n1 = 8;
-int h1[n1+1] ={0,3,8,9,6,5,4,2,1};
+int32_t Divide(std::vector<int32_t>& vec, int32_t left, int32_t right)
+{
+    int32_t base = vec[left];//保存基准值
+    while(left < right)
+    {
+        while(left < right && vec[right] >= base)//从右向左找比基准值小的
+        {
+            right--;
+        }
+        vec[left] = vec[right];//交换
 
-void Print(){
-    for(int i=1;i<=n1;i++){
-        std::cout<<h1[i]<<" ";
+        while(left < right && vec[left] <= base)//从左向右找比基准值大的
+        {
+            left++;
+        }
+        vec[right] = vec[left];//交换
     }
+    vec[left] = base;//基准值复位
+    return left;
+}
+
+int32_t QuickSelect(std::vector<int32_t>& vec, int32_t left, int32_t right, int32_t k)
+{
+    if(left == right)
+    {
+        return vec[left];
+    }
+
+    int32_t base = Divide(vec, left, right);
+
+    if(k == base)
+    {
+        return vec[base];
+    }
+    else if(k < base)
+    {
+        return QuickSelect(vec, left , base - 1, k);
+    } else
+    {
+        return QuickSelect(vec, base + 1, right, k);
+    }
+}
+
+int TestQuickSelect()
+{
+    std::vector<int32_t> vec{3, 2, 7, 8, 9, 1, 0};
+    std::for_each(vec.begin(), vec.end(), [](int32_t it)->int {
+       std::cout<<it<<",";
+       return 0;
+    });
     std::cout<<std::endl;
-}
 
-//交换
-void Swap(int x,int y){
-#if 1
-    std::swap(h1[x],h1[y]);
-#else
-    int t = h1[x];
-    h1[x] = h1[y];
-    h1[y] = t;
-#endif
-}
+    int32_t k = 2;
+    int32_t target = QuickSelect(vec, 0, vec.size() - 1, k - 1);//k - 1:是算法要求这样的  <-- 第k小的数
+    //int32_t target = QuickSelect(vec, 0, vec.size() - 1, vec.size() - k);//<-- 第k大的数
 
+    //会破坏原数组
+    std::for_each(vec.begin(), vec.end(), [](int32_t it)->int {
+        std::cout<<it<<",";
+        return 0;
+    });
+    std::cout<<std::endl;
 
-//快速选择(快排变形)
-void QuickSelect(int low,int hight,int k){
-    if(low>=hight){//递归退出条件
-        return ;
-    }
-
-    int i =low;     //哨兵i
-    int j = hight;  //哨兵j
-    int tmp = h1[i];//缓存基准数
-
-    while(i!=j){    //当哨兵不相遇时
-        while (h1[j]>=tmp && i<j){//向左找到第一个小于基准数的
-            j--;
-        }
-        while(h1[i]<=tmp && i<j){//向右找到第一个大于基准数的
-            i++;
-        }
-        if(i<j){//哨兵不相遇
-            Swap(i,j);//交换
-        }
-    }
-
-    //当哨兵相遇时,将i和基准数交换
-    Swap(low,i);
-
-    if(k<=i){
-        QuickSelect(low,i-1,k);
-    }else if(k>i+1){
-        QuickSelect(i+1,hight,k);
-    }
-}
-
-int TestQuickSelect(){
-    auto start = std::chrono::steady_clock::now();
-    Print();
-
-    int k = 4;
-    QuickSelect(1,n1,k);//快速排序
-
-    Print();//会破坏原来数组
-
-    std::cout<<"第"<<k<<"小数:"<<h1[k]<<std::endl;
-
-    auto end = std::chrono::steady_clock::now();
-    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
-    std::cout<<"time:"<<time.count()<<"ms"<<std::endl;
+    std::cout<<"第"<<k<<"小/大数:"<<target<<std::endl;
 
     return 0;
 }
