@@ -41,27 +41,5 @@ void QuickSort(std::vector<int32_t>& vec, int32_t left, int32_t right)
     }
 }
 
-int main()
-{
-    std::vector<int32_t> vec{6, 4, 8, 9, 2, 3, 1};
-
-    std::for_each(vec.begin(), vec.end(), [](int32_t it)->int {
-        std::cout<<it<<",";
-        return 0;
-    });
-    std::cout <<std::endl;
-    int32_t size = vec.size();
-
-    //快排
-    QuickSort(vec, 0, size - 1);
-
-    std::for_each(vec.begin(), vec.end(), [](int32_t it)->int {
-        std::cout<<it<<",";
-        return 0;
-    });
-    std::cout <<std::endl;
-    return 0;
-}
-
 
 #endif //__QUICK_SORT1__H__

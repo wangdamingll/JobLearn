@@ -22,6 +22,24 @@ using namespace std;
  * */
 
 
-int main() {
-    TestQuickSort1();         //快速排序---数据升序排序
+int main()
+{
+    std::vector<int32_t> vec{6, 4, 8, 9, 2, 3, 1};
+
+    std::for_each(vec.begin(), vec.end(), [](int32_t it)->int {
+        std::cout<<it<<",";
+        return 0;
+    });
+    std::cout <<std::endl;
+    int32_t size = vec.size();
+
+    //快排
+    QuickSort(vec, 0, size - 1);
+
+    std::for_each(vec.begin(), vec.end(), [](int32_t it)->int {
+        std::cout<<it<<",";
+        return 0;
+    });
+    std::cout <<std::endl;
+    return 0;
 }

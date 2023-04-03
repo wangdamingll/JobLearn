@@ -28,6 +28,25 @@ using namespace std;
  * */
 
 
-int main() {
-    TestMergeSort(); //排序算法---归并排序
+int main()
+{
+    std::vector<int32_t> vec{3,8,9,6,5,4,2,1};
+    std::for_each(vec.begin(), vec.end(), [](int32_t it)->int {
+        std::cout<<it<<",";
+        return 0;
+    });
+    std::cout <<std::endl;
+
+    int32_t size = vec.size();
+    std::vector<int32_t> tmp;
+    tmp.resize(size);
+
+    MerSort(vec, 0, size - 1, tmp);
+
+    std::for_each(vec.begin(), vec.end(), [](int32_t it)->int {
+        std::cout<<it<<",";
+        return 0;
+    });
+    std::cout <<std::endl;
+    return 0;
 }
