@@ -15,41 +15,74 @@ using namespace std;
  * 2. 第K-1层先序判断处理
  * */
 
-namespace BTree1{
+namespace BTree1
+{
 
 //二叉树结点 二叉链表
-struct TreeNode {
+struct TreeNode
+{
     int val =0;
     struct TreeNode* lc = nullptr;//左孩子节点
     struct TreeNode* rc = nullptr;//右孩子节点
 };
 
-void BTreeEach(TreeNode* root){
-    if(root == nullptr){
-        return;
+void BTreeEach(TreeNode* node)
+{
+    if(node == nullptr)
+    {
+        return ;
     }
-    BTreeEach(root->lc);
-    std::cout<<root->val<<" ";
-    BTreeEach(root->rc);
+    //std::cout<<node->val<<","; //先序:根左右
+    BTreeEach(node->lc);
+    std::cout<<node->val<<" ";//中序(左节点回溯时访问):左根右
+    BTreeEach(node->rc);
+    //std::cout<<node->val<<",";//后序(右节点回溯的时访问):左右根
 }
 
-//二叉树---二叉搜索树第K层节点个数
-int BTreeKNodeNum(TreeNode* root,int k){
-    if(root== nullptr || k<1){//这里是判断上一个层(K-1)层有无左右子树(也就是第K层节点数统计)
+int32_t BTreeKNode(TreeNode* root, int32_t k)
+{
+    if(root == nullptr || k < 1) //root == nullptr判断上一层父节点有无子节点  k < 1 是k的合法性判断
+    {
         return 0;
     }
 
-    if(k==1){       //先序处理
-        return 1;
-    }
+    if(k == 1) return 1; //说明父节点有此节点
 
-    int leftNum = BTreeKNodeNum(root->lc,k-1);
-    int rightNum = BTreeKNodeNum(root->rc,k-1);
+    int32_t leftNum = BTreeKNode(root->lc, k - 1); //比如求第2层节点数 就是求第1层有无左节点
+    int32_t rightNum = BTreeKNode(root->rc, k - 1);//比如求第2层节点数 就是求第1层有无右节点
 
-    return (leftNum+rightNum);
+    return (leftNum + rightNum);
 }
 
-int TestBTreeKNodeNum(){
+//看上去不太优雅
+int32_t BTreeKNode1(TreeNode* root, int32_t k, int32_t depth)
+{
+    if(root == nullptr)
+    {
+        return 0;
+    }
+    if(k == 1) return 1;
+
+    int32_t tmp = 0;
+    if(depth == k - 1) //k层节点数 就是 k - 1层有无左右子树
+    {
+        if(root->lc != nullptr)
+        {
+            tmp++;
+        }
+        if(root->rc != nullptr)
+        {
+            tmp++;
+        }
+        return tmp;
+    }
+    tmp += BTreeKNode1(root->lc, k, depth + 1);
+    tmp += BTreeKNode1(root->rc, k, depth + 1);
+    return tmp;
+}
+
+int TestBTreeKNodeNum()
+{
     auto start = std::chrono::steady_clock::now();
 
     //创建结点
@@ -73,12 +106,13 @@ int TestBTreeKNodeNum(){
     BTreeEach(&root);
     std::cout<<std::endl;
 
-    int k=0;
+    int k = 0;
     std::cout<<"请输入第K层:";
-    std::cin>>k;
-
-    int tmp = BTreeKNodeNum(&root,k);
-    std::cout<<tmp<<std::endl;
+    std::cin >> k;
+    int32_t total = BTreeKNode(&root,k);//二叉树搜索树寻找第K层节点数
+//    int32_t depth = 1;
+//    int32_t total = BTreeKNode1(&root,k, depth);//二叉树搜索树寻找第K层节点数
+    std::cout <<"第"<<k<<"层节点数:"<<total<< std::endl;
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
