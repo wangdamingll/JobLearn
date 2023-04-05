@@ -288,7 +288,7 @@ KD-Tree,其实是K-Dimension Tree的缩写,是对数据点在k维空间中划分
 [树的广度优先遍历](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeEach)  
 
 ### 树的常见习题  
-#### 1. 二叉搜索树的第K大节点 
+#### 1. 二叉搜索树的第K大/小节点 
 * 算法思想  
 1. 递归思想  
 2. 递归左节点回溯的时候判断是否是第K大节点  
