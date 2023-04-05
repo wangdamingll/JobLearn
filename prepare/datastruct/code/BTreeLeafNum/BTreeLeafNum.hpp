@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <queue>
 using namespace std;
 
 /* 二叉树-----计算二叉树叶子节点个数
@@ -15,35 +16,107 @@ using namespace std;
  * 2. 先序处理(节点会被访问三次,先序 中序 后序处理都可以)
  * */
 
-namespace BTree1{
+namespace BTree1
+{
 
 //二叉树结点 二叉链表
-struct TreeNode {
+struct TreeNode 
+{
     int val =0;
     struct TreeNode* lc = nullptr;//左孩子节点
     struct TreeNode* rc = nullptr;//右孩子节点
 };
 
-void BTreeEach(TreeNode* root){
-    if(root == nullptr){
-        return;
+void BTreeEach(TreeNode* root)
+{
+    if(root == nullptr)
+    {
+        return ;
     }
+    //std::cout<<root->val<<","; //先序:根左右
     BTreeEach(root->lc);
-    std::cout<<root->val<<" ";
+    std::cout<<root->val<<" ";//中序(左节点回溯时访问):左根右
     BTreeEach(root->rc);
+    //std::cout<<root->val<<",";//后序(右节点回溯的时访问):左右根
 }
 
 //二叉树---计算二叉树叶子节点个数
-void BTreeLeafNum(TreeNode* root,int& k){
-    if(root== nullptr){
+void BTreeLeafNum(TreeNode* root,int& k)
+{
+    if(root== nullptr)
+    {
         return ;
     }
-    if(root->lc== nullptr&& root->rc== nullptr){
+    if(root->lc== nullptr&& root->rc== nullptr)
+    {
         k++;
     }
     BTreeLeafNum(root->lc,k);
     BTreeLeafNum(root->rc,k);
 }
+
+int32_t BTreeLeafNumDFSPre(TreeNode* root)
+{
+    if(root == nullptr) return 0;
+    if(root->lc == nullptr && root->rc == nullptr) return 1; //先序判断
+
+    int32_t leftNum = 0;
+    int32_t rightNum = 0;
+    leftNum += BTreeLeafNumDFSPre(root->lc);
+    rightNum += BTreeLeafNumDFSPre(root->rc);
+
+    return (leftNum + rightNum);  //后序累加
+}
+
+
+int32_t BTreeLeafNumDFSInOrder(TreeNode* root)
+{
+    if(root == nullptr) return 0;
+
+    int32_t num = 0;
+    num += BTreeLeafNumDFSInOrder(root->lc);
+    if(root->lc == nullptr && root->rc == nullptr)  //中序判断
+    {
+        num++;
+    }
+    num += BTreeLeafNumDFSInOrder(root->rc);
+    return num;
+}
+
+
+int32_t BTreeLeafNumDFSPost(TreeNode* root)
+{
+    if(root == nullptr) return 0;
+
+    int32_t num = 0;
+    num += BTreeLeafNumDFSPost(root->lc);
+    num += BTreeLeafNumDFSPost(root->rc);
+
+    if(root->lc == nullptr && root->rc == nullptr) //后序判断
+    {
+        num++;
+    }
+    return  num;
+}
+
+int32_t BTreeLeafNumBFS(TreeNode* root)
+{
+    std::queue<TreeNode*> queue;
+    queue.push(root);
+
+    int32_t num = 0;
+    while(!queue.empty())
+    {
+        TreeNode* node = queue.front();
+        queue.pop();
+
+        if(node->lc == nullptr && node->rc == nullptr) num++;
+        if(node->lc != nullptr) queue.push(node->lc);
+        if(node->rc != nullptr) queue.push(node->rc);
+    }
+    return num;
+}
+
 
 int TestBTreeLeafNum(){
     auto start = std::chrono::steady_clock::now();
@@ -71,7 +144,19 @@ int TestBTreeLeafNum(){
 
     int num =0;
     BTreeLeafNum(&root,num);
-    std::cout<<"leaf:"<<num<<std::endl;
+    std::cout<<"tree leaf num(dfs pre):"<<num<<std::endl; //深度优先 --- 先序判断
+
+    num = BTreeLeafNumDFSPre(&root); //深度优先 --- 先序判断
+    std::cout<<"tree leaf num(dfs pre):"<<num<<std::endl;
+
+    num = BTreeLeafNumDFSInOrder(&root); //深度优先 --- 中序判断
+    std::cout<<"tree leaf num(dfs inorder):"<<num<<std::endl;
+
+    num = BTreeLeafNumDFSPost(&root); //深度优先 --- 后序判断
+    std::cout<<"tree leaf num(dfs post):"<<num<<std::endl;
+
+    num = BTreeLeafNumBFS(&root); //深度优先 --- 后序判断
+    std::cout<<"tree leaf num(bfs):"<<num<<std::endl;
 
     auto end = std::chrono::steady_clock::now();
     auto time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
