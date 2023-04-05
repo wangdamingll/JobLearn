@@ -21,7 +21,8 @@ using namespace std;
  * 3.此类问题用枚举算法最突出的问题是时间复杂度为O(N^9)(下面的例子),所以枚举的范围大的时候，不是好方方法
  * */
 
-int TestEnumeration1(){
+int TestEnumeration1()
+{
     int a[10] = {0};//每个空格的数字
     int total = 0;
 
@@ -37,17 +38,21 @@ int TestEnumeration1(){
     for(a[6]=1;a[6]<10;a[6]++) {
     for(a[7]=1;a[7]<10;a[7]++) {
     for(a[8]=1;a[8]<10;a[8]++) {
-        for(a[9]=1;a[9]<10;a[9]++) {
+        for(a[9]=1;a[9]<10;a[9]++) 
+        {
             int sum = 0; //统计所有空格出现不同数字的个数
             int book[10] = {0};//标记法:标记每个数字出现的次数
-            for(int i=1;i<10;i++){
+            for(int i=1; i<10; i++)
+            {
                 book[a[i]] = 1;
             }
-            for(auto it : book){
-                sum+=it;
+            for(auto it : book)
+            {
+                sum += it;
             }
 
-            if(sum==9 && (a[1]*100+a[2]*10+a[3]+a[4]*100+a[5]*10+a[6]==a[7]*100+a[8]*10+a[9])){//一个组合
+            if(sum == 9 && (a[1]*100 + a[2]*10 + a[3] + a[4]*100 + a[5]*10 + a[6] == a[7]*100 + a[8]*10 + a[9]))//一个组合
+            {
                 std::cout<<a[1]<<a[2]<<a[3]<<"+"<<a[4]<<a[5]<<a[6]<<"="<<a[7]<<a[8]<<a[9]<<std::endl;
                 total++;
             }

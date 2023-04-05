@@ -16,16 +16,17 @@ using namespace std;
  *    显然，深度优先遍历是沿着某一条分支遍历直到末端,然后回溯,再沿着另一条进行同样的遍历,直到所有的顶点都被访问过为止.
  *
  * DFS的基本模型
- * void dfs(int step){
+ * void dfs(int step)
+ * {
  *      //判断边界
  *      //满足条件则返回
  *
  *      //尝试每一种可能
- *      for(int i=1;i<n;i++){
+ *      for(int i = 1; i < n; i++)
+ *      {
  *          //继续下一步
- *          dfs(step+1)
+ *          dfs(step + 1);
  *      }
- *
  *      //返回
  * }
  *
@@ -57,7 +58,8 @@ void STL(){
 }
 
 
-int main() {
+int main() 
+{
     STL();              //STL实现
     TestDFS1();         //全排列问题(dfs)
     TestDFS2();         //全排列问题变形

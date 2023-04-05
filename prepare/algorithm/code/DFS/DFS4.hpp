@@ -18,15 +18,20 @@ using namespace std;
 
 int a4[51][51]={0}; //地图
 int visit4[51][51]={0}; //有没有在路径里面
-int n4,m4 =0; //地图的行数和列数
+int n4,m4 = 0; //地图的行数和列数
 
 //打印地图
-void PrintMap4(){
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            if(a4[i][j]>=0){
+void PrintMap4()
+{
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            if(a4[i][j]>=0)
+            {
                 std::cout<<" "<<a4[i][j]<<" ";
-            } else{
+            } else
+            {
                 std::cout<<a4[i][j]<<" ";
             }
         }
@@ -36,15 +41,18 @@ void PrintMap4(){
 
 /* 0 表示海洋,无法通过,其他数字代表陆地,可以通过
  * */
-void CreateMap4(){
+void CreateMap4()
+{
     std::default_random_engine random(time(nullptr));
     std::uniform_int_distribution<int> dis(0,5);
     std::cout<<"请输入地图的行数和列数(中间空格作为分隔符):";
     std::cin>>n>>m;
 
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            a4[i][j]=dis(random)/2;//让出现海洋的机会大些
+    for(int i=1; i <= n; i++)
+    {
+        for(int j=1; j<=m; j++)
+        {
+            a4[i][j] = dis(random)/2;//让出现海洋的机会大些
         }
     }
 
@@ -52,7 +60,8 @@ void CreateMap4(){
 }
 
 //深搜着色
-void DFS4(int x,int y,int color){
+void DFS4(int x,int y,int color)
+{
 
     a4[x][y] = color;//染色
 
@@ -63,15 +72,18 @@ void DFS4(int x,int y,int color){
             {0,-1}, //往左
             {-1,0}  //往上
     };
-    for(int k=0;k<4;k++){
-        int tx = x+next[k][0];
-        int ty = y+next[k][1];
+    for(int k = 0; k < 4; k++)
+    {
+        int tx = x + next[k][0];
+        int ty = y + next[k][1];
 
-        if(tx<1 || tx>n || ty<1 || ty>m){//边界
+        if(tx < 1 || tx > n4 || ty < 1 || ty > m4) //边界
+        {
             continue;
         }
 
-        if(a4[tx][ty]>0 && visit4[tx][ty]==0){//是陆地且没有访问过
+        if(a4[tx][ty] > 0 && visit4[tx][ty] == 0)//是陆地且没有访问过
+        {
             visit4[tx][ty] = 1;//标记
             //sum++; 这里也可以统计出每个独立子图的大小或者所有独立子图的和的大小,注意这里DFS4()回溯的时候不需要取消标记
             DFS4(tx,ty,color);
@@ -81,16 +93,20 @@ void DFS4(int x,int y,int color){
 }
 
 
-int TestDFS4(){
+int TestDFS4()
+{
     auto start = std::chrono::steady_clock::now();
 
     CreateMap4();
 
     //遍历整个地图 找出不为0的格子执行深搜染色
     int num =0;
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            if(a4[i][j]>0){ //是陆地
+    for(int i=1; i <=n; i++)
+    {
+        for(int j=1; j<=m; j++)
+        {
+            if(a4[i][j] > 0) //是陆地
+            {
                 num--;
                 visit4[i][j] = 1;//加入路径中
                 DFS4(i,j,num);//深搜

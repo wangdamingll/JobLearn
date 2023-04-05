@@ -22,10 +22,13 @@ int total2=0;
 string a2[4]={};//存放a b c
 int book2[4]={0};//表示a b c 是否在手中. 全排列系列问题变形
 
-void DFS2(int step){
+void DFS2(int step)
+{
     //判断条件
-    if(step>str.length()){
-        for(int i=1;i<=str.length();i++){
+    if(step > str.length())
+    {
+        for(int i = 1; i <= str.length(); i++)
+        {
             std::cout<<a2[i];
         }
         std::cout<<std::endl;
@@ -34,12 +37,14 @@ void DFS2(int step){
     }
 
     //尝试每一种可能
-    for(int i=0;i<str.length();i++){
-        if(book2[i]==0){
+    for(int i=0;i<str.length();i++)
+    {
+        if(book2[i]==0)
+        {
             a2[step] = str[i];
-            book2[i] =1;
-            DFS2(step+1);
-            book2[i]=0;
+            book2[i] = 1;
+            DFS2(step + 1);
+            book2[i] = 0;
         }
     }
 }

@@ -20,26 +20,33 @@ int total3=0;
 string str3 = "abc";
 int a3[3] = {0}; //假设有3个格子,存储a b c
 
-int TestEnumeration4(){
+int TestEnumeration4()
+{
     auto start = std::chrono::steady_clock::now();
 
-    for(int i=0;i<3;i++){
-        a3[0]=str3[i]; //放入第一个格子中
-        for(int j=0;j<3;j++){
-            a3[1]=str3[j]; //放入第二个格子中
-            for(int k=0;k<3;k++){
-                a3[2]=str3[k]; //放入第三个格子中
+    for(int i=0; i<3; i++)
+    {
+        a3[0] = str3[i]; //放入第一个格子中
+        for(int j=0; j<3; j++)
+        {
+            a3[1] = str3[j]; //放入第二个格子中
+            for(int k=0; k<3; k++)
+            {
+                a3[2] = str3[k]; //放入第三个格子中
 
-                int book3[200]={0}; //统计每个字母出现的次数
-                int sum=0;
-                for(auto it :a3){
+                int book3[200] = {0}; //统计每个字母出现的次数
+                int sum = 0;
+                for(auto it : a3)
+                {
                     book3[it] = 1;
                 }
-                for(auto it : book3){
-                    sum+=it;
+                for(auto it : book3)
+                {
+                    sum += it;
                 }
 
-                if(sum==3){//每个字母各出现一次
+                if(sum ==3 )//每个字母各出现一次
+                {
                     std::cout<< (char)a3[0]<<(char)a3[1]<<(char)a3[2]<<std::endl;
                     total3++;
                 }
