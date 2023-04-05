@@ -38,7 +38,8 @@ using namespace std;
  * */
 
 //存储生成的二维数组 记录图的顶点从索引1开始
-int a1[6][6]={
+int a1[6][6] = 
+{
         {0,0,0,0,0,0},
         {0,0,1,1,-1,1},
         {0,1,0,-1,1,-1},
@@ -47,49 +48,49 @@ int a1[6][6]={
         {0,1,-1,1,-1,0}
 };
 
-int visit1[10]={0};//标记图中顶点是否被访问
-int sum=0; //统计访问图中顶点的个数
+int visit1[10] = {0};//标记图中顶点是否被访问
+int sum = 0; //统计访问图中顶点的个数
 
-void PrintMap1(){
-    for(int i=1;i<=5;i++){
-        for(int j=1;j<=5;j++){
-            if(a1[i][j]>=0){
+void PrintMap1()
+{
+    for(int i=1; i<=5; i++)
+    {
+        for(int j=1; j<=5; j++)
+        {
+            if(a1[i][j] >= 0)
+            {
                 std::cout<<" "<<a1[i][j]<<" ";
-            }else{
+            }else
+            {
                 std::cout<<a1[i][j]<<" ";
             }
-
         }
         std::cout<<std::endl;
     }
 }
 
 //cur顶点编号
-void DFS1(int cur){
-#if 0
-    sum++;//只要访问过一个顶点就加1
-    if(sum>5) {//所有顶点都访问
-        return;
-    }
+void DFS1(int cur)
+{
+    //想一想为什么图遍历不需要判断条件退出?
+    //因为下面条件限制住了:图的顶点只能访问一次  
+
     std::cout<<cur<<" ";
-#else
-    std::cout<<cur<<" ";
-    if(cur == 5){ //visit1表示了顶点是否被访问,访问过的顶点不会再次DFS1进入,所以cur等于5(等于图节点序号最大的)就表示已经遍历结束
-        return;
-    }
-#endif
 
     //尝试每一种可能
-    for(int k=1;k<=5;k++){
-        if(a1[cur][k]==1 && visit1[k] == 0){//图中顶点可以通并且没有访问过
+    for(int k = 1; k <= 5; k++)
+    {
+        if(a1[cur][k] ==1 && visit1[k] == 0)//图中顶点可以通并且没有访问过
+        {
             visit1[k] = 1;
             DFS1(k);
-            //不用取消标记
+            //不用取消标记 因为遍历图顶点只需要一次
         }
     }
 }
 
-int TestDFS1(){
+int TestDFS1()
+{
     auto start = std::chrono::steady_clock::now();
 
     PrintMap1();//打印地图

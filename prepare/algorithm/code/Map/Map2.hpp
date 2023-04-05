@@ -42,7 +42,8 @@ using namespace std;
  * */
 
 //存储生成的二维数组 记录图的顶点从索引1开始
-int a2[6][6]={
+int a2[6][6] = 
+{
         {0,0,0,0,0,0},
         {0,0,1,1,-1,1},
         {0,1,0,-1,1,-1},
@@ -51,14 +52,19 @@ int a2[6][6]={
         {0,1,-1,1,-1,0}
 };
 
-int visit2[10]={0};//标记图中顶点是否被访问
+int visit2[10] = {0};//标记图中顶点是否被访问
 
-void PrintMap2(){
-    for(int i=1;i<=5;i++){
-        for(int j=1;j<=5;j++){
-            if(a1[i][j]>=0){
+void PrintMap2()
+{
+    for(int i=1;i<=5;i++)
+    {
+        for(int j=1;j<=5;j++)
+        {
+            if(a1[i][j]>=0)
+            {
                 std::cout<<" "<<a1[i][j]<<" ";
-            }else{
+            }else
+            {
                 std::cout<<a1[i][j]<<" ";
             }
 
@@ -67,25 +73,25 @@ void PrintMap2(){
     }
 }
 
-void BFS2(){
+void BFS2()
+{
     std::queue<int>  que; //这里不再用std::array模拟队列了 直接使用队列
 
     visit2[1] = 1;//1号标记
     que.push(1);//入队列
 
-    while(!que.empty()){//队列不为空
+    while(!que.empty())//队列不为空
+    {
         int cur = que.front();//取出当前图顶点编号
         que.pop();
 
         std::cout<<cur<<" ";
 
-        if(cur > 5){//当前编号大于图顶点最大的序号
-            break;//
-        }
-
-        //进行扩展
-        for(int k=1;k<=5;k++){
-            if(a2[cur][k]==1 && visit2[k]==0){//图顶点能通并且没有被访问过
+        //尝试所有选择
+        for(int k=1; k <= 5; k++)
+        {
+            if(a2[cur][k] == 1 && visit2[k] == 0)//图顶点能通并且没有被访问过
+            {
                 visit2[k] = 1; //标记
                 que.push(k);//入队列
             }
@@ -95,7 +101,8 @@ void BFS2(){
     std::cout<<std::endl;
 }
 
-int TestBFS2(){
+int TestBFS2()
+{
     auto start = std::chrono::steady_clock::now();
 
     PrintMap2();//打印地图
