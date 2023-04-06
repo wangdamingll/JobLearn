@@ -324,7 +324,7 @@ O(V+E),V是顶点数,E是边数(因为每个顶点需要出入队列,需要检�
 * 时间复杂度  
 纯算法时间复杂度O(N^2)
 * 代码示例
-[最短路径DFS---无向图和有向图](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Map)
+[最短路径DFS----无向图](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/DFS/DFS3.hpp)  
 
 ### 2. 广度优先搜索算法(BFS)
 * 解决问题  
@@ -335,7 +335,7 @@ O(V+E),V是顶点数,E是边数(因为每个顶点需要出入队列,需要检�
 * 特点  
 比深度优先算法块,更加适用于边权相同的情况  
 * 代码示例  
-[最短路径BFS---无向图](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/Map)
+[最短路径BFS---无向图](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BFS/BFS1.hpp)
 
 ### 3. Floyd-Warshall(弗洛伊德算法----只有五行的算法)  
 * 解决问题  
