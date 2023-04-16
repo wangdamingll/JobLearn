@@ -278,14 +278,14 @@ KD-Tree,其实是K-Dimension Tree的缩写,是对数据点在k维空间中划分
 每个节点会访问三次  
 * 示例代码  
 [树的深度优先遍历](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeEach)  
-#### 2. 树的广度优先遍历
+#### 2. 树的非递归遍历  
 * 算法思想  
 广度优先思想  
 * 算法特点  
-1. 借助队列方式  
+1. 借助队列方式或者栈实现     
 2. 每个节点被访问一次  
 * 示例代码  
-[树的广度优先遍历](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeEach)  
+[树的非递归遍历](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeEach)  
 
 ### 树的常见习题  
 #### 1. 二叉搜索树的第K大/小节点 

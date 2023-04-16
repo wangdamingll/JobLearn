@@ -17,19 +17,22 @@ using namespace std;
  * 2. 广度优先借助队列
  *
  * 思考:
- * 1. 既然要递归求树的深度,当然要知道当前节点的左右子树的深度各是多少,然后取最大值,所以要后序处理
+ * 1. 既然要递归求树的深度,当然要知道当前节点的左右子树的深度各是多少,然后取最大值,然后+1,所以要后序处理
  * */
 
-namespace BTree1{
+namespace BTree1
+{
 
 //二叉树结点 二叉链表
-struct TreeNode {
+struct TreeNode 
+{
     int val =0;
     struct TreeNode* lc = nullptr;//左孩子节点
     struct TreeNode* rc = nullptr;//右孩子节点
 };
 
-void BTreeEach(TreeNode* root){
+void BTreeEach(TreeNode* root)
+{
     if(root == nullptr){
         return;
     }
@@ -39,43 +42,49 @@ void BTreeEach(TreeNode* root){
 }
 
 //二叉树---计算二叉树深度(深度优先)
-int BTreeDepthDFS(TreeNode* root){
-    if(root== nullptr){
+int BTreeDepthDFS(TreeNode* root)
+{
+    if(root== nullptr)
+    {
         return 0;
     }
     int leftDepth = BTreeDepthDFS(root->lc);
     int rightDepth = BTreeDepthDFS(root->rc);
-    return (std::max(leftDepth,rightDepth)+1); //后序处理:选取最大值
+    return (std::max(leftDepth,rightDepth) + 1); //后序处理:选取最大值
 }
 
 //二叉树---计算二叉树深度(广度优先)
-int BTreeDepthBFS(TreeNode* root){
-    if(root == nullptr){
+int BTreeDepthBFS(TreeNode* root)
+{
+    if(root == nullptr)
+    {
         return 0;
     }
 
-    int depth=0;//树的深度
     int lDepth=0;//左子树深度
     int rDepth =0;//右子树深度
     std::queue<TreeNode*> queue;
     queue.push(root);
-    while(!queue.empty()){
+    while(!queue.empty())
+    {
         TreeNode* node = queue.front();
         queue.pop();
-        if(node->lc!= nullptr){
+        if(node->lc!= nullptr)
+        {
             queue.push(node->lc);
             lDepth++;
         }
-        if(node->rc!= nullptr){
+        if(node->rc!= nullptr)
+        {
             queue.push(node->rc);
             rDepth++;
         }
-        depth = std::max(lDepth,rDepth);
     }
-    return depth;
+    return std::max(lDepth,rDepth);
 }
 
-int TestBTreeDepth(){
+int TestBTreeDepth()
+{
     auto start = std::chrono::steady_clock::now();
 
     //创建结点

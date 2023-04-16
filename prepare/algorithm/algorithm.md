@@ -476,15 +476,9 @@ O(N^3)
 [带权二分图最佳完美匹配---KM算法](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/BipartiteMapMaxMatch)  
 
 ## 树  
-### 1. 神奇的优先队列  
-#### 1. 堆排序  
-* 解决问题  
-1. 排序问题  
-2. 找出一组数中第K大(小)的问题
-* 时间复杂度  
-O(NlogN)
-* 代码示例  
-[堆排序](https://github.com/wangdamingll/JobLearn/tree/master/prepare/algorithm/code/HeapSort)  
+### 1. 树的遍历算法     
+#### 1. 递归和非递归遍历        
+[树的递归和非递归遍历](https://github.com/wangdamingll/JobLearn/tree/master/prepare/datastruct/code/BTreeEach)     
 
 ### 2. 并查集  
 * 定义:  
