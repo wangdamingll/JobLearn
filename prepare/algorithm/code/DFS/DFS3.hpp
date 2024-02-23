@@ -28,7 +28,7 @@ int minStep = 999999; //最短路径
 int startx,starty=0;//起点位置
 int p,q=0;; //迷宫终点位置
 
-//记录路径 array模拟栈
+//记录路径 队列(array)模拟栈
 struct Pos{
     Pos() = default;
     Pos(int posx,int posy):x(posx),y(posy){}
