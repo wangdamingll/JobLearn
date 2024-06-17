@@ -180,7 +180,7 @@ class RankTreap
         TreapNode *left {nullptr};
         TreapNode *right{nullptr};
         int        priority{INT_MAX};
-        uint64_t s{0};//以它为根的总结点数
+        uint64_t s{0};//以它为根的子树的总结点数
 
         TreapNode() = default;
         
